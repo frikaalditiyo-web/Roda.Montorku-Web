@@ -6,10 +6,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "db:start": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" -l \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\\logfile.log\" start",
+    "db:stop": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" stop",
+    "db:status": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" status"
   },
   "dependencies": {
+    "@prisma/client": "^7.10.1",
+    "@types/pg": "^8.23.1",
+    "dotenv": "^18.0.10",
     "next": "16.4.6",
+    "pg": "^8.23.1",
+    "prisma": "^8.0.0-rc.34",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
