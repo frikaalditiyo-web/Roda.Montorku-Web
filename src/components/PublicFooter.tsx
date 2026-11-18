@@ -21,9 +21,8 @@ export function PublicFooter() {
               </span>
             </div>
             <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-              Pusat bursa sepeda motor bekas terpercaya untuk showroom UMKM dan
-              konsumen di seluruh Indonesia. Terverifikasi, transparan dengan
-              dukungan estimasi harga Machine Learning, dan bergaransi resmi
+              Pusat jual beli sepeda motor bekas terpercaya serta konsumen di sekitar Nganjuk. transparan dengan
+              dukungan estimasi harga, dan bergaransi resmi
               showroom.
             </p>
           </div>
@@ -33,8 +32,7 @@ export function PublicFooter() {
               Lokasi Showroom Pusat
             </span>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
-              Jl. Raya Otista No. 142, Jatinegara, Jakarta Timur, DKI Jakarta
-              13330
+              Gondang Timur, Gondang, Kec. Pace, Kabupaten Nganjuk, Jawa Timur
             </p>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
               Senin - Minggu: 08:30 - 18:00 WIB
@@ -46,10 +44,10 @@ export function PublicFooter() {
               Layanan Konsumen &amp; WhatsApp
             </span>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
-              WhatsApp Admin: +62 812-8890-3321
+              WhatsApp Admin: +62 856-0898-1265
             </p>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
-              Email: info@rodamotorku.co.id
+              Email: alhabib.husein13@gmail.com
             </p>
             <div className="pt-1">
               <Link
@@ -66,8 +64,7 @@ export function PublicFooter() {
         </div>
 
         <div className="mt-space-xl pt-space-lg border-t border-outline-variant/30 text-center font-label-sm text-label-sm text-on-surface-variant">
-          © 2026 RODA.MOTORKU Indonesia — Capstone Project Program Studi
-          Informatika UNP Kediri.
+          © 2026 RODA.MOTORKU Indonesia
         </div>
       </div>
     </footer>

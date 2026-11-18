@@ -22,6 +22,7 @@ interface ShowroomContextType {
     pred: Omit<PrediksiHarga, "id_prediksi" | "kode_prediksi" | "created_at" | "waktu_relatif">
   ) => PrediksiHarga;
   deletePrediction: (id_prediksi: number) => void;
+  updatePrediction: (id_prediksi: number, updated: Partial<PrediksiHarga>) => void;
   linkPredictionToMotor: (id_prediksi: number, motor: Motor) => void;
 }
 
@@ -147,6 +148,16 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
     persistPredictions(predictions.filter((p) => p.id_prediksi !== id_prediksi));
   };
 
+  const updatePrediction = (
+    id_prediksi: number,
+    updated: Partial<PrediksiHarga>
+  ) => {
+    const next = predictions.map((p) =>
+      p.id_prediksi === id_prediksi ? { ...p, ...updated } : p
+    );
+    persistPredictions(next);
+  };
+
   const linkPredictionToMotor = (id_prediksi: number, motor: Motor) => {
     const next = predictions.map((p) =>
       p.id_prediksi === id_prediksi
@@ -175,6 +186,7 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
         deleteMotor,
         addPrediction,
         deletePrediction,
+        updatePrediction,
         linkPredictionToMotor,
       }}
     >

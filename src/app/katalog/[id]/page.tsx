@@ -26,6 +26,7 @@ export default function DetailMotorPage({
   const [copiedShare, setCopiedShare] = useState(false);
   const [showWaTooltip, setShowWaTooltip] = useState(false);
   const [showTestDriveModal, setShowTestDriveModal] = useState(false);
+  const [isReserving, setIsReserving] = useState(false);
 
   const [custName, setCustName] = useState("");
   const [custPhone, setCustPhone] = useState("");
@@ -70,13 +71,17 @@ export default function DetailMotorPage({
         `- Nama: ${name}\n` +
         `- No HP: ${phone}\n` +
         `- Rencana Kunjungan: ${date} (${custTime})\n` +
-        `Mohon konfirmasi kesiapan unit di showroom Otista.`
+        `Mohon konfirmasi kesiapan unit di showroom.`
     );
-    setShowTestDriveModal(false);
-    window.open(`https://wa.me/6281288903321?text=${message}`, "_blank");
+    setIsReserving(true);
+    setTimeout(() => {
+      setIsReserving(false);
+      setShowTestDriveModal(false);
+      window.open(`https://wa.me/6285608981265?text=${message}`, "_blank");
+    }, 450);
   };
 
-  const waDirectUrl = `https://wa.me/6281288903321?text=${encodeURIComponent(
+  const waDirectUrl = `https://wa.me/6285608981265?text=${encodeURIComponent(
     `Halo Admin RODA.MOTORKU, saya tertarik dengan unit ${motor.merek} ${
       motor.tipe
     } ${motor.tahun} (${formatRupiah(
@@ -104,11 +109,7 @@ export default function DetailMotorPage({
                   <span className="material-symbols-outlined text-[16px]">
                     home
                   </span>
-                  <span>Beranda</span>
-                </Link>
-                <span className="text-outline-variant font-bold">/</span>
-                <Link className="hover:text-primary transition-colors" href="/">
-                  Katalog Motor
+                  <span>Katalog</span>
                 </Link>
                 <span className="text-outline-variant font-bold">/</span>
                 <span className="text-primary font-bold truncate max-w-[200px] sm:max-w-none">
@@ -117,9 +118,6 @@ export default function DetailMotorPage({
               </nav>
 
               <div className="flex items-center gap-space-sm">
-                <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-space-sm py-1 rounded">
-                  SKU: {motor.sku}
-                </span>
                 <button
                   type="button"
                   onClick={handleCopyShare}
@@ -147,26 +145,23 @@ export default function DetailMotorPage({
                     src={currentPhoto?.nama_file}
                   />
                   {/* Gradient Scrim for Top Badges */}
-                  <div className="absolute inset-x-0 top-0 h-24 bg-gradient-to-b from-primary/80 to-transparent pointer-events-none"></div>
+                  <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-primary/70 to-transparent pointer-events-none"></div>
 
                   {/* Top Watermark & Metadata Badges */}
                   <div className="absolute top-3 left-3 right-3 flex items-center justify-between gap-space-sm pointer-events-none">
-                    <div className="flex items-center gap-1.5 bg-primary-container/95 text-on-primary font-label-sm text-label-sm px-space-sm py-1.5 rounded shadow-sm backdrop-blur-md">
+                    <div className="flex items-center gap-1.5 bg-primary-container/95 text-on-primary font-label-sm text-label-sm px-space-sm py-1 rounded shadow-sm backdrop-blur-md">
                       <span
-                        className="material-symbols-outlined text-[16px] text-tertiary-fixed"
+                        className="material-symbols-outlined text-[15px] text-tertiary-fixed"
                         style={{ fontVariationSettings: "'FILL' 1" }}
                       >
                         verified
                       </span>
-                      <span className="tracking-wide">
-                        RODA.MOTORKU Verified Unit
-                      </span>
+                      <span>Unit Terverifikasi</span>
                     </div>
 
                     {currentPhoto?.is_utama && (
                       <div className="bg-surface-container-lowest/95 text-primary font-label-sm text-label-sm px-space-sm py-1 rounded shadow-sm flex items-center gap-1 backdrop-blur-md">
-                        <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-                        <span>Foto Utama (is_utama)</span>
+                        <span>Foto Utama</span>
                       </div>
                     )}
                   </div>
@@ -174,17 +169,12 @@ export default function DetailMotorPage({
                   {/* Bottom Floating Caption */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
                     <span className="bg-inverse-surface/85 text-inverse-on-surface font-label-sm text-label-sm px-2.5 py-1 rounded backdrop-blur-sm shadow-sm">
-                      {currentPhoto?.caption}
+                      {currentPhoto?.label}
                     </span>
-                    <div className="bg-surface-container-lowest/80 text-on-surface p-1.5 rounded shadow-sm backdrop-blur-sm flex items-center">
-                      <span className="material-symbols-outlined text-[18px]">
-                        zoom_in
-                      </span>
-                    </div>
                   </div>
                 </div>
 
-                {/* 4 Sub-Thumbnails (foto_motor representation) */}
+                {/* 4 Sub-Thumbnails */}
                 <div className="grid grid-cols-4 gap-space-sm">
                   {photos.map((photo, index) => {
                     const isSelected = index === activePhotoIndex;
@@ -221,47 +211,40 @@ export default function DetailMotorPage({
                 {/* Trust Callout Card for Inspeksi */}
                 <div className="bg-surface-container-low rounded-xl p-space-md shadow-sm flex items-start gap-space-md mt-space-xs">
                   <div className="w-10 h-10 rounded-lg bg-primary-container text-on-primary flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-[24px]">
+                    <span className="material-symbols-outlined text-[22px]">
                       checklist_rtl
                     </span>
                   </div>
                   <div className="flex flex-col">
                     <span className="font-label-lg text-label-lg text-primary font-bold">
-                      120+ Titik Inspeksi Showroom
+                      Lulus Inspeksi Showroom
                     </span>
                     <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                      Unit telah lolos uji kelayakan rangka bebas keropos,
-                      sistem injeksi terkalibrasi, kompresi mesin 100% normal,
-                      dan bukan bekas tabrakan atau banjir.
+                      Rangka, mesin, dan kelistrikan normal serta bebas bekas
+                      tabrakan atau banjir.
                     </p>
                   </div>
                 </div>
 
                 {/* ML Valuation Confidence Widget */}
-                <div className="bg-secondary-container/40 rounded-xl p-space-md shadow-sm flex flex-col gap-2">
+                <div className="bg-secondary-container/40 rounded-xl p-space-md shadow-sm flex flex-col gap-1.5">
                   <div className="flex items-center justify-between">
                     <span className="font-label-md text-label-md text-primary font-bold flex items-center gap-1">
                       <span className="material-symbols-outlined text-[18px]">
                         query_stats
                       </span>
-                      Taksiran Pasar RODA.AI ({motor.domisili_samsat})
+                      Estimasi Pasar ML
                     </span>
                     <span className="bg-surface-container-lowest text-primary font-label-sm text-label-sm px-2 py-0.5 rounded shadow-sm">
                       R² {mlEstimate.r2Score}%
                     </span>
                   </div>
                   <p className="font-body-sm text-body-sm text-on-secondary-container">
-                    Rentang harga wajar tipe{" "}
+                    Rentang harga pasar wajar:{" "}
                     <strong>
-                      {motor.merek} {motor.tipe} {motor.tahun}
-                    </strong>{" "}
-                    menurut model Random Forest adalah{" "}
-                    <strong>
-                      {formatRupiah(mlEstimate.rangeLow)} -{" "}
+                      {formatRupiah(mlEstimate.rangeLow)} –{" "}
                       {formatRupiah(mlEstimate.rangeHigh)}
                     </strong>
-                    . Unit ini dibanderol sangat kompetitif sesuai kondisi fisik
-                    dan kelengkapan dokumen.
                   </p>
                 </div>
               </div>
@@ -271,21 +254,13 @@ export default function DetailMotorPage({
                 {/* Header & Status Area */}
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
                   <div className="flex flex-wrap items-center justify-between gap-space-sm">
-                    <div className="flex items-center gap-space-sm">
-                      <span className="bg-tertiary-container text-tertiary-fixed font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
-                        <span className="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span>
-                        <span>{motor.status}</span>
-                      </span>
-                      <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                        Grade A • Non-Oplosan • Siap Pakai
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                      <span className="material-symbols-outlined text-[16px]">
-                        visibility
-                      </span>
-                      <span>Dilihat {motor.views_week} kali pekan ini</span>
-                    </div>
+                    <span className="bg-tertiary-container text-tertiary-fixed font-label-md text-label-md px-3 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+                      <span className="w-2 h-2 rounded-full bg-tertiary-fixed"></span>
+                      <span>{motor.status}</span>
+                    </span>
+                    <span className="text-on-surface-variant font-label-sm text-label-sm">
+                      {motor.nopol} • {motor.domisili_samsat}
+                    </span>
                   </div>
 
                   {/* Main Vehicle Title */}
@@ -297,7 +272,7 @@ export default function DetailMotorPage({
                   <div className="bg-surface-container-low rounded-lg p-space-md flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 mt-space-xs">
                     <div className="flex flex-col">
                       <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-                        Harga Tunai Showroom
+                        Harga Tunai
                       </span>
                       <div className="flex items-baseline gap-2">
                         <span className="font-currency-stat text-currency-stat text-primary font-bold tabular-nums">
@@ -310,147 +285,108 @@ export default function DetailMotorPage({
                         )}
                       </div>
                     </div>
-                    <div className="sm:text-right">
-                      <span className="inline-block bg-primary-container text-on-primary font-label-sm text-label-sm px-2.5 py-1 rounded">
-                        Harga pas showroom (Nego tipis di tempat)
-                      </span>
-                      <p className="font-body-sm text-[12px] text-on-surface-variant mt-1">
-                        Bisa tukar tambah motor lama Anda
-                      </p>
-                    </div>
                   </div>
                 </div>
 
-                {/* High-Detail Specifications Table (9 Mandatory Rows matching Proposal & UI/UX) */}
+                {/* High-Detail Specifications Table */}
                 <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col gap-space-sm">
                   <div className="flex items-center justify-between pb-space-xs">
-                    <h2 className="font-headline-sm text-headline-sm text-primary font-bold flex items-center gap-2">
-                      <span className="material-symbols-outlined text-primary">
-                        tune
-                      </span>
-                      Spesifikasi Lengkap Unit
+                    <h2 className="font-headline-sm text-headline-sm text-primary font-bold">
+                      Spesifikasi Unit
                     </h2>
-                    <span className="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded">
-                      Data Resmi Showroom ({motor.nopol})
-                    </span>
                   </div>
 
-                  <div className="overflow-x-auto rounded-lg">
-                    <table className="w-full text-left font-body-md text-body-md">
-                      <tbody className="divide-none">
-                        {/* 1. Merek */}
-                        <tr className="bg-surface-container-low hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary w-1/3 sm:w-2/5">
-                            1. Merek
+                  <div className="overflow-x-auto rounded-lg border border-surface-container">
+                    <table className="w-full text-left text-[13px]">
+                      <thead>
+                        <tr className="bg-primary text-on-primary text-[12px] uppercase tracking-wider">
+                          <th className="py-2.5 px-4 font-semibold w-1/3 sm:w-2/5">
+                            Parameter
+                          </th>
+                          <th className="py-2.5 px-4 font-semibold">
+                            Keterangan Unit
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-surface-container">
+                        <tr className="bg-surface-container-low">
+                          <td className="py-2.5 px-4 font-semibold text-secondary w-1/3 sm:w-2/5">
+                            Merek
                           </td>
-                          <td className="py-3 px-4 font-label-lg text-label-lg text-on-surface font-semibold">
+                          <td className="py-2.5 px-4 text-on-surface font-semibold">
                             {motor.merek}
                           </td>
                         </tr>
-                        {/* 2. Tahun */}
-                        <tr className="bg-surface-container-lowest hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary">
-                            2. Tahun Pembuatan
+                        <tr className="bg-surface-container-lowest">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Tahun Pembuatan
                           </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface font-medium">
-                            {motor.tahun} (Perakitan &amp; Registrasi Asli)
-                          </td>
-                        </tr>
-                        {/* 3. Kapasitas Mesin */}
-                        <tr className="bg-surface-container-low hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary">
-                            3. Kapasitas Mesin (cc)
-                          </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface font-medium">
-                            {motor.cc} cc (Injeksi Standar Pabrikan)
+                          <td className="py-2.5 px-4 text-on-surface font-medium">
+                            {motor.tahun}
                           </td>
                         </tr>
-                        {/* 4. Kilometer */}
-                        <tr className="bg-surface-container-lowest hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary">
-                            4. Kilometer
+                        <tr className="bg-surface-container-low">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Kapasitas Mesin
                           </td>
-                          <td className="py-3 px-4 font-label-lg text-label-lg text-primary font-bold flex items-center gap-1.5 tabular-nums">
-                            <span>{formatNumberID(motor.kilometer)} km</span>
-                            <span className="bg-secondary-container text-on-secondary-container font-label-sm text-label-sm px-1.5 py-0.5 rounded text-[11px] font-normal">
-                              {motor.kilometer < 15000
-                                ? "Rendah / Jarang Pakai"
-                                : "Pemakaian Normal"}
-                            </span>
+                          <td className="py-2.5 px-4 text-on-surface font-medium">
+                            {motor.cc} cc
                           </td>
                         </tr>
-                        {/* 5. Kondisi Mesin */}
-                        <tr className="bg-surface-container-low hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary align-top">
-                            5. Kondisi Mesin
+                        <tr className="bg-surface-container-lowest">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Kilometer
                           </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface">
-                            <span className="font-bold text-tertiary-container bg-tertiary-fixed/30 px-2 py-0.5 rounded">
+                          <td className="py-2.5 px-4 text-primary font-semibold tabular-nums">
+                            {formatNumberID(motor.kilometer)} km
+                          </td>
+                        </tr>
+                        <tr className="bg-surface-container-low">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Kondisi Mesin
+                          </td>
+                          <td className="py-2.5 px-4 text-on-surface">
+                            <span className="font-semibold text-tertiary-container">
                               {motor.kondisi_mesin}
                             </span>
-                            <span className="block mt-1 text-on-surface-variant font-body-sm text-body-sm">
-                              Suara mesin halus, rutin servis berkala, bebas
-                              rembes oli.
-                            </span>
                           </td>
                         </tr>
-                        {/* 6. Kelengkapan Dokumen */}
-                        <tr className="bg-surface-container-lowest hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary align-top">
-                            6. Kelengkapan Dokumen
+                        <tr className="bg-surface-container-lowest">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Kelengkapan Dokumen
                           </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface">
-                            <div className="flex items-center gap-1 text-primary font-bold">
-                              <span
-                                className="material-symbols-outlined text-[18px] text-tertiary-container"
-                                style={{ fontVariationSettings: "'FILL' 1" }}
-                              >
-                                check_circle
-                              </span>
-                              <span>{motor.kelengkapan_dokumen}</span>
-                            </div>
-                            <span className="text-on-surface-variant font-body-sm text-body-sm block mt-0.5">
-                              Nomor rangka &amp; mesin sesuai fisik dokumen
-                              Samsat.
-                            </span>
+                          <td className="py-2.5 px-4 text-on-surface font-medium">
+                            {motor.kelengkapan_dokumen}
                           </td>
                         </tr>
-                        {/* 7. Domisili Samsat */}
-                        <tr className="bg-surface-container-low hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary">
-                            7. Domisili Samsat
+                        <tr className="bg-surface-container-low">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Domisili Samsat
                           </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface">
-                            <span className="font-semibold text-primary">
+                          <td className="py-2.5 px-4 text-on-surface">
+                            <span className="font-medium text-primary">
                               {motor.domisili_samsat}
                             </span>
-                            <span className="text-on-surface-variant font-body-sm text-body-sm">
+                            <span className="text-on-surface-variant text-[12px]">
                               {" "}
                               • {motor.pajak_info}
                             </span>
                           </td>
                         </tr>
-                        {/* 8. Deskripsi Tambahan */}
-                        <tr className="bg-surface-container-lowest hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary align-top">
-                            8. Deskripsi Tambahan
+                        <tr className="bg-surface-container-lowest">
+                          <td className="py-2.5 px-4 font-semibold text-secondary align-top">
+                            Deskripsi
                           </td>
-                          <td className="py-3 px-4 font-body-md text-body-md text-on-surface-variant leading-relaxed">
-                            &ldquo;{motor.deskripsi}&rdquo;
+                          <td className="py-2.5 px-4 text-on-surface-variant leading-relaxed">
+                            {motor.deskripsi}
                           </td>
                         </tr>
-                        {/* 9. Status Ketersediaan */}
-                        <tr className="bg-surface-container-low hover:bg-surface-container transition-colors">
-                          <td className="py-3 px-4 font-label-md text-label-md text-secondary">
-                            9. Status Ketersediaan
+                        <tr className="bg-surface-container-low">
+                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                            Status
                           </td>
-                          <td className="py-3 px-4 font-label-md text-label-md text-primary font-bold">
-                            <span className="inline-flex items-center gap-1.5 text-on-primary bg-primary px-2.5 py-1 rounded">
-                              <span className="material-symbols-outlined text-[16px]">
-                                storefront
-                              </span>
-                              Unit {motor.status} di Showroom RODA.MOTORKU
-                            </span>
+                          <td className="py-2.5 px-4 text-primary font-semibold">
+                            {motor.status}
                           </td>
                         </tr>
                       </tbody>
@@ -458,7 +394,7 @@ export default function DetailMotorPage({
                   </div>
                 </div>
 
-                {/* WhatsApp Action Button & Interactive Tooltip/Popup */}
+                {/* WhatsApp Action Button & Secondary Actions */}
                 <div className="relative bg-surface-container-lowest rounded-xl p-space-lg shadow-md flex flex-col gap-space-sm">
                   <div className="relative w-full">
                     <a
@@ -467,7 +403,7 @@ export default function DetailMotorPage({
                       onMouseLeave={() => setShowWaTooltip(false)}
                       rel="noopener noreferrer"
                       target="_blank"
-                      className="w-full flex items-center justify-center gap-space-sm bg-[#2E7D32] hover:bg-[#236327] text-white py-3.5 px-space-lg rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 font-label-lg text-label-lg font-bold text-center"
+                      className="w-full flex items-center justify-center gap-space-sm bg-primary hover:bg-primary-container text-white py-3.5 px-space-lg rounded-xl shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 font-label-lg text-label-lg font-bold text-center"
                     >
                       <svg
                         className="w-6 h-6 fill-current shrink-0"
@@ -475,7 +411,7 @@ export default function DetailMotorPage({
                       >
                         <path d="M12.031 2C6.504 2 2.016 6.488 2.016 12.016c0 1.838.502 3.56 1.378 5.043L2 22l5.105-1.336A9.97 9.97 0 0 0 12.031 22C17.558 22 22.046 17.512 22.046 12.016 22.046 6.488 17.558 2 12.031 2zm5.727 14.156c-.238.67-1.182 1.282-1.637 1.328-.432.043-.997.199-3.232-.73-2.684-1.116-4.394-3.856-4.529-4.037-.134-.18-1.092-1.455-1.092-2.775 0-1.32.693-1.968.939-2.235.247-.267.538-.334.717-.334.18 0 .36.002.516.01.168.008.39-.064.61.464.226.541.77 1.874.836 2.01.068.135.112.293.022.473-.09.18-.135.293-.27.45-.134.158-.283.352-.405.473-.134.135-.274.281-.118.55.157.269.697 1.15 1.496 1.862 1.028.916 1.895 1.2 2.164 1.335.27.135.426.113.584-.068.157-.18.673-.788.852-1.057.18-.27.359-.225.597-.135.239.09 1.517.714 1.776.843.258.13.431.192.494.301.062.11.062.639-.176 1.309z" />
                       </svg>
-                      <span>Hubungi Showroom via WhatsApp</span>
+                      <span>Hubungi via WhatsApp</span>
                     </a>
 
                     {showWaTooltip && (
@@ -483,10 +419,7 @@ export default function DetailMotorPage({
                         <span className="material-symbols-outlined text-[16px] text-tertiary-fixed">
                           call
                         </span>
-                        <span>
-                          Nomor Resmi Admin: <strong>0812-8890-3321</strong>{" "}
-                          (Fast Response 08:30-18:00)
-                        </span>
+                        <span>WhatsApp Admin: +62 856-0898-1265</span>
                       </div>
                     )}
                   </div>
@@ -510,25 +443,8 @@ export default function DetailMotorPage({
                       <span className="material-symbols-outlined text-[18px]">
                         location_on
                       </span>
-                      <span>Lihat Lokasi Showroom</span>
+                      <span>Lokasi Showroom</span>
                     </a>
-                  </div>
-
-                  {/* Mandatory Safety & Anti-Fraud Notice */}
-                  <div className="bg-error-container/20 rounded-lg p-space-sm flex items-start gap-space-xs mt-space-xs">
-                    <span className="material-symbols-outlined text-[20px] text-error shrink-0">
-                      shield_lock
-                    </span>
-                    <div className="flex flex-col">
-                      <span className="font-label-md text-label-md text-error font-bold">
-                        Catatan Keamanan Transaksi
-                      </span>
-                      <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Sesuai batasan sistem RODA.MOTORKU, website ini tidak
-                        melayani pembayaran daring. Silakan datang langsung ke
-                        showroom untuk cek unit dan test drive.
-                      </p>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -558,17 +474,10 @@ export default function DetailMotorPage({
                     </span>
                   </button>
                 </div>
-                <p className="font-body-sm text-body-sm text-on-surface-variant">
-                  Silakan isi data kedatangan untuk memastikan kunci dan unit{" "}
-                  <strong>
-                    {motor.merek} {motor.tipe} {motor.tahun}
-                  </strong>{" "}
-                  disiapkan oleh teknisi showroom saat Anda tiba.
-                </p>
                 <div className="flex flex-col gap-space-sm">
                   <div>
                     <label className="block font-label-md text-label-md text-on-surface mb-1">
-                      Nama Lengkap Sesuai KTP
+                      Nama Lengkap
                     </label>
                     <input
                       value={custName}
@@ -580,7 +489,7 @@ export default function DetailMotorPage({
                   </div>
                   <div>
                     <label className="block font-label-md text-label-md text-on-surface mb-1">
-                      Nomor WhatsApp Aktif
+                      Nomor WhatsApp
                     </label>
                     <input
                       value={custPhone}
@@ -593,7 +502,7 @@ export default function DetailMotorPage({
                   <div className="grid grid-cols-2 gap-space-sm">
                     <div>
                       <label className="block font-label-md text-label-md text-on-surface mb-1">
-                        Rencana Tanggal
+                        Tanggal
                       </label>
                       <input
                         value={custDate}
@@ -604,7 +513,7 @@ export default function DetailMotorPage({
                     </div>
                     <div>
                       <label className="block font-label-md text-label-md text-on-surface mb-1">
-                        Jam Kedatangan
+                        Waktu
                       </label>
                       <select
                         value={custTime}
@@ -627,20 +536,31 @@ export default function DetailMotorPage({
                 <div className="flex justify-end gap-space-sm pt-space-xs">
                   <button
                     type="button"
+                    disabled={isReserving}
                     onClick={() => setShowTestDriveModal(false)}
-                    className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer"
+                    className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
                   >
                     Batal
                   </button>
                   <button
                     type="button"
+                    disabled={isReserving}
                     onClick={handleSubmitTestDrive}
-                    className="px-space-md py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-space-md py-2 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md rounded-lg shadow-md transition-all flex items-center gap-1.5 cursor-pointer disabled:opacity-75"
                   >
-                    <span className="material-symbols-outlined text-[16px]">
-                      send
-                    </span>
-                    Konfirmasi via WA
+                    {isReserving ? (
+                      <>
+                        <span className="w-4 h-4 border-2 border-on-primary/30 border-t-on-primary rounded-full animate-spin"></span>
+                        <span>Menyiapkan WhatsApp...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="material-symbols-outlined text-[16px]">
+                          send
+                        </span>
+                        <span>Konfirmasi via WA</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -654,14 +574,9 @@ export default function DetailMotorPage({
           >
             <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin flex flex-col gap-space-lg">
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-space-sm">
-                <div>
-                  <span className="font-label-md text-label-md text-primary font-bold uppercase tracking-wider">
-                    Lokasi Fisik &amp; Kunjungan
-                  </span>
-                  <h2 className="font-headline-lg text-headline-lg text-primary font-bold">
-                    Cek Langsung Motor di Showroom Kami
-                  </h2>
-                </div>
+                <h2 className="font-headline-lg text-headline-lg text-primary font-bold">
+                  Lokasi Showroom Kami
+                </h2>
                 <div className="flex items-center gap-space-sm text-on-surface-variant font-label-md text-label-md">
                   <span className="w-2.5 h-2.5 rounded-full bg-on-tertiary-container"></span>
                   <span>Buka Setiap Hari (08:30 - 18:00 WIB)</span>
@@ -680,16 +595,16 @@ export default function DetailMotorPage({
                   <div className="p-space-md flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-lowest">
                     <div>
                       <p className="font-label-lg text-label-lg text-primary font-bold">
-                        RODA.MOTORKU Showroom Pusat - Otista
+                        RODA.MOTORKU Showroom
                       </p>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
-                        Jl. Raya Otista No. 142, Bidara Cina, Jatinegara,
-                        Jakarta Timur (Dekat Halte Busway Gelanggang Remaja)
+                        Gondang Timur, Gondang, Kec. Pace, Kabupaten Nganjuk,
+                        Jawa Timur
                       </p>
                     </div>
                     <a
                       className="inline-flex items-center gap-1.5 bg-primary text-on-primary px-space-md py-2 rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shadow-sm"
-                      href="https://maps.google.com/?q=Otista+Jatinegara+Jakarta+Timur"
+                      href="https://maps.google.com/?q=Gondang+Timur,+Gondang,+Kec.+Pace,+Kabupaten+Nganjuk,+Jawa+Timur"
                       rel="noopener noreferrer"
                       target="_blank"
                     >
@@ -704,7 +619,7 @@ export default function DetailMotorPage({
                 <div className="lg:col-span-4 bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex flex-col justify-between gap-space-md">
                   <div>
                     <h4 className="font-headline-sm text-headline-sm text-primary font-bold mb-space-sm">
-                      Panduan Cek Fisik
+                      Panduan Kunjungan
                     </h4>
                     <div className="flex flex-col gap-space-md">
                       <div className="flex items-start gap-space-sm">
@@ -713,11 +628,11 @@ export default function DetailMotorPage({
                         </span>
                         <div>
                           <span className="font-label-md text-label-md text-on-surface font-bold">
-                            Cek Kesesuaian Nomor Rangka
+                            Cek Fisik &amp; Dokumen
                           </span>
                           <p className="font-body-sm text-body-sm text-on-surface-variant">
-                            Nomor rangka &amp; mesin dicocokkan bersama tim staf
-                            kami langsung dengan lembar BPKB asli.
+                            Cocokkan nomor rangka &amp; mesin langsung dengan
+                            STNK dan BPKB asli.
                           </p>
                         </div>
                       </div>
@@ -727,11 +642,11 @@ export default function DetailMotorPage({
                         </span>
                         <div>
                           <span className="font-label-md text-label-md text-on-surface font-bold">
-                            Bawa Mekanik Kepercayaan
+                            Test Drive di Tempat
                           </span>
                           <p className="font-body-sm text-body-sm text-on-surface-variant">
-                            Konsumen dipersilakan membawa montir bengkel rekanan
-                            sendiri untuk pengecekan menyeluruh.
+                            Uji langsung kenyamanan berkendara bersama mekanik
+                            kami.
                           </p>
                         </div>
                       </div>
@@ -744,21 +659,12 @@ export default function DetailMotorPage({
                             Garansi Mesin 30 Hari
                           </span>
                           <p className="font-body-sm text-body-sm text-on-surface-variant">
-                            Setiap transaksi didampingi kwitansi resmi
-                            bermaterai dengan garansi mesin 1 bulan.
+                            Dilengkapi garansi mesin resmi showroom selama 1
+                            bulan.
                           </p>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="bg-surface-container-low p-space-sm rounded-lg flex items-center gap-2">
-                    <span className="material-symbols-outlined text-primary text-[20px]">
-                      support_agent
-                    </span>
-                    <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Ada pertanyaan sebelum berkunjung? Kontak WhatsApp siap
-                      sedia.
-                    </span>
                   </div>
                 </div>
               </div>

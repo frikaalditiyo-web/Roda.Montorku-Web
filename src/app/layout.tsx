@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { ShowroomProvider } from "@/context/ShowroomContext";
+import { NavigationManager } from "@/components/NavigationManager";
 
-const inter = Inter({
+const poppins = Poppins({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -21,15 +22,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className={inter.variable}>
+    <html lang="id" className={poppins.variable}>
       <head>
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
         />
       </head>
-      <body className="bg-surface font-body-md text-body-md text-on-surface antialiased">
-        <ShowroomProvider>{children}</ShowroomProvider>
+      <body className="bg-surface font-sans text-body-md text-on-surface antialiased">
+        <ShowroomProvider>
+          {children}
+          <NavigationManager />
+        </ShowroomProvider>
       </body>
     </html>
   );
