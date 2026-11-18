@@ -1,0 +1,92 @@
+// Prisma Schema for RODA.MOTORKU
+// Sesuai Spesifikasi Bab III Laporan Capstone Project (Tabel 3.5 - 3.8)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id_user       Int             @id @default(autoincrement())
+  nama          String          @db.VarChar(100)
+  username      String          @unique @db.VarChar(50)
+  password_hash String          @db.VarChar(255)
+  role          String          @default("admin") @db.VarChar(20)
+  created_at    DateTime        @default(now())
+
+  motors        Motor[]
+  prediksi      PrediksiHarga[]
+
+  @@map("users")
+}
+
+model Motor {
+  id_motor            Int             @id @default(autoincrement())
+  id_user             Int
+  sku                 String?         @db.VarChar(50)
+  nopol               String?         @db.VarChar(30)
+  merek               String          @db.VarChar(50)
+  tipe                String          @db.VarChar(100)
+  tahun               Int
+  cc                  Int
+  kilometer           Int
+  kondisi_mesin       String          @db.VarChar(50)
+  kelengkapan_dokumen String          @db.VarChar(100)
+  domisili_samsat     String          @db.VarChar(100)
+  pajak_info          String?         @db.VarChar(100)
+  harga_beli          BigInt
+  harga_jual          BigInt
+  harga_pasar_coret   BigInt?
+  deskripsi           String?         @db.Text
+  status              String          @default("Tersedia") @db.VarChar(20) // Tersedia | Terjual
+  views_week          Int             @default(0)
+  created_at          DateTime        @default(now())
+
+  user                User            @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+  foto_motor          FotoMotor[]
+  prediksi            PrediksiHarga[]
+
+  @@map("motor")
+}
+
+model FotoMotor {
+  id_foto    Int      @id @default(autoincrement())
+  id_motor   Int
+  nama_file  String   @db.VarChar(500)
+  label      String?  @db.VarChar(50)
+  caption    String?  @db.VarChar(255)
+  is_utama   Boolean  @default(false)
+
+  motor      Motor    @relation(fields: [id_motor], references: [id_motor], onDelete: Cascade)
+
+  @@map("foto_motor")
+}
+
+model PrediksiHarga {
+  id_prediksi            Int      @id @default(autoincrement())
+  kode_prediksi          String   @unique @db.VarChar(50)
+  id_user                Int
+  id_motor               Int?
+  nama_motor_katalog     String?  @db.VarChar(100)
+  nopol_katalog          String?  @db.VarChar(30)
+  kode_motor_katalog     String?  @db.VarChar(50)
+  catatan_simulasi       String?  @db.VarChar(255)
+  fitur_masukan          Json
+  harga_estimasi         BigInt
+  spread_estimasi        Int      @default(350000)
+  nama_model             String   @db.VarChar(100)
+  akurasi_r2             Float
+  mae_rupiah             BigInt
+  rmse_rupiah            BigInt
+  detail_parameter_model String?  @db.VarChar(255)
+  created_at             DateTime @default(now())
+
+  user                   User     @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+  motor                  Motor?   @relation(fields: [id_motor], references: [id_motor], onDelete: SetNull)
+
+  @@map("prediksi_harga")
+}

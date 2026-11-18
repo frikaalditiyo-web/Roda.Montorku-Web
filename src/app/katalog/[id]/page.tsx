@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, use } from "react";
+import React, { useState, useEffect, use } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -9,18 +9,38 @@ import {
   calculateMLPrediction,
   formatNumberID,
   formatRupiah,
+  Motor,
 } from "@/data/mockShowroomData";
 
-export default function DetailMotorPage({
+function DetailMotorContent({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = use(params);
   const { motors } = useShowroom();
+  const [fetchedMotor, setFetchedMotor] = useState<Motor | null>(null);
 
-  const motor =
-    motors.find((m) => String(m.id_motor) === id) || motors[0];
+  useEffect(() => {
+    // Record view in background
+    fetch(`/api/motor/${id}/view`, { method: "POST" }).catch(() => {});
+
+    const existing = motors.find((m) => String(m.id_motor) === id);
+    if (existing) {
+      setFetchedMotor(existing);
+    } else {
+      fetch(`/api/motor/${id}`)
+        .then((res) => res.json())
+        .then((json) => {
+          if (json.success && json.data) {
+            setFetchedMotor(json.data);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [id, motors]);
+
+  const motor = fetchedMotor || motors.find((m) => String(m.id_motor) === id) || motors[0];
 
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [copiedShare, setCopiedShare] = useState(false);
@@ -675,5 +695,28 @@ export default function DetailMotorPage({
 
       <PublicFooter />
     </div>
+  );
+}
+
+export default function DetailMotorPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  return (
+    <React.Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-surface">
+          <div className="flex flex-col items-center gap-3">
+            <span className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></span>
+            <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+              Memuat detail motor...
+            </span>
+          </div>
+        </div>
+      }
+    >
+      <DetailMotorContent params={params} />
+    </React.Suspense>
   );
 }

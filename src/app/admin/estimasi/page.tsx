@@ -13,7 +13,7 @@ import {
 
 export default function EstimasiHargaMLPage() {
   const router = useRouter();
-  const { addPrediction, addMotor, linkPredictionToMotor, motors } =
+  const { addPrediction, addMotor, linkPredictionToMotor, motors, refreshData } =
     useShowroom();
 
   // 8 Features + Model Selection
@@ -96,16 +96,16 @@ export default function EstimasiHargaMLPage() {
     setPurchasePriceInput(formatNumberID(parseInt(clean, 10)));
   };
 
-  const handleCalculateSubmit = (e: React.FormEvent) => {
+  const handleCalculateSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsCalculating(true);
-    setTimeout(() => {
-      setIsCalculating(false);
-      const savedPred = addPrediction({
-        id_user: 1,
-        id_motor: null,
-        catatan_simulasi: "Kalkulasi Konsol Valuasi",
-        fitur_masukan: {
+
+    try {
+      // Call backend API /api/prediksi
+      const res = await fetch("/api/prediksi", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           merek: brand,
           tahun: year,
           cc: engineCc,
@@ -114,23 +114,62 @@ export default function EstimasiHargaMLPage() {
           kelengkapan_dokumen: docs,
           domisili_samsat: samsat,
           harga_beli: purchasePrice,
-        },
-        harga_estimasi: currentEstimation.estimatedPrice,
-        spread_estimasi: currentEstimation.mae,
-        nama_model: selectedModel,
-        akurasi_r2: currentEstimation.r2Score,
-        mae_rupiah: currentEstimation.mae,
-        rmse_rupiah: currentEstimation.rmse,
-        detail_parameter_model: currentEstimation.detailParam,
+          model: selectedModel,
+          catatan_simulasi: "Kalkulasi Konsol Valuasi",
+          save_to_history: true,
+        }),
       });
-      setLastPredictionId(savedPred.id_prediksi);
-      setHargaJualAkhir(currentEstimation.estimatedPrice);
-      triggerToast(
-        `Estimasi unit ${brand} (${year}) berhasil dihitung: ${formatRupiah(
-          currentEstimation.estimatedPrice
-        )}`
-      );
-    }, 350);
+      const json = await res.json();
+      if (res.ok && json.success && json.data) {
+        const est = json.data.estimation;
+        const saved = json.data.saved_record;
+        if (saved) {
+          setLastPredictionId(saved.id_prediksi);
+        }
+        setHargaJualAkhir(est.estimatedPrice);
+        triggerToast(
+          `Estimasi unit ${brand} (${year}) berhasil dihitung oleh Backend API: ${formatRupiah(
+            est.estimatedPrice
+          )}`
+        );
+        await refreshData();
+        setIsCalculating(false);
+        return;
+      }
+    } catch (err) {
+      console.warn("Backend API unavailable, using local calculation fallback:", err);
+    }
+
+    setIsCalculating(false);
+    const savedPred = addPrediction({
+      id_user: 1,
+      id_motor: null,
+      catatan_simulasi: "Kalkulasi Konsol Valuasi (Offline Fallback)",
+      fitur_masukan: {
+        merek: brand,
+        tahun: year,
+        cc: engineCc,
+        kilometer: mileage,
+        kondisi_mesin: condition,
+        kelengkapan_dokumen: docs,
+        domisili_samsat: samsat,
+        harga_beli: purchasePrice,
+      },
+      harga_estimasi: currentEstimation.estimatedPrice,
+      spread_estimasi: currentEstimation.mae,
+      nama_model: selectedModel,
+      akurasi_r2: currentEstimation.r2Score,
+      mae_rupiah: currentEstimation.mae,
+      rmse_rupiah: currentEstimation.rmse,
+      detail_parameter_model: currentEstimation.detailParam,
+    });
+    setLastPredictionId(savedPred.id_prediksi);
+    setHargaJualAkhir(currentEstimation.estimatedPrice);
+    triggerToast(
+      `Estimasi unit ${brand} (${year}) dihitung & dicatat: ${formatRupiah(
+        currentEstimation.estimatedPrice
+      )}`
+    );
   };
 
   const handleResetForm = () => {
@@ -239,20 +278,46 @@ export default function EstimasiHargaMLPage() {
       )}
 
       {/* Page Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-sm mb-space-lg">
-        <div>
-          <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
-            Estimasi Harga Jual
-          </h1>
-          <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-            Kalkulator rekomendasi harga jual motor bekas berbasis Machine
-            Learning.
-          </p>
+      <div className="flex flex-col gap-space-xs mb-space-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-space-sm">
+          <div>
+            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
+              Estimasi Harga Jual
+            </h1>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
+              Kalkulator rekomendasi harga jual motor bekas berbasis Machine Learning (Linear Regression, Decision Tree, &amp; Random Forest).
+            </p>
+          </div>
+          <div className="flex items-center gap-space-xs self-start lg:self-center">
+            <span className="inline-flex items-center px-space-sm py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-semibold shadow-sm">
+              {selectedModel}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-space-xs self-start lg:self-center">
-          <span className="inline-flex items-center px-space-sm py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-semibold shadow-sm">
-            {selectedModel}
-          </span>
+
+        {/* Active ML Status Strip */}
+        <div className="mt-space-xs bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-wrap items-center justify-between gap-space-sm text-on-surface-variant border border-outline-variant/30">
+          <div className="flex items-center gap-space-sm flex-wrap">
+            <div className="flex items-center gap-1.5 font-label-sm text-label-sm font-semibold text-primary">
+              <span className="material-symbols-outlined text-[16px] text-primary">
+                model_training
+              </span>
+              <span>Model Aktif: {selectedModel}</span>
+            </div>
+            <span className="hidden sm:inline text-outline-variant">•</span>
+            <div className="flex items-center gap-1.5 font-body-sm text-body-sm text-secondary">
+              <span className="material-symbols-outlined text-[16px] text-secondary">
+                dataset
+              </span>
+              <span>
+                Skema One-Hot Encoding • Split Latih:Uji (80:20) • 187 Sampel
+              </span>
+            </div>
+          </div>
+          <div className="flex items-center gap-1.5 font-label-sm text-label-sm text-on-tertiary-fixed-variant bg-tertiary-fixed px-space-xs py-0.5 rounded">
+            <span className="w-1.5 h-1.5 rounded-full bg-tertiary animate-ping"></span>
+            <span className="font-semibold">ML Engine API: Ready (Active)</span>
+          </div>
         </div>
       </div>
 
@@ -482,6 +547,22 @@ export default function EstimasiHargaMLPage() {
                       : "Hitung Estimasi Harga"}
                   </span>
                 </button>
+                <div className="flex items-center justify-between px-1 text-on-surface-variant mt-2">
+                  <div className="flex items-center gap-1 font-label-sm text-label-sm">
+                    <span className="material-symbols-outlined text-[15px] text-tertiary">
+                      check_circle
+                    </span>
+                    <span>Validasi 8 fitur masukan otomatis</span>
+                  </div>
+                  <div className="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">
+                    <span className="material-symbols-outlined text-[14px]">
+                      terminal
+                    </span>
+                    <code className="font-mono text-[11px]">
+                      POST /api/prediksi
+                    </code>
+                  </div>
+                </div>
               </div>
             </form>
           </div>

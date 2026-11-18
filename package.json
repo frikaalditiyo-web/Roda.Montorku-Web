@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:start": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" -l \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\\logfile.log\" start",
-    "db:stop": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" stop",
-    "db:status": "\"D:\\laragonkuiso\\laragon\\bin\\postgresql\\pgsql\\bin\\pg_ctl.exe\" -D \"D:\\laragonkuiso\\laragon\\data\\postgresql-17\" status"
+    "ml:train": "python scripts/train_models.py",
+    "db:start": "\"C:\\Program Files\\PostgreSQL\\17\\bin\\pg_ctl.exe\" -D \"C:\\Program Files\\PostgreSQL\\17\\data\" -l \"C:\\Program Files\\PostgreSQL\\17\\data\\logfile.log\" start",
+    "db:stop": "\"C:\\Program Files\\PostgreSQL\\17\\bin\\pg_ctl.exe\" -D \"C:\\Program Files\\PostgreSQL\\17\\data\" stop",
+    "db:status": "\"C:\\Program Files\\PostgreSQL\\17\\bin\\pg_ctl.exe\" -D \"C:\\Program Files\\PostgreSQL\\17\\data\" status"
   },
   "dependencies": {
     "@prisma/client": "^7.10.1",
