@@ -3,33 +3,29 @@ import Link from "next/link";
 
 export function PublicFooter() {
   return (
-    <footer
-      id="kontak-showroom"
-      className="w-full bg-surface-container-low shadow-[0_1px_8px_rgba(0,0,0,0.04)] border-t border-surface-container-high"
-    >
-      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin py-space-xl">
+    <footer className="w-full bg-surface-container border-t border-outline-variant/30 py-space-xl text-on-surface">
+      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
           <div className="flex flex-col gap-space-sm">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded bg-primary flex items-center justify-center">
-                <span className="material-symbols-outlined text-on-primary text-[16px]">
+            <div className="flex items-center gap-space-xs">
+              <div className="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-xs">
+                <span className="material-symbols-outlined text-[20px]">
                   two_wheeler
                 </span>
               </div>
-              <span className="font-headline-sm text-headline-sm text-primary font-bold">
-                RODA.MOTORKU
+              <span className="font-headline-sm text-headline-sm font-bold tracking-tight text-primary">
+                RODA<span className="text-secondary">.MOTORKU</span>
               </span>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant leading-relaxed">
-              Pusat jual beli sepeda motor bekas terpercaya serta konsumen di sekitar Nganjuk. transparan dengan
-              dukungan estimasi harga, dan bergaransi resmi
-              showroom.
+            <p className="font-body-sm text-body-sm text-on-surface-variant max-w-sm">
+              Pusat jual beli sepeda motor bekas terpercaya untuk konsumen di sekitar Nganjuk &amp; Jawa Timur.
+              Seluruh unit melalui inspeksi teknis menyeluruh, dokumen lengkap (STNK + BPKB), dan bergaransi resmi.
             </p>
           </div>
 
-          <div className="flex flex-col gap-space-sm">
+          <div id="kontak-showroom" className="flex flex-col gap-space-sm">
             <span className="font-label-lg text-label-lg text-on-surface font-bold">
-              Lokasi Showroom Pusat
+              Showroom &amp; Lokasi Fisik
             </span>
             <p className="font-body-sm text-body-sm text-on-surface-variant">
               Gondang Timur, Gondang, Kec. Pace, Kabupaten Nganjuk, Jawa Timur
@@ -49,22 +45,21 @@ export function PublicFooter() {
             <p className="font-body-sm text-body-sm text-on-surface-variant">
               Email: alhabib.husein13@gmail.com
             </p>
-            <div className="pt-1">
-              <Link
-                href="/login"
-                className="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary hover:underline"
-              >
-                <span className="material-symbols-outlined text-[15px]">
-                  lock
-                </span>
-                <span>Portal Pengelola / Admin Showroom</span>
-              </Link>
-            </div>
+            <p className="font-label-sm text-label-sm text-on-surface-variant/80">
+              Konsultasi unit, negosiasi harga, dan booking test-drive langsung via WhatsApp.
+            </p>
           </div>
         </div>
 
-        <div className="mt-space-xl pt-space-lg border-t border-outline-variant/30 text-center font-label-sm text-label-sm text-on-surface-variant">
-          © 2026 RODA.MOTORKU Indonesia
+        <div className="mt-space-xl pt-space-lg border-t border-outline-variant/30 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left font-label-sm text-label-sm text-on-surface-variant">
+          <span>© 2026 RODA.MOTORKU Indonesia — Sistem Informasi Manajemen Katalog &amp; Penentuan Harga Jual Motor Bekas.</span>
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-medium"
+          >
+            <span className="material-symbols-outlined text-[15px]">lock</span>
+            <span>Akses Login Admin</span>
+          </Link>
         </div>
       </div>
     </footer>

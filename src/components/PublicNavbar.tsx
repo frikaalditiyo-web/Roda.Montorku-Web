@@ -9,20 +9,27 @@ export function PublicNavbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-primary-container shadow-[0_1px_8px_rgba(0,0,0,0.06)]">
-      <div className="h-16 max-w-7xl mx-auto px-margin-mobile md:px-margin flex items-center justify-between">
-        <Link className="flex items-center gap-space-xs" href="/">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-            <span className="material-symbols-outlined text-on-primary text-[20px]">
+    <header className="fixed top-0 left-0 right-0 z-40 bg-surface-container-lowest/90 backdrop-blur-md shadow-xs border-b border-outline-variant/30">
+      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin h-16 flex items-center justify-between">
+        {/* Brand Logo */}
+        <Link href="/" className="flex items-center gap-space-xs group">
+          <div className="w-8 h-8 rounded-lg bg-primary text-on-primary flex items-center justify-center shadow-xs transition-transform group-hover:scale-105 duration-200">
+            <span className="material-symbols-outlined text-[20px]">
               two_wheeler
             </span>
           </div>
-          <span className="font-headline-sm text-headline-sm text-on-primary tracking-tight font-bold">
-            RODA.MOTORKU
-          </span>
+          <div className="flex flex-col">
+            <span className="font-headline-sm text-headline-sm font-bold tracking-tight text-primary leading-none">
+              RODA<span className="text-secondary">.MOTORKU</span>
+            </span>
+            <span className="font-label-sm text-[10px] text-on-surface-variant font-medium tracking-wide">
+              Showroom Motor Bekas Berkualitas
+            </span>
+          </div>
         </Link>
 
-        <nav className="hidden md:flex items-center gap-space-lg">
+        {/* Public Navigation Links */}
+        <nav className="hidden md:flex items-center gap-space-md">
           <Link
             href="/"
             className={
@@ -34,43 +41,48 @@ export function PublicNavbar() {
             Katalog Motor
           </Link>
           <a
-            href="#katalog-unit"
-            className="font-label-md text-label-md text-on-primary-container hover:text-on-primary transition-colors px-space-sm py-space-xs"
+            href="/#katalog-unit"
+            className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors px-space-sm py-space-xs"
           >
             Unit Tersedia
           </a>
           <a
-            href="#kontak-showroom"
-            className="font-label-md text-label-md text-on-primary-container hover:text-on-primary transition-colors px-space-sm py-space-xs"
+            href="/#kontak-showroom"
+            className="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors px-space-sm py-space-xs"
           >
             Lokasi &amp; Kontak
           </a>
         </nav>
 
+        {/* Right Action: Direct WhatsApp Showroom Consultation & Admin Login */}
         <div className="flex items-center gap-space-sm">
-          <Link
-            href="/admin/dashboard"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary/70 hover:bg-primary text-on-primary font-label-sm text-label-sm transition-colors"
-            title="Buka Konsol Admin"
+          <a
+            href="https://wa.me/6285608981265?text=Halo%20Admin%20RODA.MOTORKU,%20saya%20ingin%20tanya%20stok%20unit%20motor%20bekas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-label-sm font-semibold shadow-xs transition-colors"
           >
             <span className="material-symbols-outlined text-[16px]">
-              admin_panel_settings
+              chat
             </span>
-            <span>Panel Admin</span>
-          </Link>
+            <span>Konsultasi WA</span>
+          </a>
+
           <Link
             href="/login"
-            title="Login Admin Showroom"
-            className="w-9 h-9 rounded-full bg-primary hover:bg-primary/80 flex items-center justify-center transition-colors shadow-sm"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container hover:bg-surface-variant text-primary font-label-sm text-label-sm font-semibold transition-colors border border-outline-variant/40"
+            title="Masuk ke Panel Pengelola Showroom"
           >
-            <span className="material-symbols-outlined text-on-primary text-[18px]">
-              person
+            <span className="material-symbols-outlined text-[16px]">
+              lock
             </span>
+            <span>Login Admin</span>
           </Link>
+
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
-            className="md:hidden w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center"
+            className="md:hidden w-9 h-9 rounded-lg bg-surface-container text-on-surface flex items-center justify-center border border-outline-variant/30"
             aria-label="Toggle Menu"
           >
             <span className="material-symbols-outlined text-[20px]">
@@ -80,31 +92,40 @@ export function PublicNavbar() {
         </div>
       </div>
 
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-primary border-t border-primary-container px-margin-mobile py-space-md flex flex-col gap-space-sm">
+        <div className="md:hidden bg-surface-container-lowest border-t border-outline-variant/30 px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-md">
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-on-primary py-2 px-3 rounded bg-primary-container"
+            className="font-label-md text-label-md text-on-surface py-2 px-3 rounded bg-surface-container"
           >
             Katalog Motor
           </Link>
           <a
-            href="#kontak-showroom"
+            href="/#katalog-unit"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-on-primary-container hover:text-on-primary py-2 px-3"
+            className="font-label-md text-label-md text-on-surface-variant hover:text-primary py-2 px-3"
+          >
+            Unit Tersedia
+          </a>
+          <a
+            href="/#kontak-showroom"
+            onClick={() => setMobileMenuOpen(false)}
+            className="font-label-md text-label-md text-on-surface-variant hover:text-primary py-2 px-3"
           >
             Kontak &amp; Lokasi Showroom
           </a>
           <Link
             href="/login"
             onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-primary-fixed py-2 px-3 flex items-center gap-1.5"
+            className="font-label-md text-label-md text-primary font-semibold py-2 px-3 rounded bg-secondary-container flex items-center justify-between mt-1"
           >
-            <span className="material-symbols-outlined text-[18px]">
-              login
-            </span>
-            <span>Login Admin Showroom</span>
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[18px]">lock</span>
+              <span>Login Admin Showroom</span>
+            </div>
+            <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
           </Link>
         </div>
       )}

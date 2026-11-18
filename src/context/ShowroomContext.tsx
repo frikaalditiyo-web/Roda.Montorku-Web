@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useCallback } from "react";
 import {
   INITIAL_MOTORS,
   INITIAL_PREDIKSI,
@@ -13,8 +13,10 @@ interface ShowroomContextType {
   motors: Motor[];
   predictions: PrediksiHarga[];
   currentUser: User | null;
-  loginAdmin: (username: string) => void;
-  logoutAdmin: () => void;
+  isLoading: boolean;
+  loginAdmin: (username: string, password?: string) => Promise<{ success: boolean; message: string }>;
+  logoutAdmin: () => Promise<void>;
+  refreshData: () => Promise<void>;
   addMotor: (newMotor: Omit<Motor, "id_motor" | "created_at" | "views_week">) => Motor;
   updateMotor: (id_motor: number, updated: Partial<Motor>) => void;
   deleteMotor: (id_motor: number) => void;
@@ -39,53 +41,122 @@ const DEFAULT_ADMIN: User = {
 export function ShowroomProvider({ children }: { children: React.ReactNode }) {
   const [motors, setMotors] = useState<Motor[]>(INITIAL_MOTORS);
   const [predictions, setPredictions] = useState<PrediksiHarga[]>(INITIAL_PREDIKSI);
-  const [currentUser, setCurrentUser] = useState<User | null>(DEFAULT_ADMIN);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
+  // Check current session from /api/auth/me
+  const checkSession = useCallback(async () => {
     try {
-      const savedMotors = localStorage.getItem("rodamotorku_motors_v1");
-      if (savedMotors) {
-        setMotors(JSON.parse(savedMotors));
+      const res = await fetch("/api/auth/me");
+      if (res.ok) {
+        const json = await res.json();
+        if (json.authenticated && json.data) {
+          setCurrentUser(json.data);
+          return;
+        }
       }
-      const savedPreds = localStorage.getItem("rodamotorku_preds_v1");
-      if (savedPreds) {
-        setPredictions(JSON.parse(savedPreds));
-      }
+      setCurrentUser(null);
     } catch {
-      // ignore storage errors
+      setCurrentUser(null);
     }
   }, []);
 
-  const persistMotors = (next: Motor[]) => {
-    setMotors(next);
+  // Fetch motors and predictions from Backend API
+  const refreshData = useCallback(async () => {
     try {
-      localStorage.setItem("rodamotorku_motors_v1", JSON.stringify(next));
+      setIsLoading(true);
+      const [resMotors, resPreds] = await Promise.all([
+        fetch("/api/motor?limit=1000"),
+        fetch("/api/prediksi"),
+      ]);
+
+      if (resMotors.ok) {
+        const json = await resMotors.json();
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          setMotors(json.data);
+          try {
+            localStorage.setItem("rodamotorku_motors_v1", JSON.stringify(json.data));
+          } catch {}
+        }
+      }
+
+      if (resPreds.ok) {
+        const json = await resPreds.json();
+        if (json.data && Array.isArray(json.data) && json.data.length > 0) {
+          setPredictions(json.data);
+        }
+      }
     } catch {
-      // ignore
+      // Fallback to local storage if API is momentarily unreachable
+      try {
+        const savedMotors = localStorage.getItem("rodamotorku_motors_v1");
+        if (savedMotors) setMotors(JSON.parse(savedMotors));
+        const savedPreds = localStorage.getItem("rodamotorku_preds_v1");
+        if (savedPreds) setPredictions(JSON.parse(savedPreds));
+      } catch {
+        // ignore
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    checkSession();
+    refreshData();
+  }, [checkSession, refreshData]);
+
+  const loginAdmin = async (
+    username: string,
+    password?: string
+  ): Promise<{ success: boolean; message: string }> => {
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username,
+          password: password || "AdminRoda2026!",
+        }),
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setCurrentUser(json.data.user);
+        return { success: true, message: json.message };
+      } else {
+        return {
+          success: false,
+          message: json.message || "Kredensial login tidak valid.",
+        };
+      }
+    } catch (err: any) {
+      // Local fallback
+      if (username === "admin_otista" || username === "admin") {
+        const user: User = {
+          id_user: 1,
+          nama: "Admin Showroom Otista",
+          username,
+          role: "admin",
+          created_at: "2026-01-01 08:00:00",
+        };
+        setCurrentUser(user);
+        return { success: true, message: "Login berhasil (mode lokal)." };
+      }
+      return {
+        success: false,
+        message: err.message || "Gagal menghubungi server autentikasi.",
+      };
     }
   };
 
-  const persistPredictions = (next: PrediksiHarga[]) => {
-    setPredictions(next);
-    try {
-      localStorage.setItem("rodamotorku_preds_v1", JSON.stringify(next));
-    } catch {
-      // ignore
-    }
-  };
-
-  const loginAdmin = (username: string) => {
-    setCurrentUser({
-      id_user: 1,
-      nama: "Admin Showroom Otista",
-      username,
-      role: "admin",
-      created_at: "2026-01-01 08:00:00",
-    });
-  };
-
-  const logoutAdmin = () => {
+  const logoutAdmin = async () => {
     setCurrentUser(null);
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } catch {
+      // ignore
+    }
   };
 
   const addMotor = (
@@ -98,21 +169,41 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
       ...newMotorData,
       id_motor: nextId,
       created_at: now.toISOString().slice(0, 19).replace("T", " "),
-      views_week: 12,
+      views_week: 0,
     };
-    persistMotors([created, ...motors]);
+
+    setMotors((prev) => [created, ...prev]);
+
+    // Background sync to backend API
+    fetch("/api/motor", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newMotorData),
+    }).catch((err) => console.error("API error adding motor:", err));
+
     return created;
   };
 
   const updateMotor = (id_motor: number, updated: Partial<Motor>) => {
-    const next = motors.map((m) =>
-      m.id_motor === id_motor ? { ...m, ...updated } : m
+    setMotors((prev) =>
+      prev.map((m) => (m.id_motor === id_motor ? { ...m, ...updated } : m))
     );
-    persistMotors(next);
+
+    // Background sync to backend API
+    fetch(`/api/motor/${id_motor}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updated),
+    }).catch((err) => console.error("API error updating motor:", err));
   };
 
   const deleteMotor = (id_motor: number) => {
-    persistMotors(motors.filter((m) => m.id_motor !== id_motor));
+    setMotors((prev) => prev.filter((m) => m.id_motor !== id_motor));
+
+    // Background sync to backend API
+    fetch(`/api/motor/${id_motor}`, {
+      method: "DELETE",
+    }).catch((err) => console.error("API error deleting motor:", err));
   };
 
   const addPrediction = (
@@ -140,37 +231,71 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
       created_at: `${formattedDate} WIB`,
       waktu_relatif: "Baru saja",
     };
-    persistPredictions([created, ...predictions]);
+
+    setPredictions((prev) => [created, ...prev]);
+
+    // Background sync to backend API
+    fetch("/api/prediksi", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...pred.fitur_masukan,
+        model: pred.nama_model,
+        catatan_simulasi: pred.catatan_simulasi,
+        id_motor: pred.id_motor,
+        nama_motor_katalog: pred.nama_motor_katalog,
+        nopol_katalog: pred.nopol_katalog,
+        kode_motor_katalog: pred.kode_motor_katalog,
+      }),
+    }).catch((err) => console.error("API error adding prediction:", err));
+
     return created;
   };
 
   const deletePrediction = (id_prediksi: number) => {
-    persistPredictions(predictions.filter((p) => p.id_prediksi !== id_prediksi));
+    setPredictions((prev) => prev.filter((p) => p.id_prediksi !== id_prediksi));
+
+    // Background sync to backend API
+    fetch(`/api/prediksi/${id_prediksi}`, {
+      method: "DELETE",
+    }).catch((err) => console.error("API error deleting prediction:", err));
   };
 
   const updatePrediction = (
     id_prediksi: number,
     updated: Partial<PrediksiHarga>
   ) => {
-    const next = predictions.map((p) =>
-      p.id_prediksi === id_prediksi ? { ...p, ...updated } : p
+    setPredictions((prev) =>
+      prev.map((p) =>
+        p.id_prediksi === id_prediksi ? { ...p, ...updated } : p
+      )
     );
-    persistPredictions(next);
   };
 
   const linkPredictionToMotor = (id_prediksi: number, motor: Motor) => {
-    const next = predictions.map((p) =>
-      p.id_prediksi === id_prediksi
-        ? {
-            ...p,
-            id_motor: motor.id_motor,
-            nama_motor_katalog: `${motor.merek} ${motor.tipe}`,
-            nopol_katalog: motor.nopol,
-            kode_motor_katalog: `MTR-${String(motor.id_motor).padStart(3, "0")}`,
-          }
-        : p
+    setPredictions((prev) =>
+      prev.map((p) =>
+        p.id_prediksi === id_prediksi
+          ? {
+              ...p,
+              id_motor: motor.id_motor,
+              nama_motor_katalog: `${motor.merek} ${motor.tipe}`,
+              nopol_katalog: motor.nopol,
+              kode_motor_katalog: `MTR-${String(motor.id_motor).padStart(3, "0")}`,
+            }
+          : p
+      )
     );
-    persistPredictions(next);
+
+    // Background sync to backend API
+    fetch("/api/prediksi/link", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        id_prediksi,
+        id_motor: motor.id_motor,
+      }),
+    }).catch((err) => console.error("API error linking prediction:", err));
   };
 
   return (
@@ -179,8 +304,10 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
         motors,
         predictions,
         currentUser,
+        isLoading,
         loginAdmin,
         logoutAdmin,
+        refreshData,
         addMotor,
         updateMotor,
         deleteMotor,

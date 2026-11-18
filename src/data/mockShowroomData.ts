@@ -1,3 +1,5 @@
+import { DATASET_187_MOTORS } from "./dataset187Motors";
+
 export interface User {
   id_user: number;
   nama: string;
@@ -121,7 +123,9 @@ export const MODEL_METRICS: ModelMetric[] = [
   },
 ];
 
-export const INITIAL_MOTORS: Motor[] = [
+export const INITIAL_MOTORS: Motor[] = DATASET_187_MOTORS;
+
+export const OLD_INITIAL_MOTORS: Motor[] = [
   {
     id_motor: 1,
     id_user: 1,

@@ -12,7 +12,7 @@ import {
 } from "@/data/mockShowroomData";
 
 export default function KelolaDataMotorPage() {
-  const { motors, addMotor, updateMotor, deleteMotor } = useShowroom();
+  const { motors, addMotor, updateMotor, deleteMotor, refreshData } = useShowroom();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [brandFilter, setBrandFilter] = useState("");
@@ -52,6 +52,57 @@ export default function KelolaDataMotorPage() {
   const [photos, setPhotos] = useState<FotoMotor[]>(motors[0]?.foto_motor || []);
   const [newPhotoUrl, setNewPhotoUrl] = useState("");
   const [newPhotoLabel, setNewPhotoLabel] = useState("Foto Tambahan");
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSeeding, setIsSeeding] = useState(false);
+
+  const handleSeedDataset = async () => {
+    if (!window.confirm("Apakah Anda yakin ingin mengimpor 187 unit motor dari dataset riil Capstone ke inventaris?")) {
+      return;
+    }
+    try {
+      setIsSeeding(true);
+      const res = await fetch("/api/motor/seed", { method: "POST" });
+      const json = await res.json();
+      if (res.ok && json.success) {
+        triggerToast(json.message);
+        await refreshData();
+      } else {
+        triggerToast(json.message || "Gagal mengimpor dataset.");
+      }
+    } catch (err: any) {
+      triggerToast("Error: " + err.message);
+    } finally {
+      setIsSeeding(false);
+    }
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const json = await res.json();
+      if (res.ok && json.success) {
+        setNewPhotoUrl(json.url);
+        triggerToast("Foto berhasil diunggah dari perangkat!");
+      } else {
+        triggerToast(json.message || "Gagal mengunggah foto.");
+      }
+    } catch (err: any) {
+      triggerToast("Error upload: " + err.message);
+    } finally {
+      setIsUploading(false);
+    }
+  };
 
   const triggerToast = (msg: string) => {
     setToastMessage(msg);
@@ -400,6 +451,18 @@ export default function KelolaDataMotorPage() {
               type="button"
             >
               <span>Ekspor CSV</span>
+            </button>
+            <button
+              onClick={handleSeedDataset}
+              disabled={isSeeding}
+              className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-DEFAULT bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed-variant font-label-md text-label-md transition-colors shadow-sm cursor-pointer disabled:opacity-50"
+              type="button"
+              title="Impor 187 data motor riil dari dataset Capstone ke basis data"
+            >
+              <span className="material-symbols-outlined text-[18px]">
+                dataset
+              </span>
+              <span>{isSeeding ? "Mengimpor..." : "Impor Dataset (187 Unit)"}</span>
             </button>
             <button
               onClick={() => window.print()}
@@ -1026,10 +1089,23 @@ export default function KelolaDataMotorPage() {
                   <input
                     value={newPhotoUrl}
                     onChange={(e) => setNewPhotoUrl(e.target.value)}
-                    placeholder="URL Gambar (Opsional)"
+                    placeholder="URL gambar atau unggah berkas dari perangkat..."
                     className="flex-1 px-3 py-2 bg-surface-container-lowest rounded-DEFAULT text-body-sm"
                     type="text"
                   />
+                  <label className="px-3 py-2 bg-surface-container hover:bg-surface-container-high text-on-surface rounded-DEFAULT font-label-sm text-label-sm font-semibold cursor-pointer flex items-center justify-center gap-1 border border-outline-variant/40 shrink-0">
+                    <span className="material-symbols-outlined text-[16px]">
+                      upload_file
+                    </span>
+                    <span>{isUploading ? "Mengunggah..." : "Pilih File"}</span>
+                    <input
+                      type="file"
+                      accept="image/png, image/jpeg, image/webp"
+                      className="hidden"
+                      onChange={handleFileUpload}
+                      disabled={isUploading}
+                    />
+                  </label>
                   <button
                     type="button"
                     onClick={handleAddCustomPhoto}
