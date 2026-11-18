@@ -43,7 +43,7 @@ export function PublicNavbar() {
             href="#kontak-showroom"
             className="font-label-md text-label-md text-on-primary-container hover:text-on-primary transition-colors px-space-sm py-space-xs"
           >
-            Lokasi & Kontak
+            Lokasi &amp; Kontak
           </a>
         </nav>
 
@@ -94,7 +94,7 @@ export function PublicNavbar() {
             onClick={() => setMobileMenuOpen(false)}
             className="font-label-md text-label-md text-on-primary-container hover:text-on-primary py-2 px-3"
           >
-            Kontak & Lokasi Showroom
+            Kontak &amp; Lokasi Showroom
           </a>
           <Link
             href="/login"

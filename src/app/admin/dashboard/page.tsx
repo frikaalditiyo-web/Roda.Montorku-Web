@@ -3,10 +3,13 @@
 import React from "react";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
-import { formatNumberID, formatRupiah } from "@/data/mockShowroomData";
+import { formatNumberID, formatRupiah, Motor } from "@/data/mockShowroomData";
 
 export default function AdminDashboardPage() {
   const { motors, predictions, deleteMotor } = useShowroom();
+
+  const [deletingMotor, setDeletingMotor] = React.useState<Motor | null>(null);
+  const [isDeleting, setIsDeleting] = React.useState(false);
 
   const totalUnits = motors.length;
   const availableUnits = motors.filter((m) => m.status === "Tersedia").length;
@@ -27,50 +30,27 @@ export default function AdminDashboardPage() {
       {/* Top Welcome & Operational Status Bar */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md mb-space-lg">
         <div className="flex flex-col">
-          <div className="flex items-center gap-space-xs mb-space-xs">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-DEFAULT bg-secondary-container text-on-primary-fixed-variant font-label-sm text-label-sm font-semibold tracking-wider">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-              KONSOL UTAMA SHOWROOM
-            </span>
-            <span className="text-outline-variant">•</span>
-            <span className="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px]">
-                calendar_today
-              </span>
-              Update Terkini: 2026
-            </span>
-          </div>
           <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
             Dashboard
           </h1>
           <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-            Selamat datang kembali,{" "}
-            <strong className="text-on-surface font-semibold">
-              Admin Showroom Otista
-            </strong>
-            . Pantau performa stok motor dan aktivitas estimasi harga Machine
-            Learning.
+            Ringkasan stok motor dan aktivitas estimasi harga showroom.
           </p>
         </div>
 
         {/* Quick Status Badge */}
-        <div className="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-2.5 rounded-xl shadow-sm self-start lg:self-auto">
-          <div className="w-2.5 h-2.5 rounded-full bg-tertiary-container ring-4 ring-tertiary-fixed"></div>
-          <div className="flex flex-col">
-            <span className="font-label-sm text-label-sm text-on-surface-variant">
-              Konektivitas Mesin Valuasi
-            </span>
-            <span className="font-label-md text-label-md text-primary font-semibold">
-              Database PostgreSQL &amp; API Flask Aktif
-            </span>
-          </div>
+        <div className="flex items-center gap-space-sm bg-surface-container-lowest px-space-md py-2 rounded-xl border border-outline-variant/60 shadow-sm self-start lg:self-auto">
+          <div className="w-2 h-2 rounded-full bg-tertiary-container ring-4 ring-tertiary-fixed"></div>
+          <span className="font-label-md text-label-md text-primary font-semibold">
+            Sistem Valuasi Aktif
+          </span>
         </div>
       </div>
 
       {/* 3 Summary Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-space-md mb-space-xl">
         {/* Card 1: Total Motor */}
-        <div className="bg-secondary-container/70 rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+        <div className="bg-surface-container-lowest rounded-xl p-space-lg flex flex-col justify-between border border-outline-variant/60 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute -right-4 -bottom-4 w-28 h-28 bg-primary/5 rounded-full pointer-events-none group-hover:scale-110 transition-transform"></div>
           <div className="flex items-center justify-between">
             <span className="font-label-md text-label-md text-on-primary-fixed-variant uppercase tracking-wider font-semibold">
@@ -88,31 +68,25 @@ export default function AdminDashboardPage() {
                 {totalUnits}
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                unit motor
+                unit
               </span>
             </div>
             <div className="mt-space-xs flex items-center gap-1 font-label-sm text-label-sm text-on-primary-fixed-variant">
-              <span className="material-symbols-outlined text-[15px] text-tertiary">
-                trending_up
-              </span>
               <span className="font-semibold text-tertiary">+3 unit</span>
-              <span className="text-on-surface-variant">
-                minggu ini di inventaris
-              </span>
+              <span className="text-on-surface-variant">minggu ini</span>
             </div>
           </div>
         </div>
 
         {/* Card 2: Motor Tersedia */}
-        <div className="bg-secondary-container/70 rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+        <div className="bg-surface-container-lowest rounded-xl p-space-lg flex flex-col justify-between border border-outline-variant/60 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute -right-4 -bottom-4 w-28 h-28 bg-tertiary/5 rounded-full pointer-events-none group-hover:scale-110 transition-transform"></div>
           <div className="flex items-center justify-between">
             <span className="font-label-md text-label-md text-on-primary-fixed-variant uppercase tracking-wider font-semibold">
               Motor Tersedia
             </span>
             <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
-              <span className="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
-              Ready Stok
+              Ready
             </span>
           </div>
           <div className="mt-space-md flex flex-col">
@@ -121,7 +95,7 @@ export default function AdminDashboardPage() {
                 {availableUnits}
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                unit motor siap jual
+                unit
               </span>
             </div>
             <div className="mt-space-xs flex items-center gap-2">
@@ -132,21 +106,21 @@ export default function AdminDashboardPage() {
                 ></div>
               </div>
               <span className="font-label-sm text-label-sm text-on-surface-variant font-medium">
-                {availablePct}% kapasitas display
+                {availablePct}% stok aktif
               </span>
             </div>
           </div>
         </div>
 
         {/* Card 3: Motor Terjual */}
-        <div className="bg-secondary-container/70 rounded-xl p-space-lg flex flex-col justify-between shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+        <div className="bg-surface-container-lowest rounded-xl p-space-lg flex flex-col justify-between border border-outline-variant/60 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
           <div className="absolute -right-4 -bottom-4 w-28 h-28 bg-primary/5 rounded-full pointer-events-none group-hover:scale-110 transition-transform"></div>
           <div className="flex items-center justify-between">
             <span className="font-label-md text-label-md text-on-primary-fixed-variant uppercase tracking-wider font-semibold">
               Motor Terjual
             </span>
             <span className="inline-flex items-center px-2.5 py-0.5 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed-variant font-label-sm text-label-sm font-bold">
-              Closed Deal
+              Terjual
             </span>
           </div>
           <div className="mt-space-md flex flex-col">
@@ -155,65 +129,43 @@ export default function AdminDashboardPage() {
                 {soldUnits}
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
-                unit laku
+                unit
               </span>
             </div>
             <div className="mt-space-xs flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-              <span className="material-symbols-outlined text-[15px] text-primary">
-                sell
-              </span>
-              <span>Performa berjalan: </span>
-              <span className="font-semibold text-on-surface">Tahun 2026</span>
+              <span>Tahun 2026</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Quick Action & Model Health Banner */}
-      <div className="bg-surface-container-lowest rounded-xl p-space-lg mb-space-xl shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+      <div className="bg-surface-container-lowest rounded-xl p-space-lg mb-space-xl border border-outline-variant/60 shadow-sm flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
         <div className="flex flex-col sm:flex-row sm:items-center gap-space-md">
           <Link
-            className="inline-flex items-center justify-center gap-space-xs px-space-lg py-2.5 bg-primary text-on-primary font-label-md text-label-md font-semibold rounded-DEFAULT hover:bg-primary-container transition-colors shadow-sm"
+            className="inline-flex items-center justify-center px-space-lg py-2.5 bg-primary text-on-primary font-label-md text-label-md font-semibold rounded-DEFAULT hover:bg-primary-container transition-colors shadow-sm"
             href="/admin/data-motor"
           >
-            <span className="material-symbols-outlined text-[18px]">
-              add_circle
-            </span>
-            <span>+ Tambah Unit Motor Baru</span>
+            <span>Tambah Unit Motor</span>
           </Link>
           <Link
-            className="inline-flex items-center justify-center gap-space-xs px-space-lg py-2.5 bg-secondary-container text-primary font-label-md text-label-md font-semibold rounded-DEFAULT hover:bg-secondary-fixed transition-colors"
+            className="inline-flex items-center justify-center px-space-lg py-2.5 bg-secondary-container text-primary font-label-md text-label-md font-semibold rounded-DEFAULT hover:bg-secondary-fixed transition-colors"
             href="/admin/estimasi"
           >
-            <span className="material-symbols-outlined text-[18px] text-primary">
-              bolt
-            </span>
-            <span>⚡ Cek Estimasi Harga ML</span>
+            <span>Cek Estimasi Harga</span>
           </Link>
         </div>
 
         {/* ML Performance Indicator Badge */}
-        <div className="flex items-center gap-space-md pt-space-xs lg:pt-0">
-          <div className="flex items-center gap-space-xs">
-            <div className="w-8 h-8 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed-variant">
-              <span className="material-symbols-outlined text-[18px]">
-                precision_manufacturing
-              </span>
-            </div>
-            <div className="flex flex-col">
-              <div className="flex items-center gap-1.5">
-                <span className="font-label-sm text-label-sm text-on-surface-variant">
-                  Engine ML Otista
-                </span>
-                <span className="text-outline-variant">•</span>
-                <span className="font-label-sm text-label-sm font-bold text-tertiary-container">
-                  R² Score 94.6%
-                </span>
-              </div>
-              <span className="font-body-sm text-body-sm text-on-surface-variant">
-                Random Forest Regressor (Best of 3 Models: LR, DT, RF)
-              </span>
-            </div>
+        <div className="flex items-center gap-space-xs pt-space-xs lg:pt-0">
+          <div className="flex items-center gap-1.5">
+            <span className="font-label-sm text-label-sm text-on-surface-variant">
+              Model Random Forest
+            </span>
+            <span className="text-outline-variant">•</span>
+            <span className="font-label-sm text-label-sm font-bold text-tertiary-container">
+              Akurasi R² 94.6%
+            </span>
           </div>
         </div>
       </div>
@@ -221,41 +173,37 @@ export default function AdminDashboardPage() {
       {/* Main Content Grid: Recent Motors Table + Sidebar ML History */}
       <div className="grid grid-cols-1 xl:grid-cols-12 gap-space-xl items-start">
         {/* Left 8 Cols: Data Motor Terbaru Table */}
-        <div className="xl:col-span-8 flex flex-col bg-surface-container-lowest rounded-xl shadow-sm overflow-hidden">
-          <div className="px-space-lg py-space-md flex items-center justify-between bg-surface-container-lowest">
-            <div className="flex items-center gap-space-xs">
-              <span className="material-symbols-outlined text-primary text-[22px]">
-                inventory_2
-              </span>
-              <h2 className="font-headline-sm text-headline-sm text-primary font-bold">
-                Data motor terbaru
-              </h2>
-            </div>
+        <div className="xl:col-span-8 flex flex-col bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden">
+          <div className="px-space-lg py-space-md flex items-center justify-between bg-surface-container-lowest border-b border-outline-variant/40">
+            <h2 className="font-headline-sm text-headline-sm text-primary font-bold">
+              Data motor terbaru
+            </h2>
             <Link
               className="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md font-semibold transition-colors"
               href="/admin/data-motor"
             >
               <span>Lihat Semua ({totalUnits})</span>
-              <span className="material-symbols-outlined text-[16px]">
-                arrow_forward
-              </span>
             </Link>
           </div>
 
           <div className="w-full overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-surface-container-low text-on-surface-variant font-label-md text-label-md uppercase tracking-wider">
-                  <th className="py-3 px-space-lg font-bold">Merek / Tipe</th>
-                  <th className="py-3 px-space-md font-bold">Tahun</th>
-                  <th className="py-3 px-space-md font-bold">Harga Jual</th>
-                  <th className="py-3 px-space-md font-bold">Status</th>
-                  <th className="py-3 px-space-lg font-bold text-right">
+                <tr className="bg-primary text-on-primary text-[12px] uppercase tracking-wider">
+                  <th className="py-3 px-space-lg font-semibold">
+                    Merek / Tipe
+                  </th>
+                  <th className="py-3 px-space-md font-semibold">Tahun</th>
+                  <th className="py-3 px-space-md font-semibold">
+                    Harga Jual
+                  </th>
+                  <th className="py-3 px-space-md font-semibold">Status</th>
+                  <th className="py-3 px-space-lg font-semibold text-right">
                     Aksi
                   </th>
                 </tr>
               </thead>
-              <tbody className="font-body-md text-body-md divide-y-0">
+              <tbody className="text-[13px] divide-y divide-outline-variant/30 bg-surface-container-lowest">
                 {recentMotors.map((motor) => {
                   const thumb =
                     motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
@@ -267,49 +215,47 @@ export default function AdminDashboardPage() {
                       key={motor.id_motor}
                       className="hover:bg-surface-container-low/70 transition-colors group"
                     >
-                      <td className="py-3 px-space-lg">
+                      <td className="py-2.5 px-space-lg">
                         <div className="flex items-center gap-space-sm">
                           <img
                             alt={`${motor.merek} ${motor.tipe}`}
-                            className="w-12 h-9 object-cover rounded-DEFAULT bg-surface-container shadow-xs shrink-0"
+                            className="w-11 h-8 object-cover rounded-DEFAULT bg-surface-container shadow-xs shrink-0"
                             src={thumb}
                           />
                           <div className="flex flex-col min-w-0">
                             <Link
                               href={`/katalog/${motor.id_motor}`}
-                              className="font-label-md text-label-md font-bold text-on-surface group-hover:text-primary transition-colors truncate"
+                              className="text-[13px] font-semibold text-on-surface group-hover:text-primary transition-colors truncate"
                             >
                               {motor.merek} {motor.tipe}
                             </Link>
-                            <span className="font-label-sm text-label-sm text-on-surface-variant font-mono">
-                              {motor.nopol} • Odo{" "}
+                            <span className="text-[11px] text-on-surface-variant">
+                              {motor.nopol} •{" "}
                               {formatNumberID(motor.kilometer)} km
                             </span>
                           </div>
                         </div>
                       </td>
-                      <td className="py-3 px-space-md font-medium text-on-surface">
+                      <td className="py-2.5 px-space-md text-on-surface tabular-nums">
                         {motor.tahun}
                       </td>
-                      <td className="py-3 px-space-md">
-                        <span className="font-currency-stat text-currency-stat text-primary font-bold tabular-nums">
+                      <td className="py-2.5 px-space-md">
+                        <span className="text-[13px] text-primary font-semibold tabular-nums">
                           {formatRupiah(motor.harga_jual)}
                         </span>
                       </td>
-                      <td className="py-3 px-space-md">
+                      <td className="py-2.5 px-space-md">
                         {isAvailable ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed-variant text-[11px] font-semibold">
                             Tersedia
                           </span>
                         ) : (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-surface-variant text-on-surface-variant text-[11px] font-semibold">
                             Terjual
                           </span>
                         )}
                       </td>
-                      <td className="py-3 px-space-lg text-right font-label-md text-label-md whitespace-nowrap">
+                      <td className="py-2.5 px-space-lg text-right text-[12px] whitespace-nowrap">
                         <Link
                           href="/admin/data-motor"
                           className="text-primary hover:text-primary-container font-semibold transition-colors"
@@ -319,7 +265,7 @@ export default function AdminDashboardPage() {
                         <span className="text-outline-variant mx-1.5">|</span>
                         <button
                           type="button"
-                          onClick={() => deleteMotor(motor.id_motor)}
+                          onClick={() => setDeletingMotor(motor)}
                           className="text-on-surface-variant hover:text-error transition-colors cursor-pointer"
                         >
                           Hapus
@@ -332,69 +278,44 @@ export default function AdminDashboardPage() {
             </table>
           </div>
 
-          <div className="px-space-lg py-3 bg-surface-container-low/50 flex flex-col sm:flex-row items-center justify-between gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
+          <div className="px-space-lg py-2.5 bg-surface-container-low/50 border-t border-outline-variant/40 flex items-center justify-between text-[12px] text-on-surface-variant">
             <span>
-              Menampilkan {recentMotors.length} dari total {totalUnits}{" "}
-              inventaris showroom aktif
+              Menampilkan {recentMotors.length} dari {totalUnits} unit
             </span>
-            <div className="flex items-center gap-space-xs font-label-sm text-label-sm">
-              <span className="w-2 h-2 rounded-full bg-tertiary"></span>
-              <span>Status filter: Semua Unit</span>
-            </div>
           </div>
         </div>
 
         {/* Right 4 Cols: Riwayat Prediksi ML Terakhir + Visual Card */}
         <div className="xl:col-span-4 flex flex-col gap-space-md">
-          <div className="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col">
-            <div className="flex items-center justify-between pb-space-sm mb-space-sm">
-              <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-primary text-[20px]">
-                  history_edu
-                </span>
-                <h3 className="font-headline-sm text-headline-sm text-primary font-bold">
-                  Riwayat Prediksi ML
-                </h3>
-              </div>
-              <span className="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-primary/10 text-primary font-label-sm text-label-sm font-bold">
-                POST /predict
-              </span>
+          <div className="bg-surface-container-lowest rounded-xl p-space-lg border border-outline-variant/60 shadow-sm flex flex-col">
+            <div className="pb-space-sm mb-space-xs border-b border-outline-variant/30">
+              <h3 className="font-headline-sm text-headline-sm text-primary font-bold">
+                Riwayat Prediksi ML
+              </h3>
             </div>
-            <p className="font-body-sm text-body-sm text-on-surface-variant mb-space-md">
-              Aktivitas inferensi terkini oleh kalkulator valuasi harga motor
-              bekas:
-            </p>
 
-            <div className="flex flex-col gap-space-sm">
+            <div className="flex flex-col gap-space-sm mt-space-sm">
               {recentPredictions.map((pred) => (
                 <div
                   key={pred.id_prediksi}
-                  className="p-space-sm bg-surface-container-low rounded-DEFAULT flex flex-col gap-1 hover:bg-surface-container transition-colors"
+                  className="p-space-sm bg-surface-container-low/70 rounded-lg border border-outline-variant/40 flex flex-col gap-1 hover:bg-surface-container transition-colors shadow-xs"
                 >
                   <div className="flex items-start justify-between gap-space-xs">
-                    <span className="font-label-md text-label-md font-semibold text-on-surface truncate">
+                    <span className="text-[13px] font-semibold text-on-surface truncate">
                       {pred.nama_motor_katalog ||
                         `${pred.fitur_masukan.merek} (${pred.fitur_masukan.tahun})`}
                     </span>
-                    <span className="font-label-sm text-label-sm text-on-surface-variant whitespace-nowrap">
+                    <span className="text-[11px] text-on-surface-variant whitespace-nowrap">
                       {pred.waktu_relatif}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="font-body-sm text-body-sm text-on-surface-variant">
-                      Odo {formatNumberID(pred.fitur_masukan.kilometer)} km •{" "}
+                    <span className="text-[12px] text-on-surface-variant">
+                      {formatNumberID(pred.fitur_masukan.kilometer)} km •{" "}
                       {pred.fitur_masukan.kondisi_mesin}
                     </span>
-                    <span className="font-label-md text-label-md font-bold text-primary tabular-nums">
+                    <span className="text-[13px] font-semibold text-primary tabular-nums">
                       {formatRupiah(pred.harga_estimasi)}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1 font-label-sm text-label-sm text-tertiary font-medium">
-                    <span className="material-symbols-outlined text-[14px]">
-                      verified
-                    </span>
-                    <span>
-                      {pred.nama_model} (R² {pred.akurasi_r2}%)
                     </span>
                   </div>
                 </div>
@@ -405,32 +326,25 @@ export default function AdminDashboardPage() {
               className="mt-space-md py-2 text-center text-primary font-label-md text-label-md font-semibold bg-secondary-container hover:bg-secondary-fixed rounded-DEFAULT transition-colors"
               href="/admin/riwayat-estimasi"
             >
-              Buka Riwayat Valuasi Lengkap
+              Lihat Semua Riwayat
             </Link>
           </div>
 
           {/* Quick Showroom Insight Card */}
-          <div className="bg-primary text-on-primary rounded-xl p-space-lg shadow-sm relative overflow-hidden">
+          <div className="bg-primary text-on-primary rounded-xl p-space-lg border border-primary-container shadow-sm relative overflow-hidden">
             <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-primary-fixed/10 rounded-full pointer-events-none"></div>
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-sm text-label-sm text-primary-fixed-dim uppercase tracking-wider font-semibold">
-                Statistik Valuasi Showroom
-              </span>
-              <span className="material-symbols-outlined text-primary-fixed-dim text-[18px]">
-                analytics
+                Total Valuasi Stok
               </span>
             </div>
-            <div className="font-headline-sm text-headline-sm font-bold text-on-primary mb-space-xs tabular-nums">
+            <div className="font-headline-sm text-headline-sm font-bold text-on-primary mb-space-sm tabular-nums">
               {formatRupiah(totalInventoryValue)}
             </div>
-            <p className="font-body-sm text-body-sm text-primary-fixed-dim mb-space-md">
-              Total nilai pasar dari {totalUnits} unit motor yang terdaftar di
-              basis data showroom Roda.Motorku.
-            </p>
             <div className="flex flex-col gap-1.5 pt-space-xs">
               <div className="flex justify-between font-label-sm text-label-sm">
                 <span className="text-primary-fixed-dim">
-                  Ketersediaan Stok Aktif ({availableUnits}/{totalUnits})
+                  Stok Tersedia ({availableUnits}/{totalUnits})
                 </span>
                 <span className="font-bold text-on-primary">
                   {availablePct}%
@@ -446,6 +360,76 @@ export default function AdminDashboardPage() {
           </div>
         </div>
       </div>
+
+      {/* Delete Motor Confirmation Modal */}
+      {deletingMotor && (
+        <div className="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-200 animate-in fade-in">
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-2xl p-6 max-w-sm w-full flex flex-col gap-4 text-left animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-error/15 text-error flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[22px]">
+                  delete
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                  Hapus Unit Motor
+                </h3>
+                <span className="text-[12px] text-on-surface-variant font-medium">
+                  {deletingMotor.nopol}
+                </span>
+              </div>
+            </div>
+
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Apakah Anda yakin ingin menghapus unit{" "}
+              <strong className="text-primary">
+                {deletingMotor.merek} {deletingMotor.tipe} ({deletingMotor.tahun})
+              </strong>{" "}
+              dari sistem inventaris?
+            </p>
+
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-outline-variant/30">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setDeletingMotor(null)}
+                className="px-4 py-2 rounded-xl text-primary font-label-md text-label-md font-semibold bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer disabled:opacity-60"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => {
+                  if (!deletingMotor) return;
+                  setIsDeleting(true);
+                  setTimeout(() => {
+                    deleteMotor(deletingMotor.id_motor);
+                    setIsDeleting(false);
+                    setDeletingMotor(null);
+                  }, 400);
+                }}
+                className="px-4 py-2 rounded-xl bg-error hover:bg-error/90 text-on-error font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer disabled:opacity-60"
+              >
+                {isDeleting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-on-error/30 border-t-on-error rounded-full animate-spin"></span>
+                    <span>Menghapus...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined text-[18px]">
+                      delete
+                    </span>
+                    <span>Ya, Hapus</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

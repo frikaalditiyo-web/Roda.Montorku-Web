@@ -15,6 +15,7 @@ export default function KatalogMotorPage() {
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [navigatingMotorId, setNavigatingMotorId] = useState<number | null>(null);
 
   const itemsPerPage = 6;
 
@@ -52,7 +53,10 @@ export default function KatalogMotorPage() {
     });
   }, [motors, searchQuery, selectedBrand, selectedYear, selectedPriceRange]);
 
-  const totalPages = Math.max(1, Math.ceil(filteredMotors.length / itemsPerPage));
+  const totalPages = Math.max(
+    1,
+    Math.ceil(filteredMotors.length / itemsPerPage)
+  );
   const paginatedMotors = filteredMotors.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -80,22 +84,33 @@ export default function KatalogMotorPage() {
         <div className="flex flex-col w-full">
           <div className="max-w-7xl mx-auto w-full px-margin-mobile md:px-margin py-space-lg flex flex-col gap-space-lg">
             {/* Hero Banner */}
-            <div className="w-full bg-secondary-container rounded-xl p-6 md:p-8 flex flex-col items-center justify-center text-center shadow-sm gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 text-primary font-label-sm text-label-sm uppercase tracking-wider shadow-xs">
-                <span className="w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
-                E-Katalog Resmi Showroom UMKM Roda.Motorku
-              </span>
-              <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary-container font-bold tracking-tight">
-                Temukan motor bekas berkualitas dengan informasi lengkap
-              </h1>
-              <p className="font-body-md text-body-md text-on-secondary-container max-w-2xl">
-                Seluruh unit telah terinspeksi 120+ titik kelayakan mesin, surat
-                STNK &amp; BPKB terverifikasi, serta harga transparan berbasis
-                evaluasi pasar Machine Learning.
-              </p>
+            <div className="relative w-full rounded-2xl overflow-hidden shadow-sm border border-outline-variant/60">
+              {/* Background Image */}
+              <img
+                src="/backround.jpg"
+                alt="Background Roda.Motorku"
+                className="absolute inset-0 w-full h-full object-cover object-center"
+              />
+              {/* Dark Blue Overlay for Legibility & Brand Consistency */}
+              <div className="absolute inset-0 bg-primary/75 md:bg-primary/70 backdrop-blur-[1px]"></div>
+
+              {/* Banner Content */}
+              <div className="relative z-10 p-6 md:p-10 flex flex-col items-center justify-center text-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider shadow-sm">
+                  <span className="w-2 h-2 rounded-full bg-primary"></span>
+                  Katalog Resmi Roda.Motorku
+                </span>
+                <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary font-bold tracking-tight drop-shadow-xs">
+                  Pilihan Motor Bekas Berkualitas &amp; Bergaransi
+                </h1>
+                <p className="font-body-md text-body-md text-on-primary/95 max-w-xl drop-shadow-xs">
+                  Unit terinspeksi menyeluruh, dokumen lengkap, dan harga
+                  transparan.
+                </p>
+              </div>
             </div>
 
-            {/* Baris Pencarian & Filter (Single Row Sejajar sesuai Desain) */}
+            {/* Baris Pencarian & Filter */}
             <div
               id="katalog-unit"
               className="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm"
@@ -119,7 +134,7 @@ export default function KatalogMotorPage() {
                       setCurrentPage(1);
                     }}
                     className="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all"
-                    placeholder="Cari merek / tipe motor / plat domisili..."
+                    placeholder="Cari merek atau tipe motor..."
                     type="text"
                   />
                 </div>
@@ -225,12 +240,8 @@ export default function KatalogMotorPage() {
                 <span className="font-semibold text-on-surface">
                   {filteredMotors.length}
                 </span>{" "}
-                unit motor sesuai filter (Total {motors.length} unit terdaftar)
+                unit motor
               </p>
-              <div className="hidden sm:flex items-center gap-space-xs text-secondary font-label-sm text-label-sm">
-                <span className="w-2 h-2 rounded-full bg-on-tertiary-container inline-block"></span>
-                <span>Semua Unit Telah Lolos Cek Fisik &amp; Dokumen</span>
-              </div>
             </div>
 
             {/* Grid Daftar Motor (3 Kolom Desktop) */}
@@ -242,10 +253,6 @@ export default function KatalogMotorPage() {
                 <h2 className="font-headline-sm text-headline-sm text-primary font-bold">
                   Unit Motor Tidak Ditemukan
                 </h2>
-                <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
-                  Tidak ada motor yang cocok dengan kriteria pencarian atau
-                  filter Anda. Silakan ubah kata kunci atau reset filter.
-                </p>
                 <button
                   type="button"
                   onClick={handleResetFilters}
@@ -293,13 +300,10 @@ export default function KatalogMotorPage() {
                               {motor.status}
                             </span>
                           </div>
-                          <div className="absolute bottom-3 right-3 px-2 py-0.5 rounded bg-inverse-surface/80 text-inverse-on-surface font-label-sm text-label-sm">
-                            {motor.domisili_samsat}
-                          </div>
                         </div>
 
                         {/* Konten Info */}
-                        <div className="p-5 flex flex-col gap-1.5">
+                        <div className="p-5 flex flex-col gap-1">
                           <h2 className="font-headline-sm text-headline-sm text-on-surface font-bold truncate">
                             {motor.merek} {motor.tipe}
                           </h2>
@@ -307,32 +311,27 @@ export default function KatalogMotorPage() {
                             {motor.tahun} · {formatNumberID(motor.kilometer)} km
                             · {motor.cc} cc
                           </p>
-                          <div className="flex items-center gap-1.5 mt-1 text-on-surface-variant font-label-sm text-label-sm">
-                            <span className="px-2 py-0.5 rounded bg-surface-container-low">
-                              Mesin: {motor.kondisi_mesin}
-                            </span>
-                            <span className="px-2 py-0.5 rounded bg-surface-container-low truncate">
-                              {motor.kelengkapan_dokumen.split("(")[0].trim()}
-                            </span>
-                          </div>
                         </div>
                       </div>
 
                       {/* Footer Kartu: Harga & Aksi */}
-                      <div className="p-5 pt-0 mt-2 flex items-center justify-between gap-3">
-                        <div className="flex flex-col">
-                          <span className="font-label-sm text-label-sm text-secondary uppercase">
-                            Harga Tunai
-                          </span>
-                          <span className="font-currency-stat text-currency-stat text-primary-container font-bold tabular-nums">
-                            {formatRupiah(motor.harga_jual)}
-                          </span>
-                        </div>
+                      <div className="p-5 pt-0 mt-1 flex items-center justify-between gap-3">
+                        <span className="font-currency-stat text-currency-stat text-primary-container font-bold tabular-nums">
+                          {formatRupiah(motor.harga_jual)}
+                        </span>
                         <Link
                           href={`/katalog/${motor.id_motor}`}
-                          className="px-5 py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm transition-colors text-center cursor-pointer inline-flex items-center justify-center"
+                          onClick={() => setNavigatingMotorId(motor.id_motor)}
+                          className="px-5 py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm transition-all text-center cursor-pointer inline-flex items-center justify-center gap-1.5"
                         >
-                          Detail
+                          {navigatingMotorId === motor.id_motor ? (
+                            <>
+                              <span className="w-3.5 h-3.5 border-2 border-on-primary/30 border-t-on-primary rounded-full animate-spin"></span>
+                              <span>Memuat...</span>
+                            </>
+                          ) : (
+                            <span>Detail</span>
+                          )}
                         </Link>
                       </div>
                     </div>
@@ -344,8 +343,7 @@ export default function KatalogMotorPage() {
             {/* Pagination & Navigasi Halaman */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-space-md pb-space-lg">
               <span className="font-body-sm text-body-sm text-secondary">
-                Halaman {currentPage} dari {totalPages} (Total{" "}
-                {filteredMotors.length} Unit Ditampilkan)
+                Halaman {currentPage} dari {totalPages}
               </span>
               <div className="flex items-center gap-2">
                 <button

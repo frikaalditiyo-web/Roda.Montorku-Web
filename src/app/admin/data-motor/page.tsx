@@ -23,6 +23,12 @@ export default function KelolaDataMotorPage() {
   const [editingMotorId, setEditingMotorId] = useState<number | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
+  // Transitions & Loading States
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [deletingMotor, setDeletingMotor] = useState<Motor | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   // Modal Form State (Tabel `motor` & `foto_motor`)
   const [merek, setMerek] = useState<Motor["merek"]>("Honda");
   const [tipe, setTipe] = useState("Vario 160 CBS");
@@ -156,50 +162,75 @@ export default function KelolaDataMotorPage() {
       .toUpperCase()
       .slice(0, 5)}-JKT`;
 
-    if (editingMotorId !== null) {
-      updateMotor(editingMotorId, {
-        merek,
-        tipe,
-        nopol,
-        tahun,
-        cc,
-        kilometer,
-        domisili_samsat: domisiliSamsat,
-        kondisi_mesin: kondisiMesin,
-        kelengkapan_dokumen: kelengkapanDokumen,
-        harga_beli: hargaBeli,
-        harga_jual: hargaJual,
-        status,
-        deskripsi,
-        foto_motor: photos,
-      });
-      triggerToast(`Data motor ${merek} ${tipe} berhasil diperbarui!`);
-    } else {
-      addMotor({
-        id_user: 1,
-        sku: skuCode,
-        nopol,
-        merek,
-        tipe,
-        tahun,
-        cc,
-        kilometer,
-        kondisi_mesin: kondisiMesin,
-        kelengkapan_dokumen: kelengkapanDokumen,
-        domisili_samsat: domisiliSamsat,
-        pajak_info: "Pajak hidup s/d Oktober 2026",
-        harga_beli: hargaBeli,
-        harga_jual: hargaJual,
-        harga_pasar_coret: Math.round((hargaJual * 1.05) / 50000) * 50000,
-        deskripsi,
-        status,
-        foto_motor: photos,
-      });
+    setIsSaving(true);
+
+    setTimeout(() => {
+      if (editingMotorId !== null) {
+        updateMotor(editingMotorId, {
+          merek,
+          tipe,
+          nopol,
+          tahun,
+          cc,
+          kilometer,
+          domisili_samsat: domisiliSamsat,
+          kondisi_mesin: kondisiMesin,
+          kelengkapan_dokumen: kelengkapanDokumen,
+          harga_beli: hargaBeli,
+          harga_jual: hargaJual,
+          status,
+          deskripsi,
+          foto_motor: photos,
+        });
+      } else {
+        addMotor({
+          id_user: 1,
+          sku: skuCode,
+          nopol,
+          merek,
+          tipe,
+          tahun,
+          cc,
+          kilometer,
+          kondisi_mesin: kondisiMesin,
+          kelengkapan_dokumen: kelengkapanDokumen,
+          domisili_samsat: domisiliSamsat,
+          pajak_info: "Pajak hidup s/d Oktober 2026",
+          harga_beli: hargaBeli,
+          harga_jual: hargaJual,
+          harga_pasar_coret: Math.round((hargaJual * 1.05) / 50000) * 50000,
+          deskripsi,
+          status,
+          foto_motor: photos,
+        });
+      }
+
+      setIsSaving(false);
+      setSaveSuccess(true);
+
+      setTimeout(() => {
+        setSaveSuccess(false);
+        setIsModalOpen(false);
+        triggerToast(
+          editingMotorId !== null
+            ? `Data motor ${merek} ${tipe} berhasil diperbarui!`
+            : `Unit baru ${merek} ${tipe} berhasil disimpan ke katalog!`
+        );
+      }, 700);
+    }, 450);
+  };
+
+  const handleConfirmDelete = () => {
+    if (!deletingMotor) return;
+    setIsDeleting(true);
+    setTimeout(() => {
+      deleteMotor(deletingMotor.id_motor);
       triggerToast(
-        `Unit baru ${merek} ${tipe} berhasil disimpan ke katalog & database!`
+        `Unit ${deletingMotor.merek} ${deletingMotor.tipe} berhasil dihapus dari inventaris.`
       );
-    }
-    setIsModalOpen(false);
+      setIsDeleting(false);
+      setDeletingMotor(null);
+    }, 400);
   };
 
   const handleExportCSV = () => {
@@ -286,48 +317,39 @@ export default function KelolaDataMotorPage() {
 
       {/* Top Stats & Metric Overview */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-space-md mb-space-lg">
-        <div className="bg-surface-container-lowest p-space-md rounded-DEFAULT shadow-sm flex items-center justify-between">
+        <div className="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm flex items-center justify-between">
           <div className="flex flex-col">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-              Total Unit Terdata
+              Total Unit
             </span>
             <span className="font-headline-md text-headline-md text-on-surface mt-space-xs font-bold tabular-nums">
               {totalUnits} Unit
             </span>
-            <span className="font-body-sm text-body-sm text-on-tertiary-container flex items-center gap-1 mt-0.5">
-              <span className="material-symbols-outlined text-[16px]">
-                arrow_upward
-              </span>{" "}
-              Sinkron Tabel motor
-            </span>
           </div>
-          <div className="w-12 h-12 rounded-DEFAULT bg-primary-container/10 text-primary-container flex items-center justify-center">
-            <span className="material-symbols-outlined text-[26px]">
+          <div className="w-11 h-11 rounded-DEFAULT bg-primary-container/10 text-primary-container flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">
               garage
             </span>
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest p-space-md rounded-DEFAULT shadow-sm flex items-center justify-between">
+        <div className="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm flex items-center justify-between">
           <div className="flex flex-col">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-              Stok Tersedia (Ready)
+              Stok Tersedia
             </span>
             <span className="font-headline-md text-headline-md text-primary mt-space-xs font-bold tabular-nums">
               {readyUnits} Unit
             </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-              Tayang di katalog publik
-            </span>
           </div>
-          <div className="w-12 h-12 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center justify-center">
-            <span className="material-symbols-outlined text-[26px]">
+          <div className="w-11 h-11 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">
               check_circle
             </span>
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest p-space-md rounded-DEFAULT shadow-sm flex items-center justify-between">
+        <div className="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm flex items-center justify-between">
           <div className="flex flex-col">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
               Unit Terjual
@@ -335,31 +357,25 @@ export default function KelolaDataMotorPage() {
             <span className="font-headline-md text-headline-md text-secondary mt-space-xs font-bold tabular-nums">
               {soldUnits} Unit
             </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-              Data historis showroom
-            </span>
           </div>
-          <div className="w-12 h-12 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
-            <span className="material-symbols-outlined text-[26px]">
+          <div className="w-11 h-11 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">
               shopping_bag
             </span>
           </div>
         </div>
 
-        <div className="bg-surface-container-lowest p-space-md rounded-DEFAULT shadow-sm flex items-center justify-between">
+        <div className="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm flex items-center justify-between">
           <div className="flex flex-col">
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
-              Total Nilai Inventaris
+              Nilai Inventaris
             </span>
             <span className="font-headline-md text-headline-md text-on-surface mt-space-xs font-bold tabular-nums">
               Rp {(totalValue / 1000000).toFixed(1)} Jt
             </span>
-            <span className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-              Estimasi Margin ~18.5%
-            </span>
           </div>
-          <div className="w-12 h-12 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
-            <span className="material-symbols-outlined text-[26px]">
+          <div className="w-11 h-11 rounded-DEFAULT bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+            <span className="material-symbols-outlined text-[24px]">
               account_balance_wallet
             </span>
           </div>
@@ -367,52 +383,37 @@ export default function KelolaDataMotorPage() {
       </div>
 
       {/* Header Section & Operational Controls */}
-      <div className="bg-surface-container-lowest p-space-lg rounded-DEFAULT shadow-sm mb-space-lg">
+      <div className="bg-surface-container-lowest p-space-lg rounded-xl border border-outline-variant/60 shadow-sm mb-space-lg">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-md">
           <div className="flex flex-col">
-            <div className="flex items-center gap-space-xs">
-              <span className="material-symbols-outlined text-primary text-[28px]">
-                sports_motorsports
-              </span>
-              <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
-                Kelola Data Motor
-              </h1>
-            </div>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-3xl">
-              Manajemen inventaris unit showroom, spesifikasi teknis, harga beli
-              &amp; jual, serta berkas foto fisik motor showroom Roda.Motorku.
+            <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
+              Kelola Data Motor
+            </h1>
+            <p className="font-body-md text-body-md text-on-surface-variant mt-space-xs">
+              Manajemen stok unit, spesifikasi, dan harga motor showroom.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-space-sm shrink-0">
             <button
               onClick={handleExportCSV}
-              className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors shadow-sm cursor-pointer"
+              className="inline-flex items-center px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors shadow-sm cursor-pointer"
               type="button"
             >
-              <span className="material-symbols-outlined text-[18px]">
-                download
-              </span>
               <span>Ekspor CSV</span>
             </button>
             <button
               onClick={() => window.print()}
-              className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors shadow-sm cursor-pointer"
+              className="inline-flex items-center px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md transition-colors shadow-sm cursor-pointer"
               type="button"
             >
-              <span className="material-symbols-outlined text-[18px]">
-                print
-              </span>
-              <span>Cetak Katalog</span>
+              <span>Cetak</span>
             </button>
             <button
               onClick={openAddModal}
-              className="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-DEFAULT bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md font-semibold transition-all shadow-md cursor-pointer"
+              className="inline-flex items-center px-space-lg py-2.5 rounded-DEFAULT bg-primary-container text-on-primary hover:bg-primary font-label-md text-label-md font-semibold transition-all shadow-md cursor-pointer"
               type="button"
             >
-              <span className="material-symbols-outlined text-[20px]">
-                add_circle
-              </span>
-              <span>+ Tambah Data Motor</span>
+              <span>Tambah Data Motor</span>
             </button>
           </div>
         </div>
@@ -427,7 +428,7 @@ export default function KelolaDataMotorPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full pl-10 pr-space-md py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-              placeholder="Cari merek, tipe, nomor polisi (B 4819 KOX)..."
+              placeholder="Cari merek, tipe, atau nomor polisi..."
               type="text"
             />
           </div>
@@ -438,7 +439,7 @@ export default function KelolaDataMotorPage() {
                 onChange={(e) => setBrandFilter(e.target.value)}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
-                <option value="">Semua Merek Pabrikan</option>
+                <option value="">Semua Merek</option>
                 <option value="Honda">Honda</option>
                 <option value="Yamaha">Yamaha</option>
                 <option value="Vespa">Vespa</option>
@@ -457,9 +458,9 @@ export default function KelolaDataMotorPage() {
                 onChange={(e) => setStatusFilter(e.target.value)}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
-                <option value="">Status: Semua</option>
-                <option value="Tersedia">Tersedia (Ready)</option>
-                <option value="Terjual">Terjual (Sold)</option>
+                <option value="">Semua Status</option>
+                <option value="Tersedia">Tersedia</option>
+                <option value="Terjual">Terjual</option>
               </select>
               <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">
                 expand_more
@@ -473,10 +474,10 @@ export default function KelolaDataMotorPage() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
-                <option value="terbaru">Urutan: Terbaru</option>
+                <option value="terbaru">Terbaru</option>
                 <option value="harga_asc">Harga Terendah</option>
                 <option value="harga_desc">Harga Tertinggi</option>
-                <option value="km_asc">Kilometer Terendah</option>
+                <option value="km_asc">KM Terendah</option>
               </select>
               <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">
                 sort
@@ -487,26 +488,30 @@ export default function KelolaDataMotorPage() {
       </div>
 
       {/* Data Table: Inventory Management */}
-      <div className="bg-surface-container-lowest rounded-DEFAULT shadow-sm overflow-hidden mb-space-xl">
+      <div className="bg-surface-container-lowest rounded-xl border border-outline-variant/60 shadow-sm overflow-hidden mb-space-xl">
         <div className="overflow-x-auto">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
-                <th className="py-3 px-space-md">Unit Motor &amp; Identitas</th>
-                <th className="py-3 px-space-md">Tahun &amp; Mesin</th>
-                <th className="py-3 px-space-md">Odometer</th>
-                <th className="py-3 px-space-md">Kondisi &amp; Berkas</th>
-                <th className="py-3 px-space-md text-right">
-                  Harga Beli Showroom
+              <tr className="bg-primary text-on-primary text-[12px] uppercase tracking-wider">
+                <th className="py-3 px-space-md font-semibold">Unit Motor</th>
+                <th className="py-3 px-space-md font-semibold">Tahun / CC</th>
+                <th className="py-3 px-space-md font-semibold">Odometer</th>
+                <th className="py-3 px-space-md font-semibold">Kondisi</th>
+                <th className="py-3 px-space-md font-semibold text-right">
+                  Harga Beli
                 </th>
-                <th className="py-3 px-space-md text-right">
-                  Harga Jual Akhir
+                <th className="py-3 px-space-md font-semibold text-right">
+                  Harga Jual
                 </th>
-                <th className="py-3 px-space-md text-center">Status</th>
-                <th className="py-3 px-space-md text-center">Aksi Cepat</th>
+                <th className="py-3 px-space-md font-semibold text-center">
+                  Status
+                </th>
+                <th className="py-3 px-space-md font-semibold text-center">
+                  Aksi
+                </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-surface-container font-body-sm text-body-sm text-on-surface">
+            <tbody className="divide-y divide-surface-container text-[13px] text-on-surface bg-surface-container-lowest">
               {filteredMotors.map((motor) => {
                 const mainImg =
                   motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
@@ -518,116 +523,98 @@ export default function KelolaDataMotorPage() {
                     key={motor.id_motor}
                     className="hover:bg-surface-container-low/70 transition-colors"
                   >
-                    <td className="py-3.5 px-space-md">
+                    <td className="py-2.5 px-space-md">
                       <div className="flex items-center gap-space-sm">
-                        <div className="w-14 h-11 bg-surface-container rounded-DEFAULT overflow-hidden relative shrink-0 shadow-sm">
+                        <div className="w-12 h-9 bg-surface-container rounded-DEFAULT overflow-hidden relative shrink-0 shadow-xs">
                           <img
                             alt={`${motor.merek} ${motor.tipe}`}
                             className="w-full h-full object-cover"
                             src={mainImg}
                           />
-                          <span className="absolute bottom-0 right-0 bg-primary/80 text-[9px] text-white px-1 font-bold">
-                            {motor.foto_motor.length} Gbr
-                          </span>
                         </div>
                         <div className="flex flex-col">
                           <Link
                             href={`/katalog/${motor.id_motor}`}
-                            className="font-label-md text-label-md font-bold text-on-surface hover:text-primary"
+                            className="text-[13px] font-semibold text-on-surface hover:text-primary"
                           >
                             {motor.merek} {motor.tipe}
                           </Link>
-                          <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="px-1.5 py-0.5 rounded-DEFAULT bg-surface-container font-label-sm text-label-sm font-mono text-on-surface-variant">
-                              {motor.nopol}
-                            </span>
+                          <div className="flex items-center gap-1.5 mt-0.5 text-on-surface-variant text-[11px]">
+                            <span>{motor.nopol}</span>
                             <span className="text-outline-variant">•</span>
-                            <span className="text-on-surface-variant font-label-sm text-label-sm">
-                              {motor.domisili_samsat}
-                            </span>
+                            <span>{motor.domisili_samsat}</span>
                           </div>
                         </div>
                       </div>
                     </td>
-                    <td className="py-3.5 px-space-md">
+                    <td className="py-2.5 px-space-md">
                       <div className="flex flex-col">
-                        <span className="font-label-md text-label-md font-semibold">
-                          Tahun {motor.tahun}
+                        <span className="text-[13px] font-medium tabular-nums">
+                          {motor.tahun}
                         </span>
-                        <span className="text-on-surface-variant font-body-sm text-body-sm">
+                        <span className="text-on-surface-variant text-[11px]">
                           {motor.cc} cc
                         </span>
                       </div>
                     </td>
-                    <td className="py-3.5 px-space-md">
-                      <div className="flex items-center gap-1 font-mono font-semibold text-on-surface tabular-nums">
-                        <span className="material-symbols-outlined text-outline text-[16px]">
-                          speed
-                        </span>
-                        {formatNumberID(motor.kilometer)} km
-                      </div>
+                    <td className="py-2.5 px-space-md text-[13px] tabular-nums">
+                      {formatNumberID(motor.kilometer)} km
                     </td>
-                    <td className="py-3.5 px-space-md">
+                    <td className="py-2.5 px-space-md">
                       <div className="flex flex-col gap-0.5">
-                        <span className="inline-flex items-center gap-1 text-[12px] font-semibold text-on-tertiary-container">
-                          <span className="w-1.5 h-1.5 rounded-full bg-on-tertiary-container"></span>{" "}
+                        <span className="text-[12px] font-medium text-on-tertiary-container">
                           {motor.kondisi_mesin}
                         </span>
                         <span className="text-on-surface-variant text-[11px]">
-                          {motor.kelengkapan_dokumen}
+                          {motor.kelengkapan_dokumen.split("(")[0].trim()}
                         </span>
                       </div>
                     </td>
-                    <td className="py-3.5 px-space-md text-right font-mono font-medium text-secondary tabular-nums">
+                    <td className="py-2.5 px-space-md text-right text-[13px] text-secondary tabular-nums">
                       {formatRupiah(motor.harga_beli)}
                     </td>
-                    <td className="py-3.5 px-space-md text-right font-mono font-bold text-primary tabular-nums">
+                    <td className="py-2.5 px-space-md text-right text-[13px] font-semibold text-primary tabular-nums">
                       {formatRupiah(motor.harga_jual)}
                     </td>
-                    <td className="py-3.5 px-space-md text-center">
+                    <td className="py-2.5 px-space-md text-center">
                       {isReady ? (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-sm text-label-sm font-bold">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant text-[11px] font-semibold">
                           Tersedia
                         </span>
                       ) : (
-                        <span className="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-surface-variant text-on-surface-variant font-label-sm text-label-sm font-semibold">
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-DEFAULT bg-surface-variant text-on-surface-variant text-[11px] font-semibold">
                           Terjual
                         </span>
                       )}
                     </td>
-                    <td className="py-3.5 px-space-md text-center">
+                    <td className="py-2.5 px-space-md text-center">
                       <div className="inline-flex items-center gap-1">
                         <button
                           onClick={() => openEditModal(motor)}
-                          className="w-8 h-8 rounded-DEFAULT hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
+                          className="w-7 h-7 rounded-DEFAULT hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer"
                           title="Ubah Data & Foto"
                           type="button"
                         >
-                          <span className="material-symbols-outlined text-[18px]">
+                          <span className="material-symbols-outlined text-[17px]">
                             edit
                           </span>
                         </button>
                         <Link
                           href={`/katalog/${motor.id_motor}`}
-                          className="w-8 h-8 rounded-DEFAULT hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
+                          className="w-7 h-7 rounded-DEFAULT hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
                           title="Lihat di Katalog"
                         >
-                          <span className="material-symbols-outlined text-[18px]">
+                          <span className="material-symbols-outlined text-[17px]">
                             visibility
                           </span>
                         </Link>
                         <button
-                          onClick={() => {
-                            deleteMotor(motor.id_motor);
-                            triggerToast(
-                              `Unit ${motor.merek} ${motor.tipe} dihapus.`
-                            );
-                          }}
-                          className="w-8 h-8 rounded-DEFAULT hover:bg-error-container flex items-center justify-center text-on-surface-variant hover:text-error transition-colors cursor-pointer"
+                          onClick={() => setDeletingMotor(motor)}
+                          className="w-7 h-7 rounded-DEFAULT hover:bg-error-container flex items-center justify-center text-on-surface-variant hover:text-error transition-colors cursor-pointer"
                           title="Hapus Unit"
                           type="button"
                         >
-                          <span className="material-symbols-outlined text-[18px]">
+                          <span className="material-symbols-outlined text-[17px]">
                             delete
                           </span>
                         </button>
@@ -640,7 +627,7 @@ export default function KelolaDataMotorPage() {
           </table>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between px-space-md py-space-sm bg-surface-container-low text-on-surface-variant font-body-sm text-body-sm">
+        <div className="flex items-center justify-between px-space-md py-2.5 bg-surface-container-low text-on-surface-variant text-[12px]">
           <span>
             Menampilkan{" "}
             <strong className="text-on-surface font-semibold">
@@ -650,7 +637,7 @@ export default function KelolaDataMotorPage() {
             <strong className="text-on-surface font-semibold">
               {motors.length}
             </strong>{" "}
-            unit motor terdaftar
+            unit
           </span>
         </div>
       </div>
@@ -662,37 +649,64 @@ export default function KelolaDataMotorPage() {
             onSubmit={handleSaveMotor}
             className="relative w-full max-w-5xl bg-surface-container-lowest rounded-DEFAULT shadow-2xl flex flex-col max-h-[92vh] overflow-hidden my-auto"
           >
+            {/* Saving & Success Feedback Overlay */}
+            {isSaving && (
+              <div className="absolute inset-0 z-50 bg-surface/85 backdrop-blur-xs flex flex-col items-center justify-center gap-3 animate-in fade-in">
+                <div className="relative w-16 h-16 flex items-center justify-center">
+                  <div className="absolute inset-0 rounded-full border-4 border-primary/20 border-t-primary animate-spin"></div>
+                  <span className="material-symbols-outlined text-primary text-[24px]">
+                    two_wheeler
+                  </span>
+                </div>
+                <div className="text-center">
+                  <h3 className="font-headline-sm text-headline-sm font-bold text-primary">
+                    {editingMotorId !== null
+                      ? "Memperbarui Data Motor..."
+                      : "Menyimpan Unit Baru..."}
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Memproses spesifikasi teknis dan galeri foto...
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {saveSuccess && (
+              <div className="absolute inset-0 z-50 bg-surface/90 backdrop-blur-xs flex flex-col items-center justify-center gap-3 animate-in zoom-in-95">
+                <div className="w-16 h-16 rounded-full bg-primary text-on-primary flex items-center justify-center shadow-xl animate-in zoom-in-50">
+                  <span
+                    className="material-symbols-outlined text-[36px]"
+                    style={{ fontVariationSettings: "'FILL' 1" }}
+                  >
+                    check_circle
+                  </span>
+                </div>
+                <div className="text-center">
+                  <h3 className="font-headline-sm text-headline-sm font-bold text-primary">
+                    {editingMotorId !== null
+                      ? "Data Motor Berhasil Diperbarui!"
+                      : "Unit Motor Berhasil Ditambahkan!"}
+                  </h3>
+                  <p className="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                    Inventaris showroom telah disinkronkan ke katalog.
+                  </p>
+                </div>
+              </div>
+            )}
+
             {/* Modal Header */}
             <div className="px-space-lg py-space-md bg-primary-container text-on-primary flex items-center justify-between shrink-0 shadow-sm">
               <div className="flex items-center gap-space-sm">
-                <div className="w-10 h-10 rounded-DEFAULT bg-primary flex items-center justify-center shrink-0">
-                  <span className="material-symbols-outlined text-primary-fixed text-[24px]">
+                <div className="w-9 h-9 rounded-DEFAULT bg-primary flex items-center justify-center shrink-0">
+                  <span className="material-symbols-outlined text-primary-fixed text-[22px]">
                     post_add
                   </span>
                 </div>
-                <div className="flex flex-col">
-                  <div className="flex items-center gap-space-xs">
-                    <h2 className="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">
-                      {editingMotorId !== null
-                        ? "Ubah Data Unit Motor"
-                        : "Tambah Unit Motor Baru"}
-                    </h2>
-                    <span className="px-2 py-0.5 rounded-DEFAULT bg-primary font-label-sm text-label-sm text-primary-fixed uppercase tracking-wider font-semibold">
-                      PostgreSQL Sync
-                    </span>
-                  </div>
-                  <p className="font-body-sm text-body-sm text-primary-fixed-dim">
-                    Input 100% selaras dengan skema database showroom: tabel{" "}
-                    <code className="font-mono bg-primary px-1 rounded">
-                      motor
-                    </code>{" "}
-                    &amp;{" "}
-                    <code className="font-mono bg-primary px-1 rounded">
-                      foto_motor
-                    </code>
-                    .
-                  </p>
-                </div>
+                <h2 className="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">
+                  {editingMotorId !== null
+                    ? "Ubah Data Unit Motor"
+                    : "Tambah Unit Motor Baru"}
+                </h2>
               </div>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -708,27 +722,20 @@ export default function KelolaDataMotorPage() {
 
             {/* Modal Body */}
             <div className="p-space-lg overflow-y-auto space-y-space-lg bg-surface">
-              {/* SEKSI 1: Spesifikasi Unit (tabel `motor`) */}
+              {/* SEKSI 1: Spesifikasi Unit */}
               <div className="bg-surface-container-lowest p-space-lg rounded-DEFAULT shadow-sm">
-                <div className="flex items-center justify-between pb-space-sm mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg pt-space-sm rounded-t-DEFAULT">
-                  <div className="flex items-center gap-space-xs text-primary font-label-lg text-label-lg font-bold">
-                    <span className="material-symbols-outlined text-[20px]">
-                      two_wheeler
-                    </span>
-                    <span>
-                      SEKSI 1: Spesifikasi Teknis &amp; Finansial Unit
-                    </span>
-                  </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-mono">
-                    Tabel: `motor`
+                <div className="flex items-center gap-space-xs pb-space-sm mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg pt-space-sm rounded-t-DEFAULT text-primary font-label-lg text-label-lg font-bold">
+                  <span className="material-symbols-outlined text-[20px]">
+                    two_wheeler
                   </span>
+                  <span>Spesifikasi &amp; Harga Unit</span>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-space-md">
                   {/* Merek */}
                   <div className="md:col-span-3 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Merek Pabrikan <span className="text-error">*</span>
+                      Merek <span className="text-error">*</span>
                     </label>
                     <select
                       value={merek}
@@ -749,14 +756,13 @@ export default function KelolaDataMotorPage() {
                   {/* Tipe Motor */}
                   <div className="md:col-span-5 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Tipe Lengkap &amp; Varian{" "}
-                      <span className="text-error">*</span>
+                      Tipe &amp; Varian <span className="text-error">*</span>
                     </label>
                     <input
                       value={tipe}
                       onChange={(e) => setTipe(e.target.value)}
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
-                      placeholder="Misal: Vario 160 CBS / NMAX ABS"
+                      placeholder="Misal: Vario 160 CBS"
                       required
                       type="text"
                     />
@@ -765,7 +771,7 @@ export default function KelolaDataMotorPage() {
                   {/* Nomor Polisi */}
                   <div className="md:col-span-4 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Nomor Polisi (Plat) <span className="text-error">*</span>
+                      Nomor Polisi <span className="text-error">*</span>
                     </label>
                     <div className="flex items-center">
                       <span className="bg-surface-container text-on-surface-variant px-2.5 py-2 font-mono font-semibold rounded-l-DEFAULT text-[13px] shadow-sm">
@@ -785,14 +791,14 @@ export default function KelolaDataMotorPage() {
                   {/* Tahun Pembuatan */}
                   <div className="md:col-span-3 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Tahun Pembuatan <span className="text-error">*</span>
+                      Tahun <span className="text-error">*</span>
                     </label>
                     <input
                       value={tahun}
                       onChange={(e) =>
                         setTahun(parseInt(e.target.value, 10) || 2023)
                       }
-                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-mono font-semibold text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm tabular-nums"
                       max={2026}
                       min={2005}
                       required
@@ -803,14 +809,14 @@ export default function KelolaDataMotorPage() {
                   {/* CC */}
                   <div className="md:col-span-3 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Kapasitas Mesin (CC) <span className="text-error">*</span>
+                      Kapasitas (CC) <span className="text-error">*</span>
                     </label>
                     <input
                       value={cc}
                       onChange={(e) =>
                         setCc(parseInt(e.target.value, 10) || 110)
                       }
-                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-mono font-semibold text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm tabular-nums"
                       required
                       type="number"
                     />
@@ -819,14 +825,14 @@ export default function KelolaDataMotorPage() {
                   {/* Kilometer */}
                   <div className="md:col-span-3 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Kilometer (Odometer) <span className="text-error">*</span>
+                      Kilometer <span className="text-error">*</span>
                     </label>
                     <input
                       value={kilometer}
                       onChange={(e) =>
                         setKilometer(parseInt(e.target.value, 10) || 0)
                       }
-                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-mono font-semibold text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                      className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm tabular-nums"
                       required
                       type="number"
                     />
@@ -835,7 +841,7 @@ export default function KelolaDataMotorPage() {
                   {/* Domisili Samsat */}
                   <div className="md:col-span-3 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Domisili Samsat Plat <span className="text-error">*</span>
+                      Domisili Samsat <span className="text-error">*</span>
                     </label>
                     <select
                       value={domisiliSamsat}
@@ -864,22 +870,17 @@ export default function KelolaDataMotorPage() {
                   {/* Kondisi Mesin */}
                   <div className="md:col-span-6 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Kondisi Fisik &amp; Suara Mesin{" "}
-                      <span className="text-error">*</span>
+                      Kondisi Mesin <span className="text-error">*</span>
                     </label>
                     <select
                       value={kondisiMesin}
                       onChange={(e) => setKondisiMesin(e.target.value)}
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                     >
-                      <option value="Sangat Baik">
-                        Sangat Baik / Halus Kering (Tanpa Rembes Oli)
-                      </option>
-                      <option value="Baik">
-                        Baik (Suara Standar, Tarikan Responsif)
-                      </option>
+                      <option value="Sangat Baik">Sangat Baik</option>
+                      <option value="Baik">Baik</option>
                       <option value="Perlu Servis Ringan">
-                        Perlu Servis Ringan (Ganti Oli/Roller CVT)
+                        Perlu Servis Ringan
                       </option>
                     </select>
                   </div>
@@ -887,8 +888,7 @@ export default function KelolaDataMotorPage() {
                   {/* Kelengkapan Dokumen */}
                   <div className="md:col-span-6 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Kelengkapan Legalitas Berkas{" "}
-                      <span className="text-error">*</span>
+                      Kelengkapan Dokumen <span className="text-error">*</span>
                     </label>
                     <select
                       value={kelengkapanDokumen}
@@ -896,28 +896,20 @@ export default function KelolaDataMotorPage() {
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                     >
                       <option value="Lengkap (STNK + BPKB + Faktur)">
-                        Lengkap (STNK + BPKB + Faktur Pembelian Asli)
+                        Lengkap (STNK + BPKB + Faktur)
                       </option>
                       <option value="Lengkap (STNK + BPKB)">
-                        Lengkap (STNK + BPKB Saja)
+                        Lengkap (STNK + BPKB)
                       </option>
-                      <option value="Hanya STNK">
-                        Hanya STNK (Tanpa BPKB)
-                      </option>
+                      <option value="Hanya STNK">Hanya STNK</option>
                     </select>
                   </div>
 
                   {/* Harga Beli */}
                   <div className="md:col-span-6 flex flex-col gap-1">
-                    <div className="flex items-center justify-between">
-                      <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                        Harga Beli Showroom (Modal){" "}
-                        <span className="text-error">*</span>
-                      </label>
-                      <span className="text-on-surface-variant font-label-sm text-label-sm">
-                        Akuntansi Internal
-                      </span>
-                    </div>
+                    <label className="font-label-sm text-label-sm font-semibold text-on-surface">
+                      Harga Beli <span className="text-error">*</span>
+                    </label>
                     <div className="flex items-center">
                       <span className="bg-surface-container text-on-surface-variant px-3 py-2 font-mono font-bold rounded-l-DEFAULT text-[13px] shadow-sm">
                         Rp
@@ -927,7 +919,7 @@ export default function KelolaDataMotorPage() {
                         onChange={(e) =>
                           setHargaBeli(parseInt(e.target.value, 10) || 0)
                         }
-                        className="w-full px-3 py-2 bg-surface rounded-r-DEFAULT text-on-surface font-mono font-bold text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
+                        className="w-full px-3 py-2 bg-surface rounded-r-DEFAULT text-on-surface font-mono font-semibold text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                         required
                         type="number"
                       />
@@ -938,8 +930,7 @@ export default function KelolaDataMotorPage() {
                   <div className="md:col-span-6 flex flex-col gap-1">
                     <div className="flex items-center justify-between">
                       <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                        Harga Jual Akhir (Listing Retail){" "}
-                        <span className="text-error">*</span>
+                        Harga Jual <span className="text-error">*</span>
                       </label>
                       <button
                         onClick={handleApplyMLRecommendation}
@@ -949,7 +940,7 @@ export default function KelolaDataMotorPage() {
                         <span className="material-symbols-outlined text-[14px]">
                           auto_graph
                         </span>{" "}
-                        Terapkan Rekomendasi ML
+                        Rekomendasi ML
                       </button>
                     </div>
                     <div className="flex items-center">
@@ -970,15 +961,9 @@ export default function KelolaDataMotorPage() {
 
                   {/* Status Ketersediaan */}
                   <div className="md:col-span-12 flex flex-col sm:flex-row sm:items-center justify-between p-space-sm bg-surface rounded-DEFAULT shadow-sm gap-space-sm">
-                    <div className="flex flex-col">
-                      <span className="font-label-md text-label-md font-bold text-on-surface">
-                        Status Ketersediaan Unit
-                      </span>
-                      <span className="font-body-sm text-body-sm text-on-surface-variant">
-                        Tentukan apakah motor langsung tayang di portal pembeli
-                        atau diarsipkan sebagai terjual.
-                      </span>
-                    </div>
+                    <span className="font-label-md text-label-md font-semibold text-on-surface">
+                      Status Ketersediaan
+                    </span>
                     <div className="inline-flex p-1 bg-surface-container rounded-DEFAULT shrink-0 gap-1">
                       <button
                         type="button"
@@ -989,7 +974,7 @@ export default function KelolaDataMotorPage() {
                             : "text-on-surface-variant"
                         }`}
                       >
-                        ● Tersedia (Ready Unit)
+                        ● Tersedia
                       </button>
                       <button
                         type="button"
@@ -1000,7 +985,7 @@ export default function KelolaDataMotorPage() {
                             : "text-on-surface-variant"
                         }`}
                       >
-                        Terjual (Sold Out)
+                        Terjual
                       </button>
                     </div>
                   </div>
@@ -1008,7 +993,7 @@ export default function KelolaDataMotorPage() {
                   {/* Deskripsi Tambahan */}
                   <div className="md:col-span-12 flex flex-col gap-1">
                     <label className="font-label-sm text-label-sm font-semibold text-on-surface">
-                      Deskripsi Tambahan, Catatan Bodi &amp; Riwayat Servis
+                      Deskripsi Unit
                     </label>
                     <textarea
                       value={deskripsi}
@@ -1020,20 +1005,13 @@ export default function KelolaDataMotorPage() {
                 </div>
               </div>
 
-              {/* SEKSI 2: Area Unggah Berkas Foto Motor (tabel `foto_motor`) */}
+              {/* SEKSI 2: Area Unggah Berkas Foto Motor */}
               <div className="bg-surface-container-lowest p-space-lg rounded-DEFAULT shadow-sm">
-                <div className="flex items-center justify-between pb-space-sm mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg pt-space-sm rounded-t-DEFAULT">
-                  <div className="flex items-center gap-space-xs text-primary font-label-lg text-label-lg font-bold">
-                    <span className="material-symbols-outlined text-[20px]">
-                      photo_library
-                    </span>
-                    <span>
-                      SEKSI 2: Berkas Foto Fisik Unit Motor (Galeri &amp; Cover)
-                    </span>
-                  </div>
-                  <span className="font-label-sm text-label-sm text-on-surface-variant font-mono">
-                    Tabel: `foto_motor`
+                <div className="flex items-center gap-space-xs pb-space-sm mb-space-md bg-surface-container-low -mx-space-lg -mt-space-lg px-space-lg pt-space-sm rounded-t-DEFAULT text-primary font-label-lg text-label-lg font-bold">
+                  <span className="material-symbols-outlined text-[20px]">
+                    photo_library
                   </span>
+                  <span>Galeri Foto Unit</span>
                 </div>
 
                 {/* Add Photo Slot Bar */}
@@ -1048,7 +1026,7 @@ export default function KelolaDataMotorPage() {
                   <input
                     value={newPhotoUrl}
                     onChange={(e) => setNewPhotoUrl(e.target.value)}
-                    placeholder="Tempel URL Gambar (Opsional, kosongkan untuk gambar studio default)"
+                    placeholder="URL Gambar (Opsional)"
                     className="flex-1 px-3 py-2 bg-surface-container-lowest rounded-DEFAULT text-body-sm"
                     type="text"
                   />
@@ -1057,7 +1035,7 @@ export default function KelolaDataMotorPage() {
                     onClick={handleAddCustomPhoto}
                     className="px-4 py-2 bg-primary-container hover:bg-primary text-on-primary rounded-DEFAULT font-label-sm text-label-sm font-semibold cursor-pointer"
                   >
-                    + Tambah Slot Foto
+                    + Tambah Foto
                   </button>
                 </div>
 
@@ -1079,7 +1057,7 @@ export default function KelolaDataMotorPage() {
                             <span className="material-symbols-outlined text-[14px]">
                               star
                             </span>{" "}
-                            Foto Utama
+                            Utama
                           </span>
                         )}
                         <button
@@ -1097,7 +1075,7 @@ export default function KelolaDataMotorPage() {
                         <span className="font-label-sm text-label-sm font-semibold truncate text-on-surface">
                           {idx + 1}. {photo.label}
                         </span>
-                        <label className="inline-flex items-center gap-1.5 text-on-tertiary-fixed-variant text-[12px] font-bold cursor-pointer">
+                        <label className="inline-flex items-center gap-1.5 text-on-tertiary-fixed-variant text-[12px] font-semibold cursor-pointer">
                           <input
                             checked={photo.is_utama}
                             onChange={() => handleSetMainPhoto(photo.id_foto)}
@@ -1106,9 +1084,7 @@ export default function KelolaDataMotorPage() {
                             type="radio"
                           />
                           <span>
-                            {photo.is_utama
-                              ? "Foto Utama Aktif (is_utama: 1)"
-                              : "Jadikan Foto Utama"}
+                            {photo.is_utama ? "Foto Utama" : "Jadikan Utama"}
                           </span>
                         </label>
                       </div>
@@ -1120,36 +1096,103 @@ export default function KelolaDataMotorPage() {
 
             {/* Modal Footer */}
             <div className="px-space-lg py-space-md bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-sm shrink-0 shadow-[0_-4px_12px_rgba(0,0,0,0.04)]">
-              <div className="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm">
-                <span className="material-symbols-outlined text-outline text-[18px]">
-                  info
-                </span>
-                <span>
-                  Semua kolom bertanda{" "}
-                  <span className="text-error font-bold">*</span> wajib diisi
-                  untuk integritas relasional database PostgreSQL.
-                </span>
-              </div>
+              <span className="text-on-surface-variant font-body-sm text-body-sm">
+                Kolom bertanda <span className="text-error font-bold">*</span>{" "}
+                wajib diisi.
+              </span>
               <div className="flex items-center gap-space-sm w-full sm:w-auto justify-end">
                 <button
+                  disabled={isSaving || saveSuccess}
                   onClick={() => setIsModalOpen(false)}
-                  className="px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm cursor-pointer"
+                  className="px-space-md py-2.5 rounded-DEFAULT bg-surface-container hover:bg-surface-variant text-on-surface font-label-md text-label-md font-semibold transition-colors shadow-sm cursor-pointer disabled:opacity-60"
                   type="button"
                 >
                   Batal
                 </button>
                 <button
-                  className="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-DEFAULT bg-tertiary-container hover:bg-tertiary text-on-tertiary font-label-md text-label-md font-bold transition-all shadow-md cursor-pointer"
+                  disabled={isSaving || saveSuccess}
+                  className="inline-flex items-center gap-space-xs px-space-lg py-2.5 rounded-DEFAULT bg-primary hover:bg-primary/90 text-on-primary font-label-md text-label-md font-bold transition-all shadow-md cursor-pointer disabled:opacity-75"
                   type="submit"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
-                    check_circle
-                  </span>
-                  <span>Simpan Data &amp; Berkas Foto</span>
+                  {isSaving ? (
+                    <>
+                      <span className="w-4 h-4 border-2 border-on-primary/30 border-t-on-primary rounded-full animate-spin"></span>
+                      <span>Menyimpan...</span>
+                    </>
+                  ) : (
+                    <>
+                      <span className="material-symbols-outlined text-[20px]">
+                        check_circle
+                      </span>
+                      <span>Simpan Data</span>
+                    </>
+                  )}
                 </button>
               </div>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {deletingMotor && (
+        <div className="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-200 animate-in fade-in">
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-2xl p-6 max-w-sm w-full flex flex-col gap-4 text-left animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-error/15 text-error flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[22px]">
+                  delete
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                  Hapus Unit Motor
+                </h3>
+                <span className="text-[12px] text-on-surface-variant font-medium">
+                  {deletingMotor.nopol}
+                </span>
+              </div>
+            </div>
+
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Apakah Anda yakin ingin menghapus unit{" "}
+              <strong className="text-primary">
+                {deletingMotor.merek} {deletingMotor.tipe} ({deletingMotor.tahun})
+              </strong>{" "}
+              dari sistem inventaris showroom?
+            </p>
+
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-outline-variant/30">
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={() => setDeletingMotor(null)}
+                className="px-4 py-2 rounded-xl text-primary font-label-md text-label-md font-semibold bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer disabled:opacity-60"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                disabled={isDeleting}
+                onClick={handleConfirmDelete}
+                className="px-4 py-2 rounded-xl bg-error hover:bg-error/90 text-on-error font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer disabled:opacity-60"
+              >
+                {isDeleting ? (
+                  <>
+                    <span className="w-4 h-4 border-2 border-on-error/30 border-t-on-error rounded-full animate-spin"></span>
+                    <span>Menghapus...</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="material-symbols-outlined text-[18px]">
+                      delete
+                    </span>
+                    <span>Ya, Hapus</span>
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
