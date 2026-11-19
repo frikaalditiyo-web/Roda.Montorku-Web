@@ -113,13 +113,11 @@ export default function LoginAdminPage() {
           </Link>
 
           <div className="flex items-center gap-space-sm select-none">
-            <div className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center shadow-sm">
-              <span className="material-symbols-outlined text-on-primary text-[18px]">
-                two_wheeler
-              </span>
+            <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-sm">
+              <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
             </div>
-            <span className="font-headline-sm text-headline-sm tracking-tight text-primary font-bold">
-              RODA<span className="text-secondary">.MOTORKU</span>
+            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-primary">
+              Roda.Motorku
             </span>
           </div>
 
@@ -237,9 +235,6 @@ export default function LoginAdminPage() {
               <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
                 Login Admin
               </h1>
-              <p className="font-body-md text-body-md text-on-surface-variant mt-space-xs max-w-sm">
-                Masuk ke Panel Konsol Showroom &amp; Mesin Valuasi Harga Machine Learning
-              </p>
             </div>
 
             {/* Alert / Validation Notice Banner */}
@@ -278,7 +273,7 @@ export default function LoginAdminPage() {
               <span className="material-symbols-outlined text-on-tertiary-fixed-variant text-[14px]">
                 lock
               </span>
-              <span className="font-label-sm text-label-sm text-secondary">
+              <span className="font-label-sm text-label-sm text-primary">
                 Sesi aman terenkripsi{" "}
                 <span className="font-bold text-on-surface">
                   (JWT HttpOnly Cookie)
@@ -325,7 +320,7 @@ export default function LoginAdminPage() {
                   >
                     Kata Sandi
                   </label>
-                  <span className="font-label-sm text-[11px] text-secondary">
+                  <span className="font-label-sm text-[11px] text-primary">
                     (Akun Showroom: admin_otista)
                   </span>
                 </div>
@@ -411,7 +406,7 @@ export default function LoginAdminPage() {
                       <span>Sesi Terautentikasi</span>
                       <span className="inline-block w-2 h-2 rounded-full bg-on-tertiary-container animate-pulse"></span>
                     </h3>
-                    <p className="font-body-sm text-body-sm text-secondary">
+                    <p className="font-body-sm text-body-sm text-primary">
                       Masuk sebagai{" "}
                       <strong className="text-on-surface">admin_otista</strong>{" "}
                       (Admin Showroom)
@@ -435,7 +430,7 @@ export default function LoginAdminPage() {
             {/* Quick Developer Helper Badge */}
             <div className="mt-space-lg bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between gap-space-xs border border-outline-variant/30">
               <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-secondary text-[16px]">
+                <span className="material-symbols-outlined text-primary text-[16px]">
                   vpn_key
                 </span>
                 <span className="font-label-sm text-label-sm text-on-surface-variant">
@@ -447,7 +442,7 @@ export default function LoginAdminPage() {
                 </span>
               </div>
               <button
-                className="font-label-sm text-label-sm text-primary hover:text-primary-container hover:bg-surface-container-high px-2.5 py-1 rounded bg-surface-container-highest font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1 border border-outline-variant/40"
+                className="font-label-sm text-label-sm text-primary hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded bg-surface-container-highest font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1 border border-outline-variant/40"
                 onClick={handleFillDemo}
                 type="button"
               >
@@ -473,17 +468,12 @@ export default function LoginAdminPage() {
           </div>
 
           {/* Bottom System Status Indicators */}
-          <div className="w-full max-w-[460px] mt-space-md flex flex-col items-center gap-space-xs text-center px-space-sm">
-            <p className="font-body-sm text-body-sm text-on-surface-variant mt-1 text-center">
-              © 2026 RODA.MOTORKU — Panel Administrasi Showroom Motor Bekas
-            </p>
-          </div>
         </div>
       </main>
 
       <footer className="w-full bg-surface-container-lowest shadow-[0_1px_8px_rgba(0,0,0,0.04)] py-space-md">
         <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin flex items-center justify-between gap-space-sm text-on-surface-variant font-body-sm text-body-sm">
-          <p>© 2026 RODA.MOTORKU Indonesia.</p>
+          <p>© 2026 Roda.Motorku Indonesia.</p>
           <Link
             className="hover:text-primary transition-colors font-label-sm text-label-sm"
             href="/"

@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useShowroom } from "@/context/ShowroomContext";
+import { CountUpNumber } from "@/components/CountUpNumber";
 import {
   calculateMLPrediction,
   formatNumberID,
@@ -284,14 +285,6 @@ export default function EstimasiHargaMLPage() {
             <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
               Estimasi Harga Jual
             </h1>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-              Kalkulator rekomendasi harga jual motor bekas berbasis Machine Learning (Linear Regression, Decision Tree, &amp; Random Forest).
-            </p>
-          </div>
-          <div className="flex items-center gap-space-xs self-start lg:self-center">
-            <span className="inline-flex items-center px-space-sm py-1 rounded bg-secondary-container text-on-secondary-fixed font-label-sm text-label-sm font-semibold shadow-sm">
-              {selectedModel}
-            </span>
           </div>
         </div>
 
@@ -305,8 +298,8 @@ export default function EstimasiHargaMLPage() {
               <span>Model Aktif: {selectedModel}</span>
             </div>
             <span className="hidden sm:inline text-outline-variant">•</span>
-            <div className="flex items-center gap-1.5 font-body-sm text-body-sm text-secondary">
-              <span className="material-symbols-outlined text-[16px] text-secondary">
+            <div className="flex items-center gap-1.5 font-body-sm text-body-sm text-primary">
+              <span className="material-symbols-outlined text-[16px] text-primary">
                 dataset
               </span>
               <span>
@@ -334,7 +327,7 @@ export default function EstimasiHargaMLPage() {
 
               {/* Model Selector */}
               <div className="flex items-center gap-1.5">
-                <span className="font-label-sm text-label-sm text-secondary">
+                <span className="font-label-sm text-label-sm text-primary">
                   Model:
                 </span>
                 <select
@@ -554,7 +547,7 @@ export default function EstimasiHargaMLPage() {
                     </span>
                     <span>Validasi 8 fitur masukan otomatis</span>
                   </div>
-                  <div className="inline-flex items-center gap-1 font-label-sm text-label-sm text-secondary bg-surface-container px-2 py-0.5 rounded">
+                  <div className="inline-flex items-center gap-1 font-label-sm text-label-sm text-primary bg-surface-container px-2 py-0.5 rounded">
                     <span className="material-symbols-outlined text-[14px]">
                       terminal
                     </span>
@@ -614,10 +607,10 @@ export default function EstimasiHargaMLPage() {
                       <td className="py-2 px-3 text-right font-semibold text-primary tabular-nums">
                         {formatRupiah(item.calc.estimatedPrice)}
                       </td>
-                      <td className="py-2 px-3 text-right text-secondary tabular-nums">
+                      <td className="py-2 px-3 text-right text-primary tabular-nums">
                         ±{formatRupiah(item.mae)}
                       </td>
-                      <td className="py-2 px-3 text-right text-secondary tabular-nums">
+                      <td className="py-2 px-3 text-right text-primary tabular-nums">
                         {formatRupiah(item.rmse)}
                       </td>
                       <td className="py-2 px-3 text-right font-semibold text-tertiary tabular-nums">
@@ -710,12 +703,12 @@ export default function EstimasiHargaMLPage() {
 
             {/* Valuation Main Result Output */}
             <div className="mt-space-md bg-secondary-container/40 p-space-md rounded-lg flex flex-col items-center text-center">
-              <span className="font-label-md text-label-md text-secondary uppercase tracking-wider font-semibold">
+              <span className="font-label-md text-label-md text-primary uppercase tracking-wider font-semibold">
                 Rekomendasi Harga Jual
               </span>
               <div className="my-space-xs flex items-baseline justify-center gap-1">
                 <span className="font-display-lg text-display-lg font-bold text-primary tracking-tight tabular-nums">
-                  {formatRupiah(currentEstimation.estimatedPrice)}
+                  <CountUpNumber value={currentEstimation.estimatedPrice} format={formatRupiah} />
                 </span>
               </div>
             </div>
@@ -897,7 +890,7 @@ export default function EstimasiHargaMLPage() {
                 type="button"
                 disabled={isSavingToCatalog || saveSuccess}
                 onClick={() => setShowSaveModal(false)}
-                className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
+                className="px-space-md py-2 text-primary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
               >
                 Batal
               </button>

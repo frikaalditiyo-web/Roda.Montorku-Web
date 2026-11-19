@@ -83,10 +83,10 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
 
           <Link href="/" className="flex items-center gap-space-sm ml-1">
             <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs">
-              <img src="/logo.png" alt="RODA.MOTORKU" className="w-full h-full object-contain" />
+              <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
             </div>
-            <span className="font-headline-sm text-headline-sm font-bold text-on-primary tracking-tight">
-              RODA<span className="text-secondary">.MOTORKU</span>
+            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+              Roda.Motorku
             </span>
           </Link>
 
@@ -293,10 +293,7 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
           <footer className="w-full bg-surface-container-lowest py-space-md px-margin-mobile md:px-margin border-t border-outline-variant/40">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-space-xs">
               <span className="font-body-sm text-body-sm text-on-surface-variant">
-                © 2026 RODA.MOTORKU
-              </span>
-              <span className="font-label-sm text-label-sm text-on-surface-variant">
-                Sistem Katalog &amp; Estimasi Harga Motor Bekas
+                © 2026 Roda.Motorku
               </span>
             </div>
           </footer>

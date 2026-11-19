@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -18,6 +18,13 @@ export default function KatalogMotorPage() {
   const [navigatingMotorId, setNavigatingMotorId] = useState<number | null>(null);
 
   const itemsPerPage = 6;
+  const brands = useMemo(() => [...new Set(motors.map((motor) => motor.merek))].sort(), [motors]);
+  const years = useMemo(() => [...new Set(motors.map((motor) => motor.tahun))].sort((a, b) => b - a), [motors]);
+  const prices = useMemo(() => [...new Set(motors.map((motor) => motor.harga_jual))].sort((a, b) => a - b), [motors]);
+  const priceCuts = useMemo(() => [
+    prices[Math.floor((prices.length - 1) / 3)] ?? 0,
+    prices[Math.floor(((prices.length - 1) * 2) / 3)] ?? 0,
+  ], [prices]);
 
   const filteredMotors = useMemo(() => {
     return motors.filter((motor) => {
@@ -32,26 +39,16 @@ export default function KatalogMotorPage() {
         !selectedBrand ||
         motor.merek.toLowerCase() === selectedBrand.toLowerCase();
 
-      let matchYear = true;
-      if (selectedYear === "<2020") {
-        matchYear = motor.tahun < 2020;
-      } else if (selectedYear) {
-        matchYear = String(motor.tahun) === selectedYear;
-      }
-
-      let matchPrice = true;
-      if (selectedPriceRange === "low") {
-        matchPrice = motor.harga_jual < 15000000;
-      } else if (selectedPriceRange === "mid") {
-        matchPrice =
-          motor.harga_jual >= 15000000 && motor.harga_jual <= 25000000;
-      } else if (selectedPriceRange === "high") {
-        matchPrice = motor.harga_jual > 25000000;
-      }
+      const matchYear = !selectedYear || String(motor.tahun) === selectedYear;
+      const matchPrice =
+        !selectedPriceRange ||
+        (selectedPriceRange === "low" && motor.harga_jual <= priceCuts[0]) ||
+        (selectedPriceRange === "mid" && motor.harga_jual > priceCuts[0] && motor.harga_jual <= priceCuts[1]) ||
+        (selectedPriceRange === "high" && motor.harga_jual > priceCuts[1]);
 
       return matchQuery && matchBrand && matchYear && matchPrice;
     });
-  }, [motors, searchQuery, selectedBrand, selectedYear, selectedPriceRange]);
+  }, [motors, searchQuery, selectedBrand, selectedYear, selectedPriceRange, priceCuts]);
 
   const totalPages = Math.max(
     1,
@@ -61,6 +58,17 @@ export default function KatalogMotorPage() {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
+  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
+
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) setCurrentPage(totalPages);
+  }, [currentPage, totalPages]);
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    document.getElementById("katalog-unit")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   const handleResetFilters = () => {
     setSearchQuery("");
@@ -113,7 +121,7 @@ export default function KatalogMotorPage() {
             {/* Baris Pencarian & Filter */}
             <div
               id="katalog-unit"
-              className="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm"
+              className="w-full bg-surface-container-lowest p-space-md rounded-xl shadow-sm scroll-mt-20"
             >
               <form
                 className="flex flex-col lg:flex-row items-stretch lg:items-center gap-3"
@@ -124,7 +132,7 @@ export default function KatalogMotorPage() {
               >
                 {/* Input Pencarian Teks Lebar */}
                 <div className="relative flex-grow flex items-center min-w-0">
-                  <span className="material-symbols-outlined absolute left-3 text-secondary text-[20px] pointer-events-none select-none">
+                  <span className="material-symbols-outlined absolute left-3 text-primary text-[20px] pointer-events-none select-none">
                     search
                   </span>
                   <input
@@ -133,7 +141,7 @@ export default function KatalogMotorPage() {
                       setSearchQuery(e.target.value);
                       setCurrentPage(1);
                     }}
-                    className="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface placeholder:text-primary focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all"
                     placeholder="Cari merek atau tipe motor..."
                     type="text"
                   />
@@ -150,13 +158,9 @@ export default function KatalogMotorPage() {
                     className="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all cursor-pointer"
                   >
                     <option value="">Semua Merek</option>
-                    <option value="Honda">Honda</option>
-                    <option value="Yamaha">Yamaha</option>
-                    <option value="Suzuki">Suzuki</option>
-                    <option value="Kawasaki">Kawasaki</option>
-                    <option value="Vespa">Vespa</option>
+                    {brands.map((brand) => <option key={brand} value={brand}>{brand}</option>)}
                   </select>
-                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-secondary text-[18px] pointer-events-none">
+                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-primary text-[18px] pointer-events-none">
                     expand_more
                   </span>
                 </div>
@@ -172,14 +176,9 @@ export default function KatalogMotorPage() {
                     className="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all cursor-pointer"
                   >
                     <option value="">Semua Tahun</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                    <option value="2020">2020</option>
-                    <option value="<2020">&lt; 2020</option>
+                    {years.map((year) => <option key={year} value={year}>{year}</option>)}
                   </select>
-                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-secondary text-[18px] pointer-events-none">
+                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-primary text-[18px] pointer-events-none">
                     expand_more
                   </span>
                 </div>
@@ -195,11 +194,11 @@ export default function KatalogMotorPage() {
                     className="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all cursor-pointer"
                   >
                     <option value="">Semua Harga</option>
-                    <option value="low">&lt; Rp 15 Juta</option>
-                    <option value="mid">Rp 15 - 25 Juta</option>
-                    <option value="high">&gt; Rp 25 Juta</option>
+                    <option value="low">Harga rendah (≤ {formatRupiah(priceCuts[0])})</option>
+                    <option value="mid">Harga menengah</option>
+                    <option value="high">Harga tinggi (&gt; {formatRupiah(priceCuts[1])})</option>
                   </select>
-                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-secondary text-[18px] pointer-events-none">
+                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-primary text-[18px] pointer-events-none">
                     expand_more
                   </span>
                 </div>
@@ -219,7 +218,7 @@ export default function KatalogMotorPage() {
                     <button
                       type="button"
                       onClick={handleResetFilters}
-                      className="px-3 py-2.5 bg-surface-container hover:bg-surface-variant text-secondary font-label-md text-label-md rounded-lg transition-colors cursor-pointer"
+                      className="px-3 py-2.5 bg-surface-container hover:bg-surface-variant text-primary font-label-md text-label-md rounded-lg transition-colors cursor-pointer"
                       title="Reset Filter"
                     >
                       Reset
@@ -231,7 +230,7 @@ export default function KatalogMotorPage() {
 
             {/* Status & Counter Unit */}
             <div className="flex items-center justify-between px-1">
-              <p className="font-body-sm text-body-sm text-secondary">
+              <p className="font-body-sm text-body-sm text-primary">
                 Menampilkan{" "}
                 <span className="font-semibold text-on-surface">
                   {paginatedMotors.length}
@@ -272,7 +271,7 @@ export default function KatalogMotorPage() {
                   return (
                     <div
                       key={motor.id_motor}
-                      className="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-surface-container"
+                      className="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between border border-surface-container"
                     >
                       <div>
                         {/* Foto Motor & Badge */}
@@ -286,15 +285,15 @@ export default function KatalogMotorPage() {
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${
                                 isAvailable
-                                  ? "bg-on-tertiary-container"
+                                  ? "bg-primary"
                                   : "bg-secondary"
                               }`}
                             ></span>
                             <span
                               className={`font-label-sm text-label-sm uppercase tracking-wider ${
                                 isAvailable
-                                  ? "text-on-tertiary-container"
-                                  : "text-secondary"
+                                  ? "text-primary"
+                                  : "text-primary"
                               }`}
                             >
                               {motor.status}
@@ -307,7 +306,7 @@ export default function KatalogMotorPage() {
                           <h2 className="font-headline-sm text-headline-sm text-on-surface font-bold truncate">
                             {motor.merek} {motor.tipe}
                           </h2>
-                          <p className="font-body-sm text-body-sm text-secondary tabular-nums">
+                          <p className="font-body-sm text-body-sm text-primary tabular-nums">
                             {motor.tahun} · {formatNumberID(motor.kilometer)} km
                             · {motor.cc} cc
                           </p>
@@ -316,7 +315,7 @@ export default function KatalogMotorPage() {
 
                       {/* Footer Kartu: Harga & Aksi */}
                       <div className="p-5 pt-0 mt-1 flex items-center justify-between gap-3">
-                        <span className="font-currency-stat text-currency-stat text-primary-container font-bold tabular-nums">
+                        <span className="font-currency-stat text-currency-stat text-primary font-bold tabular-nums">
                           {formatRupiah(motor.harga_jual)}
                         </span>
                         <Link
@@ -342,26 +341,26 @@ export default function KatalogMotorPage() {
 
             {/* Pagination & Navigasi Halaman */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-space-md pb-space-lg">
-              <span className="font-body-sm text-body-sm text-secondary">
+              <span className="font-body-sm text-body-sm text-primary">
                 Halaman {currentPage} dari {totalPages}
               </span>
               <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
-                  disabled={currentPage === 1}
+                  onClick={() => goToPage(Math.max(1, pageBlockStart - 1))}
+                  disabled={pageBlockStart === 1}
                   className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <span className="material-symbols-outlined text-[20px]">
                     chevron_left
                   </span>
                 </button>
-                {Array.from({ length: totalPages }, (_, idx) => idx + 1).map(
+                {Array.from({ length: Math.max(0, pageBlockEnd - pageBlockStart + 1) }, (_, idx) => pageBlockStart + idx).map(
                   (page) => (
                     <button
                       key={page}
                       type="button"
-                      onClick={() => setCurrentPage(page)}
+                      onClick={() => goToPage(page)}
                       className={
                         currentPage === page
                           ? "w-10 h-10 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm"
@@ -375,9 +374,9 @@ export default function KatalogMotorPage() {
                 <button
                   type="button"
                   onClick={() =>
-                    setCurrentPage((p) => Math.min(totalPages, p + 1))
+                    goToPage(Math.min(totalPages, pageBlockEnd + 1))
                   }
-                  disabled={currentPage === totalPages}
+                  disabled={pageBlockEnd === totalPages}
                   className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   <span className="material-symbols-outlined text-[20px]">

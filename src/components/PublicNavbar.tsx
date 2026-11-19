@@ -1,24 +1,63 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function PublicNavbar() {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<"catalog" | "units" | "contact">("catalog");
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
+  const navItems = useRef<Record<"catalog" | "units" | "contact", HTMLAnchorElement | null>>({
+    catalog: null,
+    units: null,
+    contact: null,
+  });
+
+  useEffect(() => {
+    if (pathname !== "/") setActiveSection("catalog");
+  }, [pathname]);
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const activeItem = navItems.current[activeSection];
+      if (activeItem) {
+        setIndicator({ left: activeItem.offsetLeft, width: activeItem.offsetWidth });
+      }
+    };
+    updateIndicator();
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [activeSection, pathname]);
+
+  const handleSectionClick = (
+    section: "catalog" | "units" | "contact",
+    target?: string
+  ) => (event: React.MouseEvent<HTMLAnchorElement>) => {
+    setActiveSection(section);
+    setMobileMenuOpen(false);
+    if (pathname === "/") {
+      event.preventDefault();
+      if (target) {
+        document.getElementById(target)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 bg-primary text-on-primary shadow-md">
       <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin h-16 flex items-center justify-between">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-space-sm group">
+        <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-space-sm group">
           <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200">
-            <img src="/logo.png" alt="RODA.MOTORKU" className="w-full h-full object-contain" />
+            <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
           </div>
           <div className="flex flex-col">
-            <span className="font-headline-sm text-headline-sm font-bold tracking-tight text-on-primary leading-none">
-              RODA<span className="text-secondary">.MOTORKU</span>
+            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+              Roda.Motorku
             </span>
             <span className="font-label-sm text-[10px] text-on-primary/70 font-medium tracking-wide">
               Showroom Motor Bekas Berkualitas
@@ -27,26 +66,36 @@ export function PublicNavbar() {
         </Link>
 
         {/* Public Navigation Links */}
-        <nav className="hidden md:flex items-center gap-space-md">
+        <nav className="relative hidden md:flex items-center" aria-label="Navigasi utama">
+          <span
+            aria-hidden="true"
+            className="absolute top-0 bottom-0 rounded-lg bg-secondary transition-all duration-300 ease-out"
+            style={{ left: indicator.left, width: indicator.width }}
+          />
           <Link
             href="/"
-            className={
-              pathname === "/"
-                ? "transition-colors bg-secondary text-on-secondary rounded-lg font-label-md text-label-md px-space-md py-space-xs"
-                : "font-label-md text-label-md text-on-primary/80 hover:text-on-primary transition-colors px-space-sm py-space-xs"
-            }
+            ref={(node) => { navItems.current.catalog = node; }}
+            onClick={handleSectionClick("catalog")}
+            aria-current={activeSection === "catalog" ? "location" : undefined}
+            className="relative z-10 rounded-lg font-label-md text-label-md px-space-md py-space-xs text-on-primary transition-colors"
           >
             Katalog Motor
           </Link>
           <a
             href="/#katalog-unit"
-            className="font-label-md text-label-md text-on-primary/80 hover:text-on-primary transition-colors px-space-sm py-space-xs"
+            ref={(node) => { navItems.current.units = node; }}
+            onClick={handleSectionClick("units", "katalog-unit")}
+            aria-current={activeSection === "units" ? "location" : undefined}
+            className="relative z-10 rounded-lg font-label-md text-label-md text-on-primary px-space-md py-space-xs transition-colors"
           >
             Unit Tersedia
           </a>
           <a
             href="/#kontak-showroom"
-            className="font-label-md text-label-md text-on-primary/80 hover:text-on-primary transition-colors px-space-sm py-space-xs"
+            ref={(node) => { navItems.current.contact = node; }}
+            onClick={handleSectionClick("contact", "kontak-showroom")}
+            aria-current={activeSection === "contact" ? "location" : undefined}
+            className="relative z-10 rounded-lg font-label-md text-label-md text-on-primary px-space-md py-space-xs transition-colors"
           >
             Lokasi &amp; Kontak
           </a>
@@ -55,7 +104,7 @@ export function PublicNavbar() {
         {/* Right Action: Direct WhatsApp Showroom Consultation & Admin Login */}
         <div className="flex items-center gap-space-sm">
           <a
-            href="https://wa.me/6285608981265?text=Halo%20Admin%20RODA.MOTORKU,%20saya%20ingin%20tanya%20stok%20unit%20motor%20bekas"
+            href="https://wa.me/6285608981265?text=Halo%20Admin%20Roda.Motorku,%20saya%20ingin%20tanya%20stok%20unit%20motor%20bekas"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-label-sm font-semibold shadow-xs transition-colors"
@@ -95,22 +144,22 @@ export function PublicNavbar() {
         <div className="md:hidden bg-primary border-t border-white/10 px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-md">
           <Link
             href="/"
-            onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-on-secondary py-2 px-3 rounded-lg bg-secondary"
+            onClick={handleSectionClick("catalog")}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "catalog" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Katalog Motor
           </Link>
           <a
             href="/#katalog-unit"
-            onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-on-primary/80 hover:text-on-primary py-2 px-3"
+            onClick={handleSectionClick("units", "katalog-unit")}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "units" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Unit Tersedia
           </a>
           <a
             href="/#kontak-showroom"
-            onClick={() => setMobileMenuOpen(false)}
-            className="font-label-md text-label-md text-on-primary/80 hover:text-on-primary py-2 px-3"
+            onClick={handleSectionClick("contact", "kontak-showroom")}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "contact" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Kontak &amp; Lokasi Showroom
           </a>

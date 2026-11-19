@@ -4,7 +4,7 @@ import { MODEL_METRICS } from "@/lib/mlEngine";
 export async function GET() {
   return NextResponse.json({
     status: "ok",
-    app: "RODA.MOTORKU Web & ML API",
+    app: "Roda.Motorku Web & ML API",
     version: "1.0.0",
     timestamp: new Date().toISOString(),
     ml_models: MODEL_METRICS.map((m) => ({

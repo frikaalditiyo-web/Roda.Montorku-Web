@@ -9,10 +9,10 @@ export function PublicFooter() {
           <div className="flex flex-col gap-space-sm">
             <div className="flex items-center gap-space-sm">
               <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs">
-                <img src="/logo.png" alt="RODA.MOTORKU" className="w-full h-full object-contain" />
+                <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
               </div>
-              <span className="font-headline-sm text-headline-sm font-bold tracking-tight text-on-primary">
-                RODA<span className="text-secondary">.MOTORKU</span>
+              <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+                Roda.Motorku
               </span>
             </div>
             <p className="font-body-sm text-body-sm text-on-primary/75 max-w-sm">
@@ -21,7 +21,7 @@ export function PublicFooter() {
             </p>
           </div>
 
-          <div id="kontak-showroom" className="flex flex-col gap-space-sm">
+          <div id="kontak-showroom" className="flex flex-col gap-space-sm scroll-mt-20">
             <span className="font-label-lg text-label-lg text-on-primary font-bold">
               Showroom &amp; Lokasi Fisik
             </span>
@@ -50,10 +50,10 @@ export function PublicFooter() {
         </div>
 
         <div className="mt-space-xl pt-space-lg border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left font-label-sm text-label-sm text-on-primary/70">
-          <span>© 2026 RODA.MOTORKU Indonesia — Sistem Informasi Manajemen Katalog &amp; Penentuan Harga Jual Motor Bekas.</span>
+          <span>© 2026 Roda.Motorku Indonesia — Sistem Informasi Manajemen Katalog &amp; Penentuan Harga Jual Motor Bekas.</span>
           <Link
             href="/login"
-            className="inline-flex items-center gap-1 text-on-primary/70 hover:text-secondary transition-colors font-medium"
+            className="inline-flex items-center gap-1 text-on-primary/70 hover:text-on-primary transition-colors font-medium"
           >
             <span className="material-symbols-outlined text-[15px]">lock</span>
             <span>Akses Login Admin</span>

@@ -24,6 +24,8 @@ export default function RiwayatEstimasiPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [modelFilter, setModelFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ROWS_PER_PAGE = 10;
   const [selectedPred, setSelectedPred] = useState<PrediksiHarga | null>(null);
   const [convertingPred, setConvertingPred] = useState<PrediksiHarga | null>(
     null
@@ -81,6 +83,25 @@ export default function RiwayatEstimasiPage() {
       return matchSearch && matchModel && matchStatus;
     });
   }, [predictions, searchQuery, modelFilter, statusFilter]);
+
+  const totalPages = Math.ceil(filteredPredictions.length / ROWS_PER_PAGE);
+  const pageStart = (currentPage - 1) * ROWS_PER_PAGE;
+  const paginatedPredictions = filteredPredictions.slice(
+    pageStart,
+    pageStart + ROWS_PER_PAGE
+  );
+  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchQuery, modelFilter, statusFilter]);
+
+  useEffect(() => {
+    if (totalPages > 0 && currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   const totalPreds = predictions.length;
   const linkedCount = predictions.filter((p) => p.id_motor !== null).length;
@@ -251,9 +272,6 @@ export default function RiwayatEstimasiPage() {
           <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
             Riwayat Estimasi Harga
           </h1>
-          <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-            Daftar riwayat perhitungan estimasi harga motor.
-          </p>
         </div>
 
         <div className="flex items-center gap-space-sm shrink-0">
@@ -275,7 +293,7 @@ export default function RiwayatEstimasiPage() {
             </span>
             <div className="flex items-baseline gap-space-xs mt-space-xs">
               <span className="font-display-lg text-display-lg font-bold text-primary tracking-tight tabular-nums">
-                {totalPreds}
+                <CountUpNumber value={totalPreds} />
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant">
                 rekaman
@@ -296,7 +314,7 @@ export default function RiwayatEstimasiPage() {
             </span>
             <div className="flex items-baseline gap-space-xs mt-space-xs">
               <span className="font-display-lg text-display-lg font-bold text-primary tracking-tight tabular-nums">
-                {avgR2}%
+                <CountUpNumber value={Number(avgR2)} decimals={1} suffix="%" />
               </span>
             </div>
           </div>
@@ -314,7 +332,7 @@ export default function RiwayatEstimasiPage() {
             </span>
             <div className="flex items-baseline gap-space-xs mt-space-xs">
               <span className="font-display-lg text-display-lg font-bold text-primary tracking-tight tabular-nums">
-                {linkedCount}
+                <CountUpNumber value={linkedCount} />
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant">
                 unit
@@ -418,7 +436,7 @@ export default function RiwayatEstimasiPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-surface-container text-[13px] text-on-surface bg-surface-container-lowest">
-              {filteredPredictions.map((pred) => {
+              {paginatedPredictions.map((pred) => {
                 const f = pred.fitur_masukan;
                 const margin = pred.harga_estimasi - f.harga_beli;
 
@@ -511,7 +529,7 @@ export default function RiwayatEstimasiPage() {
                           title="Lihat Detail"
                           type="button"
                         >
-                          <span className="material-symbols-outlined text-[18px]">
+                          <span className="material-symbols-outlined text-primary text-[18px]">
                             visibility
                           </span>
                         </button>
@@ -554,18 +572,60 @@ export default function RiwayatEstimasiPage() {
           </table>
         </div>
 
-        <div className="px-space-lg py-2.5 bg-surface-container-low/50 flex items-center justify-between text-[12px] text-on-surface-variant">
+        <div className="px-space-lg py-2.5 bg-surface-container-low/50 flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm text-[12px] text-on-surface-variant">
           <span>
             Menampilkan{" "}
             <strong className="font-semibold text-on-surface">
-              {filteredPredictions.length}
+              {filteredPredictions.length === 0 ? 0 : pageStart + 1}
+            </strong>{" "}
+            –{" "}
+            <strong className="font-semibold text-on-surface">
+              {Math.min(pageStart + ROWS_PER_PAGE, filteredPredictions.length)}
             </strong>{" "}
             dari{" "}
             <strong className="font-semibold text-on-surface">
-              {totalPreds}
+              {filteredPredictions.length}
             </strong>{" "}
             riwayat
           </span>
+          {totalPages > 1 && (
+            <nav aria-label="Navigasi halaman riwayat estimasi" className="flex items-center gap-1">
+              <button
+                type="button"
+                onClick={() => setCurrentPage((page) => Math.max(1, pageBlockStart - 1))}
+                disabled={pageBlockStart === 1}
+                className="px-2.5 py-1.5 rounded-DEFAULT bg-surface-container-lowest text-primary font-semibold hover:bg-primary-container hover:text-on-primary disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                Prev
+              </button>
+              {Array.from(
+                { length: Math.max(0, pageBlockEnd - pageBlockStart + 1) },
+                (_, index) => pageBlockStart + index
+              ).map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  aria-current={currentPage === page ? "page" : undefined}
+                  onClick={() => setCurrentPage(page)}
+                  className={`min-w-8 px-2.5 py-1.5 rounded-DEFAULT font-semibold transition-colors ${
+                    currentPage === page
+                      ? "bg-primary text-on-primary"
+                      : "bg-surface-container-lowest text-primary hover:bg-primary-container hover:text-on-primary"
+                  }`}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setCurrentPage((page) => Math.min(totalPages, pageBlockEnd + 1))}
+                disabled={pageBlockEnd === totalPages}
+                className="px-2.5 py-1.5 rounded-DEFAULT bg-surface-container-lowest text-primary font-semibold hover:bg-primary-container hover:text-on-primary disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              >
+                Next
+              </button>
+            </nav>
+          )}
         </div>
       </div>
 
@@ -776,7 +836,7 @@ export default function RiwayatEstimasiPage() {
                 type="button"
                 disabled={isConverting || convertSuccess}
                 onClick={() => setConvertingPred(null)}
-                className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
+                className="px-space-md py-2 text-primary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
               >
                 Batal
               </button>
@@ -995,7 +1055,7 @@ export default function RiwayatEstimasiPage() {
                 type="button"
                 disabled={isSavingEdit || editSuccess}
                 onClick={() => setEditingPred(null)}
-                className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-xl cursor-pointer disabled:opacity-60"
+                className="px-space-md py-2 text-primary font-label-md text-label-md hover:bg-surface-container rounded-xl cursor-pointer disabled:opacity-60"
               >
                 Batal
               </button>

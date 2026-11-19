@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
 import { formatNumberID, formatRupiah, Motor } from "@/data/mockShowroomData";
+import { CountUpNumber } from "@/components/CountUpNumber";
 
 export default function AdminDashboardPage() {
   const { motors, predictions, deleteMotor } = useShowroom();
@@ -33,9 +34,6 @@ export default function AdminDashboardPage() {
           <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
             Dashboard
           </h1>
-          <p className="font-body-md text-body-md text-on-surface-variant mt-0.5">
-            Ringkasan stok motor dan aktivitas estimasi harga showroom.
-          </p>
         </div>
 
         {/* Quick Status Badge */}
@@ -65,7 +63,7 @@ export default function AdminDashboardPage() {
           <div className="mt-space-md flex flex-col">
             <div className="flex items-baseline gap-space-xs">
               <span className="font-display-lg text-display-lg text-primary font-bold tabular-nums">
-                {totalUnits}
+                <CountUpNumber value={totalUnits} />
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
                 unit
@@ -92,7 +90,7 @@ export default function AdminDashboardPage() {
           <div className="mt-space-md flex flex-col">
             <div className="flex items-baseline gap-space-xs">
               <span className="font-display-lg text-display-lg text-primary font-bold tabular-nums">
-                {availableUnits}
+                <CountUpNumber value={availableUnits} />
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
                 unit
@@ -126,7 +124,7 @@ export default function AdminDashboardPage() {
           <div className="mt-space-md flex flex-col">
             <div className="flex items-baseline gap-space-xs">
               <span className="font-display-lg text-display-lg text-primary font-bold tabular-nums">
-                {soldUnits}
+                <CountUpNumber value={soldUnits} />
               </span>
               <span className="font-label-md text-label-md text-on-surface-variant font-medium">
                 unit
@@ -163,7 +161,7 @@ export default function AdminDashboardPage() {
               Model Random Forest
             </span>
             <span className="text-outline-variant">•</span>
-            <span className="font-label-sm text-label-sm font-bold text-tertiary-container">
+              <span className="font-label-sm text-label-sm font-bold text-primary">
               Akurasi R² 94.6%
             </span>
           </div>
@@ -179,7 +177,7 @@ export default function AdminDashboardPage() {
               Data motor terbaru
             </h2>
             <Link
-              className="inline-flex items-center gap-1 text-primary hover:text-primary-container font-label-md text-label-md font-semibold transition-colors"
+              className="inline-flex items-center gap-1 text-primary hover:text-primary font-label-md text-label-md font-semibold transition-colors"
               href="/admin/data-motor"
             >
               <span>Lihat Semua ({totalUnits})</span>
@@ -258,7 +256,7 @@ export default function AdminDashboardPage() {
                       <td className="py-2.5 px-space-lg text-right text-[12px] whitespace-nowrap">
                         <Link
                           href="/admin/data-motor"
-                          className="text-primary hover:text-primary-container font-semibold transition-colors"
+                          className="text-primary hover:text-primary font-semibold transition-colors"
                         >
                           Ubah
                         </Link>
