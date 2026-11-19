@@ -51,13 +51,6 @@ export function middleware(request: NextRequest) {
     }
   }
 
-  // If already logged in with valid token and navigating to /login, redirect to /admin/dashboard
-  if (pathname === "/login") {
-    if (validPayload) {
-      return NextResponse.redirect(new URL("/admin/dashboard", request.url));
-    }
-  }
-
   return NextResponse.next();
 }
 

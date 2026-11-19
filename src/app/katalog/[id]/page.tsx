@@ -84,7 +84,7 @@ function DetailMotorContent({
     const phone = custPhone.trim() || "-";
     const date = custDate || "Besok";
     const message = encodeURIComponent(
-      `Halo Admin RODA.MOTORKU, saya ingin reservasi Cek Unit & Test Drive:\n` +
+      `Halo Admin Roda.Motorku, saya ingin reservasi Cek Unit & Test Drive:\n` +
         `- Motor: ${motor.merek} ${motor.tipe} ${motor.tahun} (${formatRupiah(
           motor.harga_jual
         )})\n` +
@@ -102,7 +102,7 @@ function DetailMotorContent({
   };
 
   const waDirectUrl = `https://wa.me/6285608981265?text=${encodeURIComponent(
-    `Halo Admin RODA.MOTORKU, saya tertarik dengan unit ${motor.merek} ${
+    `Halo Admin Roda.Motorku, saya tertarik dengan unit ${motor.merek} ${
       motor.tipe
     } ${motor.tahun} (${formatRupiah(
       motor.harga_jual
@@ -330,7 +330,7 @@ function DetailMotorContent({
                       </thead>
                       <tbody className="divide-y divide-surface-container">
                         <tr className="bg-surface-container-low">
-                          <td className="py-2.5 px-4 font-semibold text-secondary w-1/3 sm:w-2/5">
+                          <td className="py-2.5 px-4 font-semibold text-primary w-1/3 sm:w-2/5">
                             Merek
                           </td>
                           <td className="py-2.5 px-4 text-on-surface font-semibold">
@@ -338,7 +338,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-lowest">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Tahun Pembuatan
                           </td>
                           <td className="py-2.5 px-4 text-on-surface font-medium">
@@ -346,7 +346,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-low">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Kapasitas Mesin
                           </td>
                           <td className="py-2.5 px-4 text-on-surface font-medium">
@@ -354,7 +354,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-lowest">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Kilometer
                           </td>
                           <td className="py-2.5 px-4 text-primary font-semibold tabular-nums">
@@ -362,7 +362,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-low">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Kondisi Mesin
                           </td>
                           <td className="py-2.5 px-4 text-on-surface">
@@ -372,7 +372,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-lowest">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Kelengkapan Dokumen
                           </td>
                           <td className="py-2.5 px-4 text-on-surface font-medium">
@@ -380,7 +380,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-low">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Domisili Samsat
                           </td>
                           <td className="py-2.5 px-4 text-on-surface">
@@ -394,7 +394,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-lowest">
-                          <td className="py-2.5 px-4 font-semibold text-secondary align-top">
+                          <td className="py-2.5 px-4 font-semibold text-primary align-top">
                             Deskripsi
                           </td>
                           <td className="py-2.5 px-4 text-on-surface-variant leading-relaxed">
@@ -402,7 +402,7 @@ function DetailMotorContent({
                           </td>
                         </tr>
                         <tr className="bg-surface-container-low">
-                          <td className="py-2.5 px-4 font-semibold text-secondary">
+                          <td className="py-2.5 px-4 font-semibold text-primary">
                             Status
                           </td>
                           <td className="py-2.5 px-4 text-primary font-semibold">
@@ -558,7 +558,7 @@ function DetailMotorContent({
                     type="button"
                     disabled={isReserving}
                     onClick={() => setShowTestDriveModal(false)}
-                    className="px-space-md py-2 text-secondary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
+                    className="px-space-md py-2 text-primary font-label-md text-label-md hover:bg-surface-container rounded-lg cursor-pointer disabled:opacity-60"
                   >
                     Batal
                   </button>
@@ -615,7 +615,7 @@ function DetailMotorContent({
                   <div className="p-space-md flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-lowest">
                     <div>
                       <p className="font-label-lg text-label-lg text-primary font-bold">
-                        RODA.MOTORKU Showroom
+                        Roda.Motorku Showroom
                       </p>
                       <p className="font-body-sm text-body-sm text-on-surface-variant">
                         Gondang Timur, Gondang, Kec. Pace, Kabupaten Nganjuk,

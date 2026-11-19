@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { CountUpNumber } from "@/components/CountUpNumber";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
 import {
@@ -18,6 +19,10 @@ export default function KelolaDataMotorPage() {
   const [brandFilter, setBrandFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [sortBy, setSortBy] = useState("terbaru");
+  const [yearFilter, setYearFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ROWS_PER_PAGE = 10;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMotorId, setEditingMotorId] = useState<number | null>(null);
@@ -328,6 +333,14 @@ export default function KelolaDataMotorPage() {
     triggerToast("Berkas CSV inventaris motor berhasil diunduh.");
   };
 
+  const brands = useMemo(() => [...new Set(motors.map((motor) => motor.merek))].sort(), [motors]);
+  const years = useMemo(() => [...new Set(motors.map((motor) => motor.tahun))].sort((a, b) => b - a), [motors]);
+  const prices = useMemo(() => [...new Set(motors.map((motor) => motor.harga_jual))].sort((a, b) => a - b), [motors]);
+  const priceCuts = useMemo(() => [
+    prices[Math.floor((prices.length - 1) / 3)] ?? 0,
+    prices[Math.floor(((prices.length - 1) * 2) / 3)] ?? 0,
+  ], [prices]);
+
   const filteredMotors = useMemo(() => {
     const list = motors.filter((m) => {
       const q = searchQuery.trim().toLowerCase();
@@ -338,7 +351,13 @@ export default function KelolaDataMotorPage() {
         m.domisili_samsat.toLowerCase().includes(q);
       const matchBrand = !brandFilter || m.merek === brandFilter;
       const matchStatus = !statusFilter || m.status === statusFilter;
-      return matchSearch && matchBrand && matchStatus;
+      const matchYear = !yearFilter || String(m.tahun) === yearFilter;
+      const matchPrice =
+        !priceFilter ||
+        (priceFilter === "low" && m.harga_jual <= priceCuts[0]) ||
+        (priceFilter === "mid" && m.harga_jual > priceCuts[0] && m.harga_jual <= priceCuts[1]) ||
+        (priceFilter === "high" && m.harga_jual > priceCuts[1]);
+      return matchSearch && matchBrand && matchStatus && matchYear && matchPrice;
     });
 
     return [...list].sort((a, b) => {
@@ -347,7 +366,15 @@ export default function KelolaDataMotorPage() {
       if (sortBy === "km_asc") return a.kilometer - b.kilometer;
       return b.id_motor - a.id_motor;
     });
-  }, [motors, searchQuery, brandFilter, statusFilter, sortBy]);
+  }, [motors, searchQuery, brandFilter, statusFilter, sortBy, yearFilter, priceFilter, priceCuts]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredMotors.length / ROWS_PER_PAGE));
+  const paginatedMotors = filteredMotors.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE);
+  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
+
+  useEffect(() => { setCurrentPage(1); }, [searchQuery, brandFilter, statusFilter, sortBy, yearFilter, priceFilter]);
+  useEffect(() => { if (currentPage > totalPages) setCurrentPage(totalPages); }, [currentPage, totalPages]);
 
   const totalUnits = motors.length;
   const readyUnits = motors.filter((m) => m.status === "Tersedia").length;
@@ -374,10 +401,10 @@ export default function KelolaDataMotorPage() {
               Total Unit
             </span>
             <span className="font-headline-md text-headline-md text-on-surface mt-space-xs font-bold tabular-nums">
-              {totalUnits} Unit
+              <CountUpNumber value={totalUnits} /> Unit
             </span>
           </div>
-          <div className="w-11 h-11 rounded-DEFAULT bg-primary-container/10 text-primary-container flex items-center justify-center">
+          <div className="w-11 h-11 rounded-DEFAULT bg-primary-container/10 text-primary flex items-center justify-center">
             <span className="material-symbols-outlined text-[24px]">
               garage
             </span>
@@ -390,7 +417,7 @@ export default function KelolaDataMotorPage() {
               Stok Tersedia
             </span>
             <span className="font-headline-md text-headline-md text-primary mt-space-xs font-bold tabular-nums">
-              {readyUnits} Unit
+              <CountUpNumber value={readyUnits} /> Unit
             </span>
           </div>
           <div className="w-11 h-11 rounded-DEFAULT bg-tertiary-fixed text-on-tertiary-fixed-variant flex items-center justify-center">
@@ -405,8 +432,8 @@ export default function KelolaDataMotorPage() {
             <span className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">
               Unit Terjual
             </span>
-            <span className="font-headline-md text-headline-md text-secondary mt-space-xs font-bold tabular-nums">
-              {soldUnits} Unit
+            <span className="font-headline-md text-headline-md text-primary mt-space-xs font-bold tabular-nums">
+              <CountUpNumber value={soldUnits} /> Unit
             </span>
           </div>
           <div className="w-11 h-11 rounded-DEFAULT bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center">
@@ -440,9 +467,6 @@ export default function KelolaDataMotorPage() {
             <h1 className="font-headline-lg text-headline-lg text-primary tracking-tight font-bold">
               Kelola Data Motor
             </h1>
-            <p className="font-body-md text-body-md text-on-surface-variant mt-space-xs">
-              Manajemen stok unit, spesifikasi, dan harga motor showroom.
-            </p>
           </div>
           <div className="flex flex-wrap items-center gap-space-sm shrink-0">
             <button
@@ -483,7 +507,7 @@ export default function KelolaDataMotorPage() {
 
         {/* Filter Bar */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-space-sm pt-space-md">
-          <div className="md:col-span-5 relative">
+          <div className="md:col-span-6 relative">
             <span className="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-[20px]">
               search
             </span>
@@ -503,18 +527,28 @@ export default function KelolaDataMotorPage() {
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
                 <option value="">Semua Merek</option>
-                <option value="Honda">Honda</option>
-                <option value="Yamaha">Yamaha</option>
-                <option value="Vespa">Vespa</option>
-                <option value="Suzuki">Suzuki</option>
-                <option value="Kawasaki">Kawasaki</option>
+                {brands.map((brand) => <option key={brand} value={brand}>{brand}</option>)}
               </select>
               <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-outline pointer-events-none text-[18px]">
                 expand_more
               </span>
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
+            <select value={yearFilter} onChange={(e) => setYearFilter(e.target.value)} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
+              <option value="">Semua Tahun</option>
+              {years.map((year) => <option key={year} value={year}>{year}</option>)}
+            </select>
+          </div>
+          <div className="md:col-span-4">
+            <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
+              <option value="">Semua Harga</option>
+              <option value="low">Harga rendah (≤ {formatRupiah(priceCuts[0])})</option>
+              <option value="mid">Harga menengah</option>
+              <option value="high">Harga tinggi (&gt; {formatRupiah(priceCuts[1])})</option>
+            </select>
+          </div>
+          <div className="md:col-span-4">
             <div className="relative">
               <select
                 value={statusFilter}
@@ -530,7 +564,7 @@ export default function KelolaDataMotorPage() {
               </span>
             </div>
           </div>
-          <div className="md:col-span-2">
+          <div className="md:col-span-4">
             <div className="relative">
               <select
                 value={sortBy}
@@ -575,7 +609,7 @@ export default function KelolaDataMotorPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-surface-container text-[13px] text-on-surface bg-surface-container-lowest">
-              {filteredMotors.map((motor) => {
+              {paginatedMotors.map((motor) => {
                 const mainImg =
                   motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
                   motor.foto_motor[0]?.nama_file;
@@ -633,7 +667,7 @@ export default function KelolaDataMotorPage() {
                         </span>
                       </div>
                     </td>
-                    <td className="py-2.5 px-space-md text-right text-[13px] text-secondary tabular-nums">
+                    <td className="py-2.5 px-space-md text-right text-[13px] text-primary tabular-nums">
                       {formatRupiah(motor.harga_beli)}
                     </td>
                     <td className="py-2.5 px-space-md text-right text-[13px] font-semibold text-primary tabular-nums">
@@ -667,7 +701,7 @@ export default function KelolaDataMotorPage() {
                           className="w-7 h-7 rounded-DEFAULT hover:bg-surface-container flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors"
                           title="Lihat di Katalog"
                         >
-                          <span className="material-symbols-outlined text-[17px]">
+                          <span className="material-symbols-outlined text-primary text-[17px]">
                             visibility
                           </span>
                         </Link>
@@ -694,14 +728,19 @@ export default function KelolaDataMotorPage() {
           <span>
             Menampilkan{" "}
             <strong className="text-on-surface font-semibold">
-              {filteredMotors.length}
+              {filteredMotors.length === 0 ? 0 : (currentPage - 1) * ROWS_PER_PAGE + 1}–{Math.min(currentPage * ROWS_PER_PAGE, filteredMotors.length)}
             </strong>{" "}
             dari{" "}
             <strong className="text-on-surface font-semibold">
-              {motors.length}
+              {filteredMotors.length}
             </strong>{" "}
             unit
           </span>
+          {totalPages > 1 && <nav aria-label="Navigasi halaman data motor" className="flex items-center gap-1">
+            <button type="button" onClick={() => setCurrentPage(Math.max(1, pageBlockStart - 1))} disabled={pageBlockStart === 1} className="px-2.5 py-1.5 rounded bg-white text-primary disabled:opacity-40">Prev</button>
+            {Array.from({ length: Math.max(0, pageBlockEnd - pageBlockStart + 1) }, (_, i) => pageBlockStart + i).map((page) => <button key={page} type="button" aria-current={currentPage === page ? "page" : undefined} onClick={() => setCurrentPage(page)} className={`min-w-8 px-2.5 py-1.5 rounded ${currentPage === page ? "bg-primary text-white" : "bg-white text-primary"}`}>{page}</button>)}
+            <button type="button" onClick={() => setCurrentPage(Math.min(totalPages, pageBlockEnd + 1))} disabled={pageBlockEnd === totalPages} className="px-2.5 py-1.5 rounded bg-white text-primary disabled:opacity-40">Next</button>
+          </nav>}
         </div>
       </div>
 

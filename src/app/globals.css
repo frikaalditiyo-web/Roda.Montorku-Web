@@ -1,54 +1,54 @@
 @import "tailwindcss";
 
 @theme {
-  /* Strictly Dark Blue (#002046 / #1b365d) and White (#ffffff / #f8fafc) */
-  --color-surface: #f8fafc;
-  --color-surface-dim: #e2e8f0;
+  /* Palet utama: Navy #071B2B (rgb 7,27,43), Teal #167D8D (rgb 22,125,141), Latar #EEEEEE */
+  --color-surface: #eeeeee;
+  --color-surface-dim: #e0e0e0;
   --color-surface-bright: #ffffff;
   --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f1f5f9;
-  --color-surface-container: #e2e8f0;
-  --color-surface-container-high: #cbd5e1;
-  --color-surface-container-highest: #94a3b8;
-  --color-on-surface: #002046;
-  --color-on-surface-variant: #334e68;
-  --color-inverse-surface: #002046;
+  --color-surface-container-low: #f5f5f5;
+  --color-surface-container: #e6e9eb;
+  --color-surface-container-high: #d5dadd;
+  --color-surface-container-highest: #b8c0c5;
+  --color-on-surface: #071b2b;
+  --color-on-surface-variant: #071b2b;
+  --color-inverse-surface: #071b2b;
   --color-inverse-on-surface: #ffffff;
-  --color-outline: #627d98;
-  --color-outline-variant: #cbd5e1;
-  --color-surface-tint: #1b365d;
-  --color-primary: #002046;
+  --color-outline: #6b7c87;
+  --color-outline-variant: #d0d6da;
+  --color-surface-tint: #167d8d;
+  --color-primary: #071b2b;
   --color-on-primary: #ffffff;
-  --color-primary-container: #1b365d;
+  --color-primary-container: #167d8d;
   --color-on-primary-container: #ffffff;
   --color-inverse-primary: #ffffff;
-  --color-secondary: #1b365d;
+  --color-secondary: #167d8d;
   --color-on-secondary: #ffffff;
-  --color-secondary-container: #f1f5f9;
-  --color-on-secondary-container: #002046;
-  --color-tertiary: #002046;
+  --color-secondary-container: #e3f0f2;
+  --color-on-secondary-container: #071b2b;
+  --color-tertiary: #071b2b;
   --color-on-tertiary: #ffffff;
-  --color-tertiary-container: #002046;
-  --color-on-tertiary-container: #002046;
-  --color-error: #002046;
+  --color-tertiary-container: #071b2b;
+  --color-on-tertiary-container: #ffffff;
+  --color-error: #071b2b;
   --color-on-error: #ffffff;
-  --color-error-container: #f1f5f9;
-  --color-on-error-container: #002046;
-  --color-primary-fixed: #f1f5f9;
+  --color-error-container: #f5f5f5;
+  --color-on-error-container: #071b2b;
+  --color-primary-fixed: #e3f0f2;
   --color-primary-fixed-dim: #ffffff;
-  --color-on-primary-fixed: #002046;
-  --color-on-primary-fixed-variant: #002046;
-  --color-secondary-fixed: #e2e8f0;
-  --color-secondary-fixed-dim: #cbd5e1;
-  --color-on-secondary-fixed: #002046;
-  --color-on-secondary-fixed-variant: #002046;
-  --color-tertiary-fixed: #f1f5f9;
-  --color-tertiary-fixed-dim: #e2e8f0;
-  --color-on-tertiary-fixed: #002046;
-  --color-on-tertiary-fixed-variant: #002046;
-  --color-background: #f8fafc;
-  --color-on-background: #002046;
-  --color-surface-variant: #e2e8f0;
+  --color-on-primary-fixed: #071b2b;
+  --color-on-primary-fixed-variant: #071b2b;
+  --color-secondary-fixed: #e6e9eb;
+  --color-secondary-fixed-dim: #d0d6da;
+  --color-on-secondary-fixed: #071b2b;
+  --color-on-secondary-fixed-variant: #071b2b;
+  --color-tertiary-fixed: #f5f5f5;
+  --color-tertiary-fixed-dim: #e6e9eb;
+  --color-on-tertiary-fixed: #071b2b;
+  --color-on-tertiary-fixed-variant: #071b2b;
+  --color-background: #eeeeee;
+  --color-on-background: #071b2b;
+  --color-surface-variant: #e6e9eb;
 
   /* Spacing Tokens */
   --spacing-gutter: 1.5rem;
@@ -195,4 +195,20 @@
 
 .animate-shrink {
   animation: shrink 2.8s linear forwards;
+}
+
+/* Transisi masuk panel admin */
+@keyframes panel-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-panel-enter {
+  animation: panel-enter 0.35s ease-out;
 }
