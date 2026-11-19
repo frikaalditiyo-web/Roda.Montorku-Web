@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { CountUpNumber } from "@/components/CountUpNumber";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
 import {
@@ -18,6 +19,10 @@ export default function KelolaDataMotorPage() {
   const [brandFilter, setBrandFilter] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const [sortBy, setSortBy] = useState("terbaru");
+  const [yearFilter, setYearFilter] = useState("");
+  const [priceFilter, setPriceFilter] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const ROWS_PER_PAGE = 10;
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingMotorId, setEditingMotorId] = useState<number | null>(null);

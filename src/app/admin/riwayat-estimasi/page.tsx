@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
+import { CountUpNumber } from "@/components/CountUpNumber";
 import {
   formatNumberID,
   formatRupiah,
