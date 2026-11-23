@@ -48,8 +48,8 @@ export function PublicNavbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-primary text-on-primary shadow-md">
-      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-40 px-margin-mobile md:px-margin pt-3 sm:pt-4 pointer-events-none transition-all">
+      <div className="max-w-7xl mx-auto h-16 px-4 md:px-6 flex items-center justify-between pointer-events-auto bg-primary/90 backdrop-blur-md text-on-primary rounded-2xl shadow-xl shadow-black/25 border border-white/15">
         {/* Brand Logo */}
         <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-space-sm group">
           <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200">
@@ -141,7 +141,7 @@ export function PublicNavbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-primary border-t border-white/10 px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-md">
+        <div className="max-w-7xl mx-auto mt-2 pointer-events-auto md:hidden bg-primary/95 backdrop-blur-md border border-white/15 rounded-2xl px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-xl shadow-black/30">
           <Link
             href="/"
             onClick={handleSectionClick("catalog")}

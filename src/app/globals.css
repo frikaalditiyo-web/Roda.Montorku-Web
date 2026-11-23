@@ -197,6 +197,277 @@
   animation: shrink 2.8s linear forwards;
 }
 
+/* =========================================================
+   Hero Showroom — halaman katalog utama
+   Palet: Navy #092653, Dark Blue #123B70, Accent #2878F0
+   ========================================================= */
+.hero-showroom {
+  --hero-navy: #092653;
+  --hero-dark-blue: #123b70;
+  --hero-accent: #2878f0;
+
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 420px;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--hero-navy);
+  /* Overlay navy: kiri pekat untuk teks, kanan transparan agar foto terlihat */
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(9, 38, 83, 0.96) 0%,
+      rgba(9, 38, 83, 0.88) 30%,
+      rgba(18, 59, 112, 0.58) 55%,
+      rgba(18, 59, 112, 0.2) 75%,
+      rgba(9, 38, 83, 0.08) 100%
+    ),
+    linear-gradient(0deg, rgba(9, 38, 83, 0.6) 0%, rgba(9, 38, 83, 0) 40%),
+    url("/backround.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow:
+    0 24px 48px -20px rgba(9, 38, 83, 0.55),
+    0 2px 6px rgba(9, 38, 83, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* Aksen diagonal biru elektrik di sudut kanan bawah */
+.hero-showroom__diagonal {
+  position: absolute;
+  right: -60px;
+  bottom: -90px;
+  z-index: 0;
+  width: 320px;
+  height: 200px;
+  background: linear-gradient(135deg, rgba(40, 120, 240, 0.85), rgba(18, 59, 112, 0.2));
+  transform: skewX(-32deg);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+.hero-showroom__diagonal::before {
+  content: "";
+  position: absolute;
+  inset: -36px auto auto -70px;
+  width: 14px;
+  height: 260px;
+  background: var(--hero-accent);
+  opacity: 0.8;
+}
+
+/* Soft glow biru di belakang teks */
+.hero-showroom__glow {
+  position: absolute;
+  top: -140px;
+  left: -120px;
+  z-index: 0;
+  width: 460px;
+  height: 460px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(40, 120, 240, 0.38) 0%, rgba(40, 120, 240, 0) 68%);
+  pointer-events: none;
+}
+
+/* Garis geometris tipis di sudut kanan atas */
+.hero-showroom__lines {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+  width: 220px;
+  height: 140px;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.14) 0 2px,
+    transparent 2px 16px
+  );
+  -webkit-mask-image: linear-gradient(225deg, #000 0%, transparent 70%);
+  mask-image: linear-gradient(225deg, #000 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-showroom__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 600px;
+  padding: 3.5rem 3.5rem 3.5rem 4rem;
+  color: #ffffff;
+}
+
+.hero-showroom__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.4rem 0.95rem;
+  border: 1px solid rgba(40, 120, 240, 0.55);
+  border-radius: 9999px;
+  background: rgba(40, 120, 240, 0.16);
+  backdrop-filter: blur(6px);
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hero-showroom__badge-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--hero-accent);
+  box-shadow: 0 0 0 4px rgba(40, 120, 240, 0.25), 0 0 12px rgba(40, 120, 240, 0.9);
+}
+
+.hero-showroom__title {
+  margin: 0;
+  font-size: clamp(2rem, 1.2rem + 2.6vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1.22;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+  text-shadow: 0 2px 18px rgba(9, 38, 83, 0.55);
+}
+
+.hero-showroom__title-accent {
+  display: block;
+  padding-bottom: 0.15em;
+  margin-bottom: -0.15em;
+  color: var(--hero-accent);
+  background: linear-gradient(90deg, #4f94ff 0%, var(--hero-accent) 60%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.hero-showroom__subtitle {
+  position: relative;
+  margin: 0;
+  max-width: 30rem;
+  padding-left: 1rem;
+  font-size: 1.0625rem;
+  line-height: 1.65rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero-showroom__subtitle::before {
+  content: "";
+  position: absolute;
+  top: 0.2rem;
+  bottom: 0.2rem;
+  left: 0;
+  width: 3px;
+  border-radius: 9999px;
+  background: var(--hero-accent);
+}
+
+.hero-showroom--fullbleed {
+  border-radius: 0 0 36px 36px;
+  min-height: 500px;
+  padding-top: 5.75rem; /* Ruang ekstra untuk floating navbar yang melayang di atas background */
+  padding-bottom: 3.5rem;
+  box-shadow: 0 20px 30px -10px rgba(9, 38, 83, 0.4);
+}
+
+.hero-showroom--fullbleed .hero-showroom__content {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+@media (max-width: 1023px) {
+  .hero-showroom--fullbleed {
+    border-radius: 0 0 28px 28px;
+    min-height: 440px;
+    padding-top: 5.5rem;
+    padding-bottom: 2.5rem;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero-showroom--fullbleed {
+    min-height: 470px;
+    border-radius: 0 0 24px 24px;
+    padding-top: 5.25rem;
+    padding-bottom: 2rem;
+  }
+  .hero-showroom--fullbleed .hero-showroom__content {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0.5rem;
+  }
+}
+@media (max-width: 1023px) {
+  .hero-showroom {
+    min-height: 360px;
+    background-position: 65% center;
+  }
+
+  .hero-showroom__content {
+    max-width: 520px;
+    padding: 2.75rem 2.5rem;
+  }
+
+  .hero-showroom__diagonal {
+    width: 240px;
+    height: 160px;
+  }
+}
+
+/* Mobile: overlay dari bawah agar motor tetap terlihat di bagian atas */
+@media (max-width: 639px) {
+  .hero-showroom {
+    align-items: flex-end;
+    min-height: 440px;
+    border-radius: 20px;
+    background-image:
+      linear-gradient(
+        0deg,
+        rgba(9, 38, 83, 0.98) 0%,
+        rgba(9, 38, 83, 0.88) 45%,
+        rgba(18, 59, 112, 0.35) 75%,
+        rgba(9, 38, 83, 0.1) 100%
+      ),
+      url("/backround.jpg");
+    background-position: 70% center;
+  }
+
+  .hero-showroom__content {
+    gap: 0.75rem;
+    padding: 1.75rem 1.5rem;
+  }
+
+  .hero-showroom__subtitle {
+    font-size: 0.9375rem;
+    line-height: 1.4rem;
+  }
+
+  .hero-showroom__lines {
+    width: 140px;
+    height: 90px;
+  }
+
+  .hero-showroom__diagonal {
+    display: none;
+  }
+
+  .hero-showroom__glow {
+    top: auto;
+    bottom: -180px;
+  }
+}
+
 /* Transisi masuk panel admin */
 @keyframes panel-enter {
   from {

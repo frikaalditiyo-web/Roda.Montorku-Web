@@ -88,36 +88,39 @@ export default function KatalogMotorPage() {
     <div className="min-h-screen flex flex-col bg-surface">
       <PublicNavbar />
 
-      <main className="w-full pt-16 bg-surface flex-1">
+      <main className="w-full bg-surface flex-1">
+        {/* Full-bleed Hero Section */}
+        <section
+          className="hero-showroom hero-showroom--fullbleed"
+          role="img"
+          aria-label="Showroom motor bekas Roda.Motorku dengan deretan unit motor"
+        >
+          {/* Ornamen dekoratif: aksen diagonal, glow biru, garis geometris */}
+          <span className="hero-showroom__diagonal" aria-hidden="true"></span>
+          <span className="hero-showroom__glow" aria-hidden="true"></span>
+          <span className="hero-showroom__lines" aria-hidden="true"></span>
+
+          {/* Banner Content Container (align dengan max-w-7xl navbar & konten) */}
+          <div className="max-w-7xl mx-auto w-full px-margin-mobile md:px-margin">
+            <div className="hero-showroom__content">
+              <span className="hero-showroom__badge">
+                <span className="hero-showroom__badge-dot"></span>
+                Katalog Resmi Roda.Motorku
+              </span>
+              <h1 className="hero-showroom__title">
+                Pilihan Motor Bekas{" "}
+                <span className="hero-showroom__title-accent">Berkualitas &amp; Bergaransi</span>
+              </h1>
+              <p className="hero-showroom__subtitle">
+                Unit terinspeksi menyeluruh, dokumen lengkap, dan harga
+                transparan.
+              </p>
+            </div>
+          </div>
+        </section>
+
         <div className="flex flex-col w-full">
           <div className="max-w-7xl mx-auto w-full px-margin-mobile md:px-margin py-space-lg flex flex-col gap-space-lg">
-            {/* Hero Banner */}
-            <div className="relative w-full rounded-2xl overflow-hidden shadow-sm border border-outline-variant/60">
-              {/* Background Image */}
-              <img
-                src="/backround.jpg"
-                alt="Background Roda.Motorku"
-                className="absolute inset-0 w-full h-full object-cover object-center"
-              />
-              {/* Dark Blue Overlay for Legibility & Brand Consistency */}
-              <div className="absolute inset-0 bg-primary/75 md:bg-primary/70 backdrop-blur-[1px]"></div>
-
-              {/* Banner Content */}
-              <div className="relative z-10 p-6 md:p-10 flex flex-col items-center justify-center text-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-surface-container-lowest text-primary font-label-sm text-label-sm font-bold uppercase tracking-wider shadow-sm">
-                  <span className="w-2 h-2 rounded-full bg-primary"></span>
-                  Katalog Resmi Roda.Motorku
-                </span>
-                <h1 className="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary font-bold tracking-tight drop-shadow-xs">
-                  Pilihan Motor Bekas Berkualitas &amp; Bergaransi
-                </h1>
-                <p className="font-body-md text-body-md text-on-primary/95 max-w-xl drop-shadow-xs">
-                  Unit terinspeksi menyeluruh, dokumen lengkap, dan harga
-                  transparan.
-                </p>
-              </div>
-            </div>
-
             {/* Baris Pencarian & Filter */}
             <div
               id="katalog-unit"
