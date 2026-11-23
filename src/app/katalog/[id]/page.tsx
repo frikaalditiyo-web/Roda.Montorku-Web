@@ -113,7 +113,7 @@ function DetailMotorContent({
     <div className="min-h-screen flex flex-col bg-surface">
       <PublicNavbar />
 
-      <main className="w-full pt-16 bg-surface flex-1">
+      <main className="w-full pt-20 sm:pt-24 bg-surface flex-1">
         <div className="flex flex-col w-full">
           {/* Top Breadcrumb & Quick Actions Bar */}
           <section className="w-full bg-surface-container-lowest shadow-sm">
