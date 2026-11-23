@@ -65,6 +65,20 @@ export default function KatalogMotorPage() {
     if (totalPages > 0 && currentPage > totalPages) setCurrentPage(totalPages);
   }, [currentPage, totalPages]);
 
+  // Reset loading state tombol detail saat halaman katalog aktif/kembali dari detail
+  useEffect(() => {
+    setNavigatingMotorId(null);
+
+    const handlePageShow = () => {
+      setNavigatingMotorId(null);
+    };
+
+    window.addEventListener("pageshow", handlePageShow);
+    return () => {
+      window.removeEventListener("pageshow", handlePageShow);
+    };
+  }, []);
+
   const goToPage = (page: number) => {
     setCurrentPage(page);
     document.getElementById("katalog-unit")?.scrollIntoView({ behavior: "smooth", block: "start" });
