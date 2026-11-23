@@ -115,17 +115,6 @@ export function PublicNavbar() {
             <span>WA Showroom</span>
           </a>
 
-          <Link
-            href="/login"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-secondary text-on-primary font-label-sm text-label-sm font-semibold transition-colors border border-white/20"
-            title="Masuk ke Panel Pengelola Showroom"
-          >
-            <span className="material-symbols-outlined text-[16px]">
-              lock
-            </span>
-            <span>Login Admin</span>
-          </Link>
-
           <button
             type="button"
             onClick={() => setMobileMenuOpen((prev) => !prev)}
