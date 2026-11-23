@@ -48,18 +48,18 @@ export function PublicNavbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 px-margin-mobile md:px-margin pt-3 sm:pt-4 pointer-events-none transition-all">
-      <div className="max-w-7xl mx-auto h-16 px-4 md:px-6 flex items-center justify-between pointer-events-auto bg-primary/90 backdrop-blur-md text-on-primary rounded-2xl shadow-xl shadow-black/25 border border-white/15">
+    <header className="fixed top-0 left-0 right-0 z-40 px-2 sm:px-margin-mobile md:px-margin pt-2.5 sm:pt-4 pointer-events-none transition-all">
+      <div className="max-w-7xl mx-auto h-14 sm:h-16 px-3 sm:px-4 md:px-6 flex items-center justify-between pointer-events-auto bg-primary/95 backdrop-blur-md text-on-primary rounded-xl sm:rounded-2xl shadow-xl shadow-black/25 border border-white/15">
         {/* Brand Logo */}
-        <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-space-sm group">
-          <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200">
+        <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-2 sm:gap-space-sm group min-w-0 flex-shrink">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200 flex-shrink-0">
             <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm sm:font-headline-sm sm:text-headline-sm font-bold tracking-tight leading-none text-on-primary truncate">
               Roda.Motorku
             </span>
-            <span className="font-label-sm text-[10px] text-on-primary/70 font-medium tracking-wide">
+            <span className="hidden sm:inline font-label-sm text-[10px] text-on-primary/70 font-medium tracking-wide truncate">
               Showroom Motor Bekas Berkualitas
             </span>
           </div>
