@@ -246,7 +246,7 @@ export default function KatalogMotorPage() {
               </p>
             </div>
 
-            {/* Grid Daftar Motor (3 Kolom Desktop) */}
+            {/* Grid Daftar Motor */}
             {paginatedMotors.length === 0 ? (
               <div className="bg-surface-container-lowest rounded-xl p-space-xl text-center shadow-sm flex flex-col items-center gap-space-sm">
                 <span className="material-symbols-outlined text-[48px] text-outline">
@@ -264,7 +264,7 @@ export default function KatalogMotorPage() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-gutter">
                 {paginatedMotors.map((motor) => {
                   const mainPhoto =
                     motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
@@ -274,7 +274,7 @@ export default function KatalogMotorPage() {
                   return (
                     <div
                       key={motor.id_motor}
-                      className="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:-translate-y-1 transition-all duration-200 flex flex-col justify-between border border-surface-container"
+                      className="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between border border-surface-container/80"
                     >
                       <div>
                         {/* Foto Motor & Badge */}
@@ -283,8 +283,9 @@ export default function KatalogMotorPage() {
                             alt={`${motor.merek} ${motor.tipe} ${motor.tahun}`}
                             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             src={mainPhoto}
+                            loading="lazy"
                           />
-                          <div className="absolute top-3 left-3 flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm shadow-sm">
+                          <div className="absolute top-2.5 left-2.5 sm:top-3 sm:left-3 flex items-center gap-1.5 px-2.5 py-0.5 sm:py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-sm shadow-xs">
                             <span
                               className={`w-1.5 h-1.5 rounded-full ${
                                 isAvailable
@@ -293,11 +294,7 @@ export default function KatalogMotorPage() {
                               }`}
                             ></span>
                             <span
-                              className={`font-label-sm text-label-sm uppercase tracking-wider ${
-                                isAvailable
-                                  ? "text-primary"
-                                  : "text-primary"
-                              }`}
+                              className="font-label-sm text-[11px] font-bold uppercase tracking-wider text-primary"
                             >
                               {motor.status}
                             </span>
@@ -305,26 +302,30 @@ export default function KatalogMotorPage() {
                         </div>
 
                         {/* Konten Info */}
-                        <div className="p-5 flex flex-col gap-1">
-                          <h2 className="font-headline-sm text-headline-sm text-on-surface font-bold truncate">
+                        <div className="p-3.5 sm:p-5 flex flex-col gap-1">
+                          <h2 className="text-base sm:text-headline-sm text-on-surface font-bold leading-tight line-clamp-1">
                             {motor.merek} {motor.tipe}
                           </h2>
-                          <p className="font-body-sm text-body-sm text-primary tabular-nums">
-                            {motor.tahun} · {formatNumberID(motor.kilometer)} km
-                            · {motor.cc} cc
+                          <p className="text-xs sm:text-body-sm text-primary/80 tabular-nums">
+                            {motor.tahun} · {formatNumberID(motor.kilometer)} km · {motor.cc} cc
                           </p>
                         </div>
                       </div>
 
                       {/* Footer Kartu: Harga & Aksi */}
-                      <div className="p-5 pt-0 mt-1 flex items-center justify-between gap-3">
-                        <span className="font-currency-stat text-currency-stat text-primary font-bold tabular-nums">
-                          {formatRupiah(motor.harga_jual)}
-                        </span>
+                      <div className="p-3.5 sm:p-5 pt-0 mt-0.5 flex items-center justify-between gap-2 border-t border-surface-container/40 pt-3">
+                        <div className="flex flex-col min-w-0">
+                          <span className="text-[10px] text-primary/60 uppercase font-semibold tracking-wider">
+                            Harga Jual
+                          </span>
+                          <span className="text-base sm:text-currency-stat text-primary font-bold tabular-nums truncate">
+                            {formatRupiah(motor.harga_jual)}
+                          </span>
+                        </div>
                         <Link
                           href={`/katalog/${motor.id_motor}`}
                           onClick={() => setNavigatingMotorId(motor.id_motor)}
-                          className="px-5 py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm transition-all text-center cursor-pointer inline-flex items-center justify-center gap-1.5"
+                          className="px-3.5 sm:px-5 py-2 sm:py-2.5 bg-primary-container hover:bg-primary text-on-primary font-label-md text-xs sm:text-label-md rounded-lg shadow-xs transition-all text-center cursor-pointer inline-flex items-center justify-center gap-1.5 flex-shrink-0"
                         >
                           {navigatingMotorId === motor.id_motor ? (
                             <>
@@ -332,7 +333,7 @@ export default function KatalogMotorPage() {
                               <span>Memuat...</span>
                             </>
                           ) : (
-                            <span>Detail</span>
+                            <span>Lihat Detail</span>
                           )}
                         </Link>
                       </div>
@@ -343,18 +344,18 @@ export default function KatalogMotorPage() {
             )}
 
             {/* Pagination & Navigasi Halaman */}
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-space-md pb-space-lg">
-              <span className="font-body-sm text-body-sm text-primary">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-space-sm pb-space-lg">
+              <span className="font-body-sm text-xs sm:text-body-sm text-primary order-2 sm:order-1">
                 Halaman {currentPage} dari {totalPages}
               </span>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2 order-1 sm:order-2 overflow-x-auto max-w-full py-1">
                 <button
                   type="button"
                   onClick={() => goToPage(Math.max(1, pageBlockStart - 1))}
                   disabled={pageBlockStart === 1}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-xs"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
+                  <span className="material-symbols-outlined text-[18px] sm:text-[20px]">
                     chevron_left
                   </span>
                 </button>
@@ -366,8 +367,8 @@ export default function KatalogMotorPage() {
                       onClick={() => goToPage(page)}
                       className={
                         currentPage === page
-                          ? "w-10 h-10 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-md text-label-md shadow-sm"
-                          : "w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-label-md transition-colors"
+                          ? "w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-md text-xs sm:text-label-md shadow-xs font-bold"
+                          : "w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs sm:text-label-md transition-colors shadow-xs"
                       }
                     >
                       {page}
@@ -380,9 +381,9 @@ export default function KatalogMotorPage() {
                     goToPage(Math.min(totalPages, pageBlockEnd + 1))
                   }
                   disabled={pageBlockEnd === totalPages}
-                  className="w-10 h-10 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface disabled:opacity-40 disabled:cursor-not-allowed transition-colors shadow-xs"
                 >
-                  <span className="material-symbols-outlined text-[20px]">
+                  <span className="material-symbols-outlined text-[18px] sm:text-[20px]">
                     chevron_right
                   </span>
                 </button>

@@ -420,15 +420,15 @@
     flex-direction: column;
     justify-content: flex-end;
     align-items: stretch;
-    min-height: 420px;
-    border-radius: 0 0 22px 22px;
+    min-height: 380px;
+    border-radius: 0 0 20px 20px;
     /* Overlay mobile bertingkat: memastikan tulisan sangat kontras dan terbaca */
     background-image:
       linear-gradient(
         180deg,
         rgba(9, 38, 83, 0.65) 0%,
-        rgba(9, 38, 83, 0.4) 30%,
-        rgba(9, 38, 83, 0.88) 65%,
+        rgba(9, 38, 83, 0.35) 28%,
+        rgba(9, 38, 83, 0.88) 60%,
         rgba(9, 38, 83, 0.98) 100%
       ),
       url("/backround.jpg");
@@ -436,43 +436,43 @@
   }
 
   .hero-showroom--fullbleed {
-    min-height: 380px;
-    border-radius: 0 0 22px 22px;
-    padding-top: 5rem;
-    padding-bottom: 1.75rem;
+    min-height: 340px;
+    border-radius: 0 0 20px 20px;
+    padding-top: 4.75rem;
+    padding-bottom: 1.25rem;
   }
 
   .hero-showroom__content {
     max-width: 100%;
-    gap: 0.65rem;
-    padding: 0.75rem 0 0.5rem 0;
+    gap: 0.5rem;
+    padding: 0.5rem 0 0.25rem 0;
     align-items: flex-start;
     text-align: left;
   }
 
   .hero-showroom__badge {
-    font-size: 0.6875rem;
-    padding: 0.3rem 0.75rem;
-    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    padding: 0.25rem 0.65rem;
+    letter-spacing: 0.06em;
   }
 
   .hero-showroom__title {
-    font-size: 1.625rem;
+    font-size: 1.35rem;
     line-height: 1.25;
     letter-spacing: -0.01em;
   }
 
   .hero-showroom__title-accent {
-    padding-bottom: 0.1em;
+    padding-bottom: 0.08em;
     margin-bottom: 0;
   }
 
   .hero-showroom__subtitle {
-    font-size: 0.875rem;
-    line-height: 1.35rem;
-    padding-left: 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+    padding-left: 0.65rem;
     max-width: 100%;
-    color: rgba(255, 255, 255, 0.92);
+    color: rgba(255, 255, 255, 0.9);
   }
 
   .hero-showroom__subtitle::before {
@@ -480,9 +480,9 @@
   }
 
   .hero-showroom__lines {
-    width: 100px;
-    height: 70px;
-    opacity: 0.4;
+    width: 90px;
+    height: 60px;
+    opacity: 0.3;
   }
 
   .hero-showroom__diagonal {
@@ -490,12 +490,12 @@
   }
 
   .hero-showroom__glow {
-    width: 280px;
-    height: 280px;
-    left: -80px;
-    bottom: -60px;
+    width: 240px;
+    height: 240px;
+    left: -70px;
+    bottom: -50px;
     top: auto;
-    opacity: 0.4;
+    opacity: 0.35;
   }
 }
 
