@@ -151,7 +151,7 @@ export default function KatalogMotorPage() {
                 </div>
 
                 {/* Filter Dropdown 1: Merek */}
-                <div className="relative min-w-[140px] flex-shrink-0">
+                <div className="relative w-full lg:w-auto lg:min-w-[140px] flex-shrink-0">
                   <select
                     value={selectedBrand}
                     onChange={(e) => {
@@ -169,7 +169,7 @@ export default function KatalogMotorPage() {
                 </div>
 
                 {/* Filter Dropdown 2: Tahun */}
-                <div className="relative min-w-[130px] flex-shrink-0">
+                <div className="relative w-full lg:w-auto lg:min-w-[130px] flex-shrink-0">
                   <select
                     value={selectedYear}
                     onChange={(e) => {
@@ -187,7 +187,7 @@ export default function KatalogMotorPage() {
                 </div>
 
                 {/* Filter Dropdown 3: Harga */}
-                <div className="relative min-w-[165px] flex-shrink-0">
+                <div className="relative w-full lg:w-auto lg:min-w-[165px] flex-shrink-0">
                   <select
                     value={selectedPriceRange}
                     onChange={(e) => {

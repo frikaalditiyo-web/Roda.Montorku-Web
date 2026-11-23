@@ -102,17 +102,17 @@ export function PublicNavbar() {
         </nav>
 
         {/* Right Action: Direct WhatsApp Showroom Consultation & Admin Login */}
-        <div className="flex items-center gap-space-sm">
+        <div className="flex items-center gap-1.5 sm:gap-space-sm flex-shrink-0">
           <a
             href="https://wa.me/6285608981265?text=Halo%20Admin%20Roda.Motorku,%20saya%20ingin%20tanya%20stok%20unit%20motor%20bekas"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-label-sm font-semibold shadow-xs transition-colors"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-xs sm:text-label-sm font-semibold shadow-xs transition-colors whitespace-nowrap"
           >
-            <span className="material-symbols-outlined text-[16px]">
+            <span className="material-symbols-outlined text-[15px] sm:text-[16px]">
               chat
             </span>
-            <span>Konsultasi WA</span>
+            <span>WA Showroom</span>
           </a>
 
           <Link
