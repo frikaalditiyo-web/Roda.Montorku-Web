@@ -210,7 +210,7 @@ function DetailMotorContent({
                 <div className="relative bg-surface-container-lowest rounded-xl overflow-hidden shadow-md group aspect-[4/3] flex items-center justify-center">
                   <img
                     alt={`${motor.merek} ${motor.tipe} - ${currentPhoto?.label || "Foto Unit"}`}
-                    className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
                     src={currentPhoto?.nama_file || "/logo.png"}
                   />
                   {/* Gradient Scrim for Top Badges */}
@@ -260,7 +260,7 @@ function DetailMotorContent({
                       >
                         <img
                           alt={photo.label}
-                          className="w-full h-full object-cover group-hover:opacity-90 transition-opacity"
+                          className="w-full h-full object-cover object-center group-hover:opacity-90 transition-opacity"
                           src={photo.nama_file}
                         />
                         <div

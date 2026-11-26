@@ -121,7 +121,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 101,
         id_motor: 1,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "/images/motors/honda-vario.webp",
         label: "Tampak Depan",
         caption: "Tampak Depan (Depan Kanan 45°)",
         is_utama: true,
@@ -130,7 +130,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 102,
         id_motor: 1,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "/images/motors/honda-vario.webp",
         label: "Tampak Samping",
         caption: "Tampak Samping Penuh (Kiri & Knalpot Rapi)",
         is_utama: false,
@@ -139,7 +139,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 103,
         id_motor: 1,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Speedometer Digital & Odometer Asli 12.450 km",
         is_utama: false,
@@ -148,7 +148,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 104,
         id_motor: 1,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "Kelengkapan Dokumen Fisik: BPKB Biru, STNK Asli, & Faktur",
         is_utama: false,
@@ -182,7 +182,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 201,
         id_motor: 2,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "/images/motors/yamaha-nmax.webp",
         label: "Tampak Depan",
         caption: "Tampak Utama Yamaha NMAX 155 Connected",
         is_utama: true,
@@ -191,7 +191,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 202,
         id_motor: 2,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "/images/motors/yamaha-nmax.webp",
         label: "Tampak Samping",
         caption: "Profil Bodi Samping Mulus Tanpa Goresan",
         is_utama: false,
@@ -200,7 +200,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 203,
         id_motor: 2,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Panel Instrumen Digital Y-Connect 18.200 km",
         is_utama: false,
@@ -209,7 +209,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 204,
         id_motor: 2,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "Dokumen STNK, BPKB, & Faktur Asli Lengkap",
         is_utama: false,
@@ -243,7 +243,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 301,
         id_motor: 3,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "/images/motors/honda-beat.webp",
         label: "Tampak Depan",
         caption: "Tampak Depan Honda Beat Deluxe 2023",
         is_utama: true,
@@ -252,7 +252,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 302,
         id_motor: 3,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "/images/motors/honda-beat.webp",
         label: "Tampak Samping",
         caption: "Bodi Samping Mulus Orisinil",
         is_utama: false,
@@ -261,7 +261,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 303,
         id_motor: 3,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Odometer Rendah 8.900 km",
         is_utama: false,
@@ -270,7 +270,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 304,
         id_motor: 3,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "Surat-Surat Lengkap STNK, BPKB, & Faktur",
         is_utama: false,
@@ -304,7 +304,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 401,
         id_motor: 4,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuDYABtwm7w8tMXJ9p9QWObgNU4JFJktjb5Qv9cx1-00qjixkXcsXgkJo8dsFCspsz-Jc__vZ4FvUYYfQwlDOmXLYTPeX0C3x0uDj-F9frDTapFxXtoDtZzem77C83REzs_GULX6PHT9eSXbWfMc1bAWGjvf1SnIdmJAJMFjlyHBbtqIfeIQqkIF3L5ALRM8lh0pEKMCw48Ak5n-zchgL_ieoZjGW33cnCqBs88YEZh-",
+          "/images/motors/yamaha-aerox.webp",
         label: "Tampak Depan",
         caption: "Tampak Utama Yamaha Aerox 155 VVA",
         is_utama: true,
@@ -313,7 +313,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 402,
         id_motor: 4,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuBifNb0YIMGS6XW5nl4dpPUy36sWWaGD3jIA3avA54XqPoQBc_QehIxiMo9mUOxqyVZ0Oj_YVcInlIhbYdnUGFHeKDZxczmRfMau9UGnwCa5UxfDU_KL_lCVr8npbylv94WTUJkPeR6nt7OvZSZCWBXvpGjRfGZ95jPJZIz3NStIYs4MGHSbuvu3FzPQRpGybTu6KvjjlrHmtRc3QOQqXTpY-WFLXg-WgxkVJGfRNJy",
+          "/images/motors/yamaha-aerox.webp",
         label: "Tampak Samping",
         caption: "Profil Sporty Aerox 155 VVA",
         is_utama: false,
@@ -322,7 +322,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 403,
         id_motor: 4,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Speedometer Full Digital 24.100 km",
         is_utama: false,
@@ -331,7 +331,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 404,
         id_motor: 4,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "Dokumen STNK & BPKB Asli",
         is_utama: false,
@@ -365,7 +365,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 501,
         id_motor: 5,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuDPTWHIHQBY6n1o8yMs6FJlHumNalhSulA_VCQGqDyaDpz3MF2d_rSFpy7-X-j-QzJtrb_eNpvVJqkLRsWCLwX3B355_LUD3lLRmsENjc-IfDlGc2DGCI3pZ2CFyKx5PecFtEUL7OAStApNlHmHwmmMdXlVGSW4pE35U29Ic210NNqwas66Jxcvw1nLmXD1Rrw2NWIqr1STNzukTqY0sPPqU7HBShljny6RcqdJ0Skf",
+          "/images/motors/scooter-retro-mint.webp",
         label: "Tampak Depan",
         caption: "Vespa Sprint 150 I-Get ABS 2022",
         is_utama: true,
@@ -374,7 +374,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 502,
         id_motor: 5,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuAWSIYmuYM1OFsTJ0cjRZJwxY5VCVp1b6KjSEXA1GLcjVSU0wi9G7ZTlcTewMTGbJVNjxJZMF9dzStVgOmvfAqDvttlWRlrQPtDNVAxOEYIwcWRVC-IuQdVucRSf7SAFdjBjHeHMmI6qmFsWfwGRGnbYFN9oYAwcW6YhX_YpMsO1ZpcyzJCUcto6fTCgpFinEIl44YDuzLsv5DkCYmszEw0qgblOa3i5BDmDBXmjrWD",
+          "/images/motors/scooter-retro-mint.webp",
         label: "Tampak Samping",
         caption: "Tampak Samping Vespa Sprint 150",
         is_utama: false,
@@ -383,7 +383,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 503,
         id_motor: 5,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Odometer Rendah 9.350 km",
         is_utama: false,
@@ -392,7 +392,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 504,
         id_motor: 5,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "BPKB, STNK, Faktur, & Kunci Master Lengkap",
         is_utama: false,
@@ -426,7 +426,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 601,
         id_motor: 6,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCUezHR0QiZ6ace3dLWNm2F_-RydFAcvacLP96beilbXyJ8wt-deVHh8zTsqbksgiHjkxseGcJ9ZclDbngHUibHKeTUUGGnanlq9_Ub4KjUoqybyKS73N0NXEjoAV4Fr5dTkH6dsZGxIPTV8LHPhHD1M2dXPXdf__ZkfisY-FISS8XdAy4tQSLjv5kUVF9i68WM6bGhg1qaz1l08L9YUQzusrTbJ8W_mRsG_ACyJ7vl",
+          "/images/motors/honda-scoopy.webp",
         label: "Tampak Depan",
         caption: "Honda Scoopy Prestige 2022 Matte White",
         is_utama: true,
@@ -435,7 +435,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 602,
         id_motor: 6,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuALsajTjxAmStq8ediYI2UaOU-d1X5FKUGQwZDISoQ0H0GMFHp-1gfM9cTriNJsyHzOutIziad7GM1usbym0YNXx7bULd5-7bOaaonFHXG252M0Pq5SFJmq9eusH2-3hEDLNFjOOMiUyY6Ewy5GglfhaHZydTH7ivr3jNSz2ZH0ML2bcI7zoQn1kIMLGgB57eM-5Q40DvPGrDUy4zadsk5oNtogevPl21TlBZHAOzrI",
+          "/images/motors/honda-scoopy.webp",
         label: "Tampak Samping",
         caption: "Tampak Samping Bodi Mulus",
         is_utama: false,
@@ -444,7 +444,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 603,
         id_motor: 6,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "/images/motors/honda-vario.webp",
         label: "Speedometer",
         caption: "Odometer 14.120 km",
         is_utama: false,
@@ -453,7 +453,7 @@ export const OLD_INITIAL_MOTORS: Motor[] = [
         id_foto: 604,
         id_motor: 6,
         nama_file:
-          "https://lh3.googleusercontent.com/aida-public/AB6AXuA13sV-oQ8hcjN01VGLQK8vraxl6IdCGSYmDZ3eUy61zqHPuvvM2OXxehX2jnXZulPV0QBWN9MocqqM9FqVtZixiCHjT9GP7LEf01tY02wW4MA5kzawXZhYk0hFgRezd3vxSQItUsE8pbMdDNDJd9NgEnwvrcBUAOOLAiVswznYYLMVpRys6JappAjVH5kUI41K9hbFpeCsyjbHrTdPfkAm1EvqJj-ans8l0Dg62IxU",
+          "/images/motors/honda-beat.webp",
         label: "STNK & BPKB",
         caption: "STNK, BPKB, & Faktur Lengkap",
         is_utama: false,

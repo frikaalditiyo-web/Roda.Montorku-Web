@@ -326,10 +326,10 @@ export default function KatalogMotorPage() {
                     >
                       <div>
                         {/* Foto Motor & Badge */}
-                        <div className="relative w-full aspect-[16/10] bg-surface-container-low overflow-hidden">
+                        <div className="relative w-full aspect-[4/3] bg-surface-container-low overflow-hidden">
                           <img
                             alt={`${motor.merek} ${motor.tipe} ${motor.tahun}`}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                            className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-300"
                             src={mainPhoto}
                             loading="lazy"
                           />
