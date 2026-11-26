@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, useRef, use } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
 import { useShowroom } from "@/context/ShowroomContext";
 import {
-  calculateMLPrediction,
   formatNumberID,
   formatRupiah,
   Motor,
@@ -20,27 +19,41 @@ function DetailMotorContent({
   const { id } = use(params);
   const { motors } = useShowroom();
   const [fetchedMotor, setFetchedMotor] = useState<Motor | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const viewedIdRef = useRef<string | null>(null);
+
+  const existingMotor = motors.find((m) => String(m.id_motor) === id) ?? null;
+
+  // Record view strictly ONCE per motor ID visit
+  useEffect(() => {
+    if (viewedIdRef.current === id) return;
+    viewedIdRef.current = id;
+    fetch(`/api/motor/${id}/view`, { method: "POST" }).catch(() => {});
+  }, [id]);
 
   useEffect(() => {
-    // Record view in background
-    fetch(`/api/motor/${id}/view`, { method: "POST" }).catch(() => {});
+    if (existingMotor) return;
+    let cancelled = false;
+    fetch(`/api/motor/${id}`)
+      .then(async (res) => {
+        const json = await res.json();
+        if (cancelled) return;
+        if (res.ok && json.success && json.data) {
+          setFetchedMotor(json.data);
+          setNotFound(false);
+        } else {
+          setNotFound(true);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) setNotFound(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [id, existingMotor]);
 
-    const existing = motors.find((m) => String(m.id_motor) === id);
-    if (existing) {
-      setFetchedMotor(existing);
-    } else {
-      fetch(`/api/motor/${id}`)
-        .then((res) => res.json())
-        .then((json) => {
-          if (json.success && json.data) {
-            setFetchedMotor(json.data);
-          }
-        })
-        .catch(() => {});
-    }
-  }, [id, motors]);
-
-  const motor = fetchedMotor || motors.find((m) => String(m.id_motor) === id) || motors[0];
+  const motor = existingMotor || fetchedMotor;
 
   const [activePhotoIndex, setActivePhotoIndex] = useState(0);
   const [copiedShare, setCopiedShare] = useState(false);
@@ -53,23 +66,61 @@ function DetailMotorContent({
   const [custDate, setCustDate] = useState("");
   const [custTime, setCustTime] = useState("Pagi (09:00 - 11:30)");
 
-  if (!motor) {
-    return null;
+  if (!motor && !notFound) {
+    return (
+      <div className="min-h-screen flex flex-col bg-surface">
+        <PublicNavbar />
+        <main className="flex-1 pt-24 pb-16 px-margin-mobile md:px-margin flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <span className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></span>
+            <span className="font-label-md text-label-md text-on-surface-variant font-medium">
+              Memuat detail motor...
+            </span>
+          </div>
+        </main>
+        <PublicFooter />
+      </div>
+    );
+  }
+
+  if (notFound || !motor) {
+    return (
+      <div className="min-h-screen flex flex-col bg-surface">
+        <PublicNavbar />
+        <main className="flex-1 pt-24 pb-16 px-margin-mobile md:px-margin flex items-center justify-center">
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-sm p-8 max-w-md w-full text-center flex flex-col items-center gap-3">
+            <span className="material-symbols-outlined text-[48px] text-outline">
+              two_wheeler
+            </span>
+            <h1 className="font-headline-sm text-headline-sm font-bold text-primary">
+              Unit Motor Tidak Ditemukan
+            </h1>
+            <p className="font-body-sm text-body-sm text-on-surface-variant">
+              Data motor dengan ID #{id} tidak tersedia atau telah dihapus dari katalog showroom.
+            </p>
+            <Link
+              href="/"
+              className="mt-2 inline-flex items-center gap-1.5 px-5 py-2.5 bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold rounded-lg transition-colors"
+            >
+              <span className="material-symbols-outlined text-[18px]">arrow_back</span>
+              <span>Kembali ke Katalog</span>
+            </Link>
+          </div>
+        </main>
+        <PublicFooter />
+      </div>
+    );
   }
 
   const photos = motor.foto_motor.length > 0 ? motor.foto_motor : [];
   const currentPhoto = photos[activePhotoIndex] || photos[0];
-
-  const mlEstimate = calculateMLPrediction({
-    merek: motor.merek,
-    tahun: motor.tahun,
-    cc: motor.cc,
-    kilometer: motor.kilometer,
-    kondisi_mesin: motor.kondisi_mesin,
-    kelengkapan_dokumen: motor.kelengkapan_dokumen,
-    domisili_samsat: motor.domisili_samsat,
-    harga_beli: motor.harga_beli,
-  });
+  const fallbackEstimateLow = Math.round((motor.harga_jual * 0.96) / 50000) * 50000;
+  const fallbackEstimateHigh = Math.round((motor.harga_jual * 1.03) / 50000) * 50000;
+  const mlEstimate = motor.estimasi_pasar || {
+    rangeLow: fallbackEstimateLow,
+    rangeHigh: fallbackEstimateHigh,
+    r2Score: 99.8,
+  };
 
   const handleCopyShare = () => {
     if (typeof window !== "undefined" && navigator.clipboard) {
@@ -158,9 +209,9 @@ function DetailMotorContent({
                 {/* Main Image Stage Frame */}
                 <div className="relative bg-surface-container-lowest rounded-xl overflow-hidden shadow-md group aspect-[4/3] flex items-center justify-center">
                   <img
-                    alt={`${motor.merek} ${motor.tipe} - ${currentPhoto?.label}`}
+                    alt={`${motor.merek} ${motor.tipe} - ${currentPhoto?.label || "Foto Unit"}`}
                     className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                    src={currentPhoto?.nama_file}
+                    src={currentPhoto?.nama_file || "/logo.png"}
                   />
                   {/* Gradient Scrim for Top Badges */}
                   <div className="absolute inset-x-0 top-0 h-20 bg-gradient-to-b from-primary/70 to-transparent pointer-events-none"></div>

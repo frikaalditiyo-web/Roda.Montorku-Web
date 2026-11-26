@@ -32,10 +32,9 @@ export async function GET(request: NextRequest) {
         created_at: user.created_at,
       },
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, message: error.message || "Gagal memverifikasi sesi" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg =
+      error instanceof Error ? error.message : "Gagal memverifikasi sesi";
+    return NextResponse.json({ success: false, message: msg }, { status: 500 });
   }
 }

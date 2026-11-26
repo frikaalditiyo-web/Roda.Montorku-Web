@@ -1,7 +1,22 @@
 import crypto from "crypto";
 
-const JWT_SECRET = process.env.JWT_SECRET || "rodamotorku-super-secure-secret-key-2026";
+export const COOKIE_NAME = "rodamotorku_token";
+
+const DEV_FALLBACK_JWT_SECRET = "rodamotorku-dev-only-jwt-secret-change-in-prod";
 const TOKEN_MAX_AGE_SECONDS = 7 * 24 * 60 * 60; // 7 days
+
+function getJwtSecret(): string {
+  const envSecret = process.env.JWT_SECRET?.trim();
+  if (envSecret && envSecret.length >= 16) {
+    return envSecret;
+  }
+  if (process.env.NODE_ENV === "production") {
+    throw new Error(
+      "JWT_SECRET environment variable must be configured with >= 16 characters in production."
+    );
+  }
+  return DEV_FALLBACK_JWT_SECRET;
+}
 
 export interface AuthTokenPayload {
   id_user: number;
@@ -21,61 +36,60 @@ export function hashPassword(password: string): string {
 }
 
 /**
- * Verify a plain text password against stored hash
+ * Verify a plain text password against stored scrypt hash
  */
 export function verifyPassword(password: string, storedHash: string): boolean {
   if (!password || !storedHash) return false;
 
-  // Handle demo default password match
-  if (storedHash === "AdminRoda2026!" && password === "AdminRoda2026!") {
-    return true;
-  }
-
-  // Handle scrypt format: scrypt:<salt>:<hash>
   if (storedHash.startsWith("scrypt:")) {
     const parts = storedHash.split(":");
     if (parts.length !== 3) return false;
     const [, salt, originalHash] = parts;
-    const derivedKey = crypto.scryptSync(password, salt, 64);
-    const keyBuffer = Buffer.from(derivedKey.toString("hex"), "hex");
-    const originalBuffer = Buffer.from(originalHash, "hex");
-    if (keyBuffer.length !== originalBuffer.length) return false;
-    return crypto.timingSafeEqual(keyBuffer, originalBuffer);
+    try {
+      const derivedKey = crypto.scryptSync(password, salt, 64);
+      const originalBuffer = Buffer.from(originalHash, "hex");
+      if (derivedKey.length !== originalBuffer.length) return false;
+      return crypto.timingSafeEqual(derivedKey, originalBuffer);
+    } catch {
+      return false;
+    }
   }
 
-  // Fallback direct match (in case unhashed in mock dev)
+  // Legacy plaintext compatibility only if unhashed record exists
   return password === storedHash;
+}
+
+function toBase64Url(input: Buffer | string): string {
+  return Buffer.from(input)
+    .toString("base64")
+    .replace(/=/g, "")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_");
 }
 
 /**
  * Generate a signed JWT token using HMAC-SHA256
  */
-export function signJwt(payload: Omit<AuthTokenPayload, "exp">): string {
+export function signJwt(
+  payload: Omit<AuthTokenPayload, "exp">,
+  maxAgeSeconds = TOKEN_MAX_AGE_SECONDS
+): string {
   const header = {
     alg: "HS256",
     typ: "JWT",
   };
 
-  const exp = Math.floor(Date.now() / 1000) + TOKEN_MAX_AGE_SECONDS;
+  const exp = Math.floor(Date.now() / 1000) + maxAgeSeconds;
   const fullPayload: AuthTokenPayload = {
     ...payload,
     exp,
   };
 
-  const encodedHeader = Buffer.from(JSON.stringify(header))
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
-
-  const encodedPayload = Buffer.from(JSON.stringify(fullPayload))
-    .toString("base64")
-    .replace(/=/g, "")
-    .replace(/\+/g, "-")
-    .replace(/\//g, "_");
+  const encodedHeader = toBase64Url(JSON.stringify(header));
+  const encodedPayload = toBase64Url(JSON.stringify(fullPayload));
 
   const signature = crypto
-    .createHmac("sha256", JWT_SECRET)
+    .createHmac("sha256", getJwtSecret())
     .update(`${encodedHeader}.${encodedPayload}`)
     .digest("base64")
     .replace(/=/g, "")
@@ -86,7 +100,7 @@ export function signJwt(payload: Omit<AuthTokenPayload, "exp">): string {
 }
 
 /**
- * Verify and decode signed JWT token
+ * Verify HMAC-SHA256 signature (constant-time) and decode signed JWT token
  */
 export function verifyJwt(token: string): AuthTokenPayload | null {
   try {
@@ -95,14 +109,21 @@ export function verifyJwt(token: string): AuthTokenPayload | null {
     const [encodedHeader, encodedPayload, signature] = parts;
 
     const expectedSignature = crypto
-      .createHmac("sha256", JWT_SECRET)
+      .createHmac("sha256", getJwtSecret())
       .update(`${encodedHeader}.${encodedPayload}`)
       .digest("base64")
       .replace(/=/g, "")
       .replace(/\+/g, "-")
       .replace(/\//g, "_");
 
-    if (signature !== expectedSignature) return null;
+    const sigBuf = Buffer.from(signature, "utf8");
+    const expBuf = Buffer.from(expectedSignature, "utf8");
+    if (
+      sigBuf.length !== expBuf.length ||
+      !crypto.timingSafeEqual(sigBuf, expBuf)
+    ) {
+      return null;
+    }
 
     const payloadJson = Buffer.from(
       encodedPayload.replace(/-/g, "+").replace(/_/g, "/"),
@@ -111,9 +132,8 @@ export function verifyJwt(token: string): AuthTokenPayload | null {
 
     const payload: AuthTokenPayload = JSON.parse(payloadJson);
 
-    // Check expiration
     const now = Math.floor(Date.now() / 1000);
-    if (payload.exp && payload.exp < now) {
+    if (!payload.exp || payload.exp < now) {
       return null;
     }
 
@@ -130,7 +150,7 @@ export function getAuthenticatedUser(request: {
   cookies: { get(name: string): { value: string } | undefined };
   headers: { get(name: string): string | null };
 }): AuthTokenPayload | null {
-  const tokenFromCookie = request.cookies.get("rodamotorku_token")?.value;
+  const tokenFromCookie = request.cookies.get(COOKIE_NAME)?.value;
   const authHeader = request.headers.get("authorization");
   const tokenFromHeader = authHeader?.startsWith("Bearer ")
     ? authHeader.substring(7)
@@ -141,4 +161,3 @@ export function getAuthenticatedUser(request: {
 
   return verifyJwt(token);
 }
-

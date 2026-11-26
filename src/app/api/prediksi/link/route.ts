@@ -44,10 +44,9 @@ export async function POST(request: NextRequest) {
       message: "Prediksi berhasil dihubungkan ke unit motor katalog",
       data: updated,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, message: error.message || "Failed to link prediction" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg =
+      error instanceof Error ? error.message : "Failed to link prediction";
+    return NextResponse.json({ success: false, message: msg }, { status: 500 });
   }
 }

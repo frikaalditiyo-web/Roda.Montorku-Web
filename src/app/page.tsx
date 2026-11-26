@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -8,12 +8,13 @@ import { useShowroom } from "@/context/ShowroomContext";
 import { formatNumberID, formatRupiah } from "@/data/mockShowroomData";
 
 export default function KatalogMotorPage() {
-  const { motors } = useShowroom();
+  const { motors, isLoading } = useShowroom();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [navigatingMotorId, setNavigatingMotorId] = useState<number | null>(null);
 
@@ -40,25 +41,27 @@ export default function KatalogMotorPage() {
         motor.merek.toLowerCase() === selectedBrand.toLowerCase();
 
       const matchYear = !selectedYear || String(motor.tahun) === selectedYear;
+      const matchStatus = !selectedStatus || motor.status === selectedStatus;
       const matchPrice =
         !selectedPriceRange ||
         (selectedPriceRange === "low" && motor.harga_jual <= priceCuts[0]) ||
         (selectedPriceRange === "mid" && motor.harga_jual > priceCuts[0] && motor.harga_jual <= priceCuts[1]) ||
         (selectedPriceRange === "high" && motor.harga_jual > priceCuts[1]);
 
-      return matchQuery && matchBrand && matchYear && matchPrice;
+      return matchQuery && matchBrand && matchYear && matchStatus && matchPrice;
     });
-  }, [motors, searchQuery, selectedBrand, selectedYear, selectedPriceRange, priceCuts]);
+  }, [motors, searchQuery, selectedBrand, selectedYear, selectedStatus, selectedPriceRange, priceCuts]);
 
   const totalPages = Math.max(
     1,
     Math.ceil(filteredMotors.length / itemsPerPage)
   );
+  const safeCurrentPage = Math.min(currentPage, totalPages);
   const paginatedMotors = filteredMotors.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+    (safeCurrentPage - 1) * itemsPerPage,
+    safeCurrentPage * itemsPerPage
   );
-  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const pageBlockStart = Math.floor((safeCurrentPage - 1) / 10) * 10 + 1;
   const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
 
   useEffect(() => {
@@ -89,6 +92,7 @@ export default function KatalogMotorPage() {
     setSelectedBrand("");
     setSelectedYear("");
     setSelectedPriceRange("");
+    setSelectedStatus("");
     setCurrentPage(1);
   };
 
@@ -96,7 +100,8 @@ export default function KatalogMotorPage() {
     Boolean(searchQuery) ||
     Boolean(selectedBrand) ||
     Boolean(selectedYear) ||
-    Boolean(selectedPriceRange);
+    Boolean(selectedPriceRange) ||
+    Boolean(selectedStatus);
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">
@@ -220,6 +225,25 @@ export default function KatalogMotorPage() {
                   </span>
                 </div>
 
+                {/* Filter Dropdown 4: Status */}
+                <div className="relative min-w-[130px] flex-shrink-0">
+                  <select
+                    value={selectedStatus}
+                    onChange={(e) => {
+                      setSelectedStatus(e.target.value);
+                      setCurrentPage(1);
+                    }}
+                    className="w-full appearance-none pl-3 pr-8 py-2.5 bg-surface-container-low rounded-lg font-label-md text-label-md text-on-surface focus:outline-none focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary-container transition-all cursor-pointer"
+                  >
+                    <option value="">Semua Status</option>
+                    <option value="Tersedia">Tersedia</option>
+                    <option value="Terjual">Terjual</option>
+                  </select>
+                  <span className="material-symbols-outlined absolute right-2.5 top-1/2 -translate-y-1/2 text-primary text-[18px] pointer-events-none">
+                    expand_more
+                  </span>
+                </div>
+
                 {/* Tombol Cari & Reset */}
                 <div className="flex items-center gap-2">
                   <button
@@ -282,7 +306,8 @@ export default function KatalogMotorPage() {
                 {paginatedMotors.map((motor) => {
                   const mainPhoto =
                     motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
-                    motor.foto_motor[0]?.nama_file;
+                    motor.foto_motor[0]?.nama_file ||
+                    "/logo.png";
                   const isAvailable = motor.status === "Tersedia";
 
                   return (

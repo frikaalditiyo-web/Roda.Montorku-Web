@@ -3,20 +3,25 @@
 import React from "react";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
-import { formatNumberID, formatRupiah, Motor } from "@/data/mockShowroomData";
+import { formatNumberID, formatRupiah, MODEL_METRICS, Motor } from "@/data/mockShowroomData";
 import { CountUpNumber } from "@/components/CountUpNumber";
 
 export default function AdminDashboardPage() {
-  const { motors, predictions, deleteMotor } = useShowroom();
+  const { motors, predictions, deleteMotor, dashboardStats } = useShowroom();
 
   const [deletingMotor, setDeletingMotor] = React.useState<Motor | null>(null);
   const [isDeleting, setIsDeleting] = React.useState(false);
+  const [toastMsg, setToastMsg] = React.useState<string | null>(null);
 
   const totalUnits = motors.length;
   const availableUnits = motors.filter((m) => m.status === "Tersedia").length;
   const soldUnits = motors.filter((m) => m.status === "Terjual").length;
   const availablePct =
     totalUnits > 0 ? Math.round((availableUnits / totalUnits) * 100) : 0;
+
+  const addedLast7Days = dashboardStats?.inventory?.added_last_7_days ?? 0;
+
+  const bestModel = MODEL_METRICS.find((m) => m.is_best) || MODEL_METRICS[0];
 
   const totalInventoryValue = motors.reduce(
     (sum, m) => sum + m.harga_jual,
@@ -28,6 +33,14 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="flex flex-col w-full">
+      {toastMsg && (
+        <div className="fixed bottom-6 right-6 z-50 bg-inverse-surface text-inverse-on-surface px-space-md py-space-sm rounded-lg shadow-xl flex items-center gap-space-sm">
+          <span className="material-symbols-outlined text-tertiary-fixed text-[20px]">
+            info
+          </span>
+          <span className="font-label-md text-label-md">{toastMsg}</span>
+        </div>
+      )}
       {/* Top Welcome & Operational Status Bar */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-space-md mb-space-lg">
         <div className="flex flex-col">
@@ -70,8 +83,8 @@ export default function AdminDashboardPage() {
               </span>
             </div>
             <div className="mt-space-xs flex items-center gap-1 font-label-sm text-label-sm text-on-primary-fixed-variant">
-              <span className="font-semibold text-tertiary">+3 unit</span>
-              <span className="text-on-surface-variant">minggu ini</span>
+              <span className="font-semibold text-tertiary">+{addedLast7Days} unit</span>
+              <span className="text-on-surface-variant">7 hari terakhir</span>
             </div>
           </div>
         </div>
@@ -131,7 +144,9 @@ export default function AdminDashboardPage() {
               </span>
             </div>
             <div className="mt-space-xs flex items-center gap-1 font-label-sm text-label-sm text-on-surface-variant">
-              <span>Tahun 2026</span>
+              <span>
+                {totalUnits > 0 ? Math.round((soldUnits / totalUnits) * 100) : 0}% dari total inventaris
+              </span>
             </div>
           </div>
         </div>
@@ -162,7 +177,7 @@ export default function AdminDashboardPage() {
             </span>
             <span className="text-outline-variant">•</span>
               <span className="font-label-sm text-label-sm font-bold text-primary">
-              Akurasi R² 94.6%
+              Akurasi R² {(bestModel.r2_score * 100).toFixed(1)}%
             </span>
           </div>
         </div>
@@ -205,7 +220,8 @@ export default function AdminDashboardPage() {
                 {recentMotors.map((motor) => {
                   const thumb =
                     motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
-                    motor.foto_motor[0]?.nama_file;
+                    motor.foto_motor[0]?.nama_file ||
+                    "/logo.png";
                   const isAvailable = motor.status === "Tersedia";
 
                   return (
@@ -222,7 +238,7 @@ export default function AdminDashboardPage() {
                           />
                           <div className="flex flex-col min-w-0">
                             <Link
-                              href={`/katalog/${motor.id_motor}`}
+                              href={`/admin/data-motor?edit=${motor.id_motor}`}
                               className="text-[13px] font-semibold text-on-surface group-hover:text-primary transition-colors truncate"
                             >
                               {motor.merek} {motor.tipe}
@@ -255,7 +271,7 @@ export default function AdminDashboardPage() {
                       </td>
                       <td className="py-2.5 px-space-lg text-right text-[12px] whitespace-nowrap">
                         <Link
-                          href="/admin/data-motor"
+                          href={`/admin/data-motor?edit=${motor.id_motor}`}
                           className="text-primary hover:text-primary font-semibold transition-colors"
                         >
                           Ubah
@@ -399,14 +415,18 @@ export default function AdminDashboardPage() {
               <button
                 type="button"
                 disabled={isDeleting}
-                onClick={() => {
+                onClick={async () => {
                   if (!deletingMotor) return;
                   setIsDeleting(true);
-                  setTimeout(() => {
-                    deleteMotor(deletingMotor.id_motor);
-                    setIsDeleting(false);
-                    setDeletingMotor(null);
-                  }, 400);
+                  const res = await deleteMotor(deletingMotor.id_motor);
+                  setIsDeleting(false);
+                  setDeletingMotor(null);
+                  setToastMsg(
+                    res.success
+                      ? `Unit ${deletingMotor.merek} ${deletingMotor.tipe} berhasil dihapus.`
+                      : res.message || "Gagal menghapus unit motor."
+                  );
+                  setTimeout(() => setToastMsg(null), 3500);
                 }}
                 className="px-4 py-2 rounded-xl bg-error hover:bg-error/90 text-on-error font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer disabled:opacity-60"
               >

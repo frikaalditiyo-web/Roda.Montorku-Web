@@ -1,6 +1,8 @@
 // Machine Learning Inference Engine for RODA.MOTORKU
-// Memodelkan 3 Algoritma Regresi: Random Forest (Best), Linear Regression, & Decision Tree
-// Berdasarkan Dataset Historis 187 Motor Showroom Roda.Motorku (Tabel 3.1 & Bab III Laporan)
+// Menggunakan parameter hasil pelatihan langsung dari 187 Dataset Motor Bekas (80:20 Split)
+// 3 Algoritma Regresi: Random Forest (Best), Decision Tree Regressor, & Linear Regression (Ridge)
+
+import trainedModels from "./trainedMlModels.json";
 
 export interface FiturMasukanML {
   merek: string;
@@ -27,38 +29,109 @@ export interface ModelMetric {
   is_best: boolean;
 }
 
+export const DATASET_SAMSAT_OPTIONS: string[] = [
+  "Nganjuk (AG)",
+  "Kediri Kota (AG)",
+  "Kediri Kabupaten (AG)",
+  "Tulungagung (AG)",
+  "Blitar (AG)",
+  "Trenggalek (AG)",
+  "Madiun (AE)",
+  "Ngawi (AE)",
+  "Magetan (AE)",
+  "Ponorogo (AE)",
+  "Pacitan (AE)",
+  "Surabaya (L)",
+  "Sidoarjo (W)",
+  "Gresik (W)",
+  "Jombang (S)",
+  "Mojokerto (S)",
+  "Bojonegoro (S)",
+  "Malang (N)",
+];
+
+export const DATASET_KONDISI_OPTIONS: string[] = [
+  "Sangat Baik",
+  "Baik",
+  "Cukup",
+  "Perlu Perbaikan",
+];
+
+export const DATASET_DOKUMEN_OPTIONS: string[] = [
+  "Lengkap (STNK + BPKB + Faktur)",
+  "Lengkap (STNK + BPKB)",
+  "Hanya BPKB",
+  "Hanya STNK",
+];
+
+type TreeNode = number | [number, number, TreeNode, TreeNode];
+
+interface TrainedModelBundle {
+  dataset_size: number;
+  train_size: number;
+  test_size: number;
+  split_ratio: string;
+  cats: {
+    merek: string[];
+    docs: string[];
+    cond: string[];
+    samsat: string[];
+  };
+  means: number[];
+  stds: number[];
+  lr_weights: number[];
+  dt_tree: TreeNode;
+  rf_trees: TreeNode[];
+  metrics: {
+    lr: { r2_score: number; mae: number; rmse: number };
+    dt: { r2_score: number; mae: number; rmse: number };
+    rf: { r2_score: number; mae: number; rmse: number };
+  };
+  feature_importances: Record<string, number>;
+}
+
+const BUNDLE = trainedModels as unknown as TrainedModelBundle;
+
 export const MODEL_METRICS: ModelMetric[] = [
   {
     id: "rf",
     nama_model: "Random Forest Regressor v1.4",
     short_name: "Random Forest",
-    r2_score: 0.946,
-    mae: 450000,
-    rmse: 615000,
-    hyperparameter_info: "n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (80:20 Split)",
+    r2_score: BUNDLE.metrics.rf.r2_score,
+    mae: BUNDLE.metrics.rf.mae,
+    rmse: BUNDLE.metrics.rf.rmse,
+    hyperparameter_info: `n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (${BUNDLE.split_ratio} Split / ${BUNDLE.dataset_size} Unit)`,
     is_best: true,
-  },
-  {
-    id: "lr",
-    nama_model: "Linear Regression",
-    short_name: "Linear Regression",
-    r2_score: 0.894,
-    mae: 680000,
-    rmse: 890000,
-    hyperparameter_info: "Multi-Feature OLS with Ridge L2 Penalty, One-Hot Encoding (80:20 Split)",
-    is_best: false,
   },
   {
     id: "dt",
     nama_model: "Decision Tree Regressor",
     short_name: "Decision Tree",
-    r2_score: 0.912,
-    mae: 590000,
-    rmse: 810000,
-    hyperparameter_info: "max_depth: 8, min_samples_split: 4, One-Hot Encoding (80:20 Split)",
+    r2_score: BUNDLE.metrics.dt.r2_score,
+    mae: BUNDLE.metrics.dt.mae,
+    rmse: BUNDLE.metrics.dt.rmse,
+    hyperparameter_info: `max_depth: 8, min_samples_split: 4, One-Hot Encoding (${BUNDLE.split_ratio} Split)`,
+    is_best: false,
+  },
+  {
+    id: "lr",
+    nama_model: "Linear Regression",
+    short_name: "Linear Regression",
+    r2_score: BUNDLE.metrics.lr.r2_score,
+    mae: BUNDLE.metrics.lr.mae,
+    rmse: BUNDLE.metrics.lr.rmse,
+    hyperparameter_info: `Ridge L2 OLS + StandardScaler, One-Hot Encoding (${BUNDLE.split_ratio} Split)`,
     is_best: false,
   },
 ];
+
+export const FEATURE_IMPORTANCES = BUNDLE.feature_importances;
+export const DATASET_INFO = {
+  total: BUNDLE.dataset_size,
+  train: BUNDLE.train_size,
+  test: BUNDLE.test_size,
+  splitRatio: BUNDLE.split_ratio,
+};
 
 export interface PredictionResult {
   estimatedPrice: number;
@@ -73,78 +146,117 @@ export interface PredictionResult {
   detailParam: string;
 }
 
+function normalizeFeatures(fitur: FiturMasukanML) {
+  const merekLower = (fitur.merek || "").toLowerCase();
+  const matchedMerek =
+    BUNDLE.cats.merek.find((m) => m.toLowerCase() === merekLower) || fitur.merek;
+
+  const docLower = (fitur.kelengkapan_dokumen || "").toLowerCase();
+  let matchedDocs = fitur.kelengkapan_dokumen;
+  let hasFakturBonus = false;
+  if (docLower.includes("stnk") && docLower.includes("bpkb")) {
+    matchedDocs = "Lengkap (STNK + BPKB)";
+    hasFakturBonus = docLower.includes("faktur");
+  } else if (docLower.includes("bpkb")) {
+    matchedDocs = "Hanya BPKB";
+  } else if (docLower.includes("stnk")) {
+    matchedDocs = "Hanya STNK";
+  }
+
+  const condLower = (fitur.kondisi_mesin || "").toLowerCase();
+  let matchedCond = fitur.kondisi_mesin;
+  if (condLower.includes("sangat baik")) matchedCond = "Sangat Baik";
+  else if (condLower.includes("baik")) matchedCond = "Baik";
+  else if (condLower.includes("cukup")) matchedCond = "Cukup";
+  else if (condLower.includes("perlu") || condLower.includes("butuh") || condLower.includes("servis")) {
+    matchedCond = "Perlu Perbaikan";
+  }
+
+  let matchedSamsat = fitur.domisili_samsat || "";
+  if (matchedSamsat === "Kediri (Plat AG)") {
+    matchedSamsat = "Kediri Kota (AG)";
+  }
+
+  const hargaBeli = Math.max(0, Number(fitur.harga_beli) || 0);
+  const tahun = Number(fitur.tahun) || 2020;
+  const kilometer = Math.max(0, Number(fitur.kilometer) || 0);
+  const cc = Math.max(50, Number(fitur.cc) || 125);
+
+  const rawVector: number[] = [1, hargaBeli, tahun, kilometer, cc];
+  for (const v of BUNDLE.cats.merek) rawVector.push(matchedMerek === v ? 1 : 0);
+  for (const v of BUNDLE.cats.docs) rawVector.push(matchedDocs === v ? 1 : 0);
+  for (const v of BUNDLE.cats.cond) rawVector.push(matchedCond === v ? 1 : 0);
+  for (const v of BUNDLE.cats.samsat) rawVector.push(matchedSamsat === v ? 1 : 0);
+
+  return { rawVector, hargaBeli, hasFakturBonus };
+}
+
+function evalTree(node: TreeNode, x: number[]): number {
+  let curr = node;
+  while (Array.isArray(curr)) {
+    curr = x[curr[0]] <= curr[1] ? curr[2] : curr[3];
+  }
+  return curr;
+}
+
 /**
- * Predict price for a given feature set and model algorithm
+ * Predict selling price using genuine trained models from the 187-unit Capstone dataset
  */
 export function predictPrice(
   fitur: FiturMasukanML,
   modelName: ModelMetric["nama_model"] = "Random Forest Regressor v1.4"
 ): PredictionResult {
-  // Baseline margin showroom 18% dari harga tebus/beli
-  let baseVal = fitur.harga_beli * 1.18;
+  const { rawVector, hargaBeli, hasFakturBonus } = normalizeFeatures(fitur);
+  const treeFeatures = rawVector.slice(1);
 
-  // 1. Pengaruh Tahun Pembuatan (Depresiasi vs Unit Baru)
-  if (fitur.tahun >= 2024) baseVal += 1500000;
-  else if (fitur.tahun >= 2022) baseVal += 650000;
-  else if (fitur.tahun >= 2019) baseVal += 200000;
-  else if (fitur.tahun >= 2015) baseVal -= 450000;
-  else baseVal -= 950000;
+  let rawPrediction = 0;
 
-  // 2. Pengaruh Jarak Tempuh (Kilometer Odometer)
-  if (fitur.kilometer < 10000) baseVal += 800000;
-  else if (fitur.kilometer < 25000) baseVal += 400000;
-  else if (fitur.kilometer > 60000) baseVal -= 1100000;
-  else if (fitur.kilometer > 40000) baseVal -= 600000;
-
-  // 3. Pengaruh Kondisi Mesin
-  const cond = (fitur.kondisi_mesin || "").toLowerCase();
-  if (cond.includes("sangat baik")) baseVal += 750000;
-  else if (cond.includes("baik")) baseVal += 250000;
-  else if (cond.includes("cukup")) baseVal -= 650000;
-  else if (cond.includes("perbaikan") || cond.includes("servis")) baseVal -= 1500000;
-
-  // 4. Pengaruh Kelengkapan Dokumen Kendaraan
-  const docs = (fitur.kelengkapan_dokumen || "").toLowerCase();
-  if (docs.includes("faktur")) baseVal += 350000;
-  else if (docs.includes("hanya stnk") || docs === "stnk") baseVal -= 2500000;
-  else if (docs === "bpkb" || docs.includes("hanya bpkb")) baseVal -= 1200000;
-
-  // 5. Pengaruh Kapasitas Mesin (CC)
-  if (fitur.cc >= 250) baseVal += 1800000;
-  else if (fitur.cc >= 150) baseVal += 450000;
-  else if (fitur.cc <= 110) baseVal -= 150000;
-
-  // 6. Pengaruh Karakteristik Merek (Brand Resale Value)
-  const merk = (fitur.merek || "").toLowerCase();
-  if (merk.includes("vespa")) baseVal += 1200000;
-  else if (merk.includes("kawasaki")) baseVal += 600000;
-  else if (merk.includes("honda")) baseVal += 250000;
-  else if (merk.includes("suzuki")) baseVal -= 300000;
-
-  // Algorithmic Differences based on trained model properties
   if (modelName === "Linear Regression") {
-    // Linear OLS tends to smooth residuals linearly
-    baseVal = baseVal * 0.988;
+    const normVector = rawVector.map((v, idx) =>
+      idx >= 1 && idx <= 4
+        ? (v - BUNDLE.means[idx]) / (BUNDLE.stds[idx] || 1)
+        : v
+    );
+    rawPrediction = normVector.reduce(
+      (sum, v, idx) => sum + v * (BUNDLE.lr_weights[idx] || 0),
+      0
+    );
   } else if (modelName === "Decision Tree Regressor") {
-    // Decision Tree splits create piecewise steps
-    baseVal = baseVal * 1.014;
+    const predictedMargin = evalTree(BUNDLE.dt_tree, treeFeatures);
+    rawPrediction = hargaBeli + predictedMargin;
   } else {
-    // Random Forest Regressor combines bagged ensemble averages
-    baseVal = baseVal * 1.002;
+    // Random Forest Regressor (ensemble average across 150 trees)
+    const treeCount = BUNDLE.rf_trees.length || 1;
+    const sumMargins = BUNDLE.rf_trees.reduce<number>(
+      (sum, tree) => sum + evalTree(tree, treeFeatures),
+      0
+    );
+    rawPrediction = hargaBeli + sumMargins / treeCount;
   }
 
-  // Rounding to realistic Indonesian showroom denominations (kelipatan Rp 50.000)
-  const estimatedPrice = Math.max(fitur.harga_beli + 500000, Math.round(baseVal / 50000) * 50000);
-  const rangeLow = Math.round((estimatedPrice * 0.965) / 50000) * 50000;
-  const rangeHigh = Math.round((estimatedPrice * 1.028) / 50000) * 50000;
-  const marginShowroom = estimatedPrice - fitur.harga_beli;
-  const roiPct =
-    fitur.harga_beli > 0
-      ? Number(((marginShowroom / fitur.harga_beli) * 100).toFixed(1))
-      : 0;
+  if (hasFakturBonus) {
+    rawPrediction += 150000;
+  }
 
   const metric =
     MODEL_METRICS.find((m) => m.nama_model === modelName) ?? MODEL_METRICS[0];
+
+  // Round to Rp 50.000 showroom denomination and guarantee minimum positive margin
+  const estimatedPrice = Math.max(
+    hargaBeli + 350000,
+    Math.round(rawPrediction / 50000) * 50000
+  );
+  const spread = Math.max(300000, Math.round(metric.mae / 50000) * 50000);
+  const rangeLow = Math.max(
+    hargaBeli + 100000,
+    Math.round((estimatedPrice - spread) / 50000) * 50000
+  );
+  const rangeHigh = Math.round((estimatedPrice + spread) / 50000) * 50000;
+  const marginShowroom = estimatedPrice - hargaBeli;
+  const roiPct =
+    hargaBeli > 0
+      ? Number(((marginShowroom / hargaBeli) * 100).toFixed(1))
+      : 0;
 
   return {
     estimatedPrice,
@@ -161,7 +273,7 @@ export function predictPrice(
 }
 
 /**
- * Predict with all 3 models for comparison table (Proposal Bab II & III)
+ * Predict with all 3 models for comparison table
  */
 export function predictAllModels(fitur: FiturMasukanML) {
   return MODEL_METRICS.map((m) => ({

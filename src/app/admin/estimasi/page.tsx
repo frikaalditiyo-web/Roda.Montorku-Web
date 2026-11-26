@@ -6,6 +6,10 @@ import { useShowroom } from "@/context/ShowroomContext";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import {
   calculateMLPrediction,
+  DATASET_DOKUMEN_OPTIONS,
+  DATASET_KONDISI_OPTIONS,
+  DATASET_SAMSAT_OPTIONS,
+  FEATURE_IMPORTANCES,
   formatNumberID,
   formatRupiah,
   MODEL_METRICS,
@@ -14,16 +18,16 @@ import {
 
 export default function EstimasiHargaMLPage() {
   const router = useRouter();
-  const { addPrediction, addMotor, linkPredictionToMotor, motors, refreshData } =
+  const { addPrediction, addMotor, linkPredictionToMotor, refreshData } =
     useShowroom();
 
   // 8 Features + Model Selection
   const [brand, setBrand] = useState<Motor["merek"]>("Honda");
   const [condition, setCondition] = useState("Sangat Baik");
   const [year, setYear] = useState(2023);
-  const [docs, setDocs] = useState("Lengkap (STNK + BPKB + Faktur)");
+  const [docs, setDocs] = useState("Lengkap (STNK + BPKB)");
   const [engineCc, setEngineCc] = useState(160);
-  const [samsat, setSamsat] = useState("Jakarta Selatan (Plat B)");
+  const [samsat, setSamsat] = useState("Nganjuk (AG)");
   const [mileage, setMileage] = useState(12450);
   const [purchasePriceInput, setPurchasePriceInput] = useState("19.500.000");
 
@@ -43,8 +47,15 @@ export default function EstimasiHargaMLPage() {
   const [isSavingToCatalog, setIsSavingToCatalog] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [tipeMotorBaru, setTipeMotorBaru] = useState("Vario 160 CBS");
-  const [nopolMotorBaru, setNopolMotorBaru] = useState("B 4819 KOX");
-  const [hargaJualAkhir, setHargaJualAkhir] = useState(23850000);
+  const [nopolMotorBaru, setNopolMotorBaru] = useState("AG 4819 KOX");
+  const [hargaJualAkhir, setHargaJualAkhir] = useState(21800000);
+
+  const updateField =
+    <T,>(setter: (val: T) => void) =>
+    (val: T) => {
+      setter(val);
+      if (lastPredictionId !== null) setLastPredictionId(null);
+    };
 
   const parseRupiah = (val: string) =>
     parseInt(val.replace(/[^0-9]/g, ""), 10) || 0;
@@ -89,6 +100,7 @@ export default function EstimasiHargaMLPage() {
   };
 
   const handleFormatPurchaseInput = (val: string) => {
+    if (lastPredictionId !== null) setLastPredictionId(null);
     const clean = val.replace(/[^0-9]/g, "");
     if (!clean) {
       setPurchasePriceInput("0");
@@ -133,7 +145,11 @@ export default function EstimasiHargaMLPage() {
             est.estimatedPrice
           )}`
         );
-        await refreshData();
+        await refreshData(true);
+        setIsCalculating(false);
+        return;
+      } else {
+        triggerToast(json.message || "Gagal menghitung estimasi di server.");
         setIsCalculating(false);
         return;
       }
@@ -142,10 +158,10 @@ export default function EstimasiHargaMLPage() {
     }
 
     setIsCalculating(false);
-    const savedPred = addPrediction({
+    const savedRes = await addPrediction({
       id_user: 1,
       id_motor: null,
-      catatan_simulasi: "Kalkulasi Konsol Valuasi (Offline Fallback)",
+      catatan_simulasi: "Kalkulasi Konsol Valuasi",
       fitur_masukan: {
         merek: brand,
         tahun: year,
@@ -164,10 +180,12 @@ export default function EstimasiHargaMLPage() {
       rmse_rupiah: currentEstimation.rmse,
       detail_parameter_model: currentEstimation.detailParam,
     });
-    setLastPredictionId(savedPred.id_prediksi);
+    if (savedRes.success && savedRes.data) {
+      setLastPredictionId(savedRes.data.id_prediksi);
+    }
     setHargaJualAkhir(currentEstimation.estimatedPrice);
     triggerToast(
-      `Estimasi unit ${brand} (${year}) dihitung & dicatat: ${formatRupiah(
+      `Estimasi unit ${brand} (${year}) dihitung: ${formatRupiah(
         currentEstimation.estimatedPrice
       )}`
     );
@@ -179,91 +197,125 @@ export default function EstimasiHargaMLPage() {
     setEngineCc(155);
     setMileage(18500);
     setCondition("Baik");
-    setDocs("Lengkap (STNK + BPKB + Faktur)");
-    setSamsat("Jakarta Timur (Plat B)");
+    setDocs("Lengkap (STNK + BPKB)");
+    setSamsat("Nganjuk (AG)");
     setPurchasePriceInput("21.000.000");
+    setLastPredictionId(null);
     triggerToast("Form telah direset.");
   };
 
   const handleOpenSaveModal = () => {
+    const defaultTypeMap: Record<Motor["merek"], string> = {
+      Honda: "Vario 160 CBS",
+      Yamaha: "NMAX 155 Connected",
+      Vespa: "Sprint 150 i-get ABS",
+      Suzuki: "GSX-R150",
+      Kawasaki: "KLX 150 BF",
+    };
+    const platPrefix = samsat.includes("Malang")
+      ? "N"
+      : samsat.includes("Surabaya")
+      ? "L"
+      : samsat.includes("Sidoarjo") || samsat.includes("Gresik")
+      ? "W"
+      : samsat.includes("Jombang") || samsat.includes("Mojokerto") || samsat.includes("Bojonegoro")
+      ? "S"
+      : "AG";
+    setTipeMotorBaru(defaultTypeMap[brand] || `${brand} Bekas`);
+    setNopolMotorBaru(`${platPrefix} 4819 KOX`);
     setHargaJualAkhir(currentEstimation.estimatedPrice);
     setShowSaveModal(true);
   };
 
-  const handleConfirmSaveToCatalog = (e: React.FormEvent) => {
+  const handleConfirmSaveToCatalog = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSavingToCatalog(true);
 
-    setTimeout(() => {
-      const createdMotor = addMotor({
-        id_user: 1,
-        sku: `RDK-${String(year).slice(-2)}-${brand.slice(0, 3).toUpperCase()}-ML`,
-        nopol: nopolMotorBaru,
-        merek: brand,
-        tipe: tipeMotorBaru,
-        tahun: year,
-        cc: engineCc,
-        kilometer: mileage,
-        kondisi_mesin: condition,
-        kelengkapan_dokumen: docs,
-        domisili_samsat: samsat,
-        pajak_info: "Pajak hidup s/d Oktober 2026",
-        harga_beli: purchasePrice,
-        harga_jual: hargaJualAkhir,
-        harga_pasar_coret:
-          Math.round((hargaJualAkhir * 1.05) / 50000) * 50000,
-        deskripsi: `Unit hasil valuasi ${selectedModel} (Estimasi: ${formatRupiah(
-          currentEstimation.estimatedPrice
-        )}). Kondisi mesin ${condition}, kelengkapan ${docs}.`,
-        status: "Tersedia",
-        foto_motor: motors[0]?.foto_motor || [],
-      });
+    const motorRes = await addMotor({
+      id_user: 1,
+      sku: `RDK-${String(year).slice(-2)}-${brand.slice(0, 3).toUpperCase()}-ML`,
+      nopol: nopolMotorBaru.trim().toUpperCase(),
+      merek: brand,
+      tipe: tipeMotorBaru.trim(),
+      tahun: year,
+      cc: engineCc,
+      kilometer: mileage,
+      kondisi_mesin: condition,
+      kelengkapan_dokumen: docs,
+      domisili_samsat: samsat,
+      pajak_info: "Pajak hidup aktif",
+      harga_beli: purchasePrice,
+      harga_jual: hargaJualAkhir,
+      harga_pasar_coret: Math.round((hargaJualAkhir * 1.05) / 50000) * 50000,
+      deskripsi: `Unit hasil valuasi ${selectedModel} (Estimasi: ${formatRupiah(
+        currentEstimation.estimatedPrice
+      )}). Kondisi mesin ${condition}, kelengkapan ${docs}.`,
+      status: "Tersedia",
+      foto_motor: [
+        {
+          id_foto: 1,
+          id_motor: 0,
+          nama_file: "/logo.png",
+          label: "Foto Placeholder",
+          caption: `${brand} ${tipeMotorBaru.trim()}`,
+          is_utama: true,
+        },
+      ],
+    });
 
-      if (lastPredictionId !== null) {
-        linkPredictionToMotor(lastPredictionId, createdMotor);
-      } else {
-        addPrediction({
-          id_user: 1,
-          id_motor: createdMotor.id_motor,
-          nama_motor_katalog: `${createdMotor.merek} ${createdMotor.tipe}`,
-          nopol_katalog: createdMotor.nopol,
-          kode_motor_katalog: `MTR-${String(createdMotor.id_motor).padStart(
-            3,
-            "0"
-          )}`,
-          fitur_masukan: {
-            merek: brand,
-            tahun: year,
-            cc: engineCc,
-            kilometer: mileage,
-            kondisi_mesin: condition,
-            kelengkapan_dokumen: docs,
-            domisili_samsat: samsat,
-            harga_beli: purchasePrice,
-          },
-          harga_estimasi: currentEstimation.estimatedPrice,
-          spread_estimasi: currentEstimation.mae,
-          nama_model: selectedModel,
-          akurasi_r2: currentEstimation.r2Score,
-          mae_rupiah: currentEstimation.mae,
-          rmse_rupiah: currentEstimation.rmse,
-          detail_parameter_model: currentEstimation.detailParam,
-        });
-      }
-
+    if (!motorRes.success || !motorRes.data) {
       setIsSavingToCatalog(false);
-      setSaveSuccess(true);
+      triggerToast(motorRes.message || "Gagal menyimpan motor baru ke katalog.");
+      return;
+    }
 
-      setTimeout(() => {
-        setSaveSuccess(false);
-        setShowSaveModal(false);
-        triggerToast(
-          `Unit ${brand} ${tipeMotorBaru} (${formatRupiah(
-            hargaJualAkhir
-          )}) berhasil disimpan ke Katalog!`
-        );
-      }, 700);
-    }, 450);
+    const createdMotor = motorRes.data;
+
+    if (lastPredictionId !== null) {
+      await linkPredictionToMotor(lastPredictionId, createdMotor);
+    } else {
+      await addPrediction({
+        id_user: 1,
+        id_motor: createdMotor.id_motor,
+        nama_motor_katalog: `${createdMotor.merek} ${createdMotor.tipe}`,
+        nopol_katalog: createdMotor.nopol,
+        kode_motor_katalog: `MTR-${String(createdMotor.id_motor).padStart(
+          3,
+          "0"
+        )}`,
+        catatan_simulasi: "Simpan Langsung ke Katalog",
+        fitur_masukan: {
+          merek: brand,
+          tahun: year,
+          cc: engineCc,
+          kilometer: mileage,
+          kondisi_mesin: condition,
+          kelengkapan_dokumen: docs,
+          domisili_samsat: samsat,
+          harga_beli: purchasePrice,
+        },
+        harga_estimasi: currentEstimation.estimatedPrice,
+        spread_estimasi: currentEstimation.mae,
+        nama_model: selectedModel,
+        akurasi_r2: currentEstimation.r2Score,
+        mae_rupiah: currentEstimation.mae,
+        rmse_rupiah: currentEstimation.rmse,
+        detail_parameter_model: currentEstimation.detailParam,
+      });
+    }
+
+    setIsSavingToCatalog(false);
+    setSaveSuccess(true);
+
+    setTimeout(() => {
+      setSaveSuccess(false);
+      setShowSaveModal(false);
+      triggerToast(
+        `Unit ${brand} ${tipeMotorBaru} (${formatRupiah(
+          hargaJualAkhir
+        )}) berhasil disimpan ke Katalog!`
+      );
+    }, 600);
   };
 
   return (
@@ -333,7 +385,7 @@ export default function EstimasiHargaMLPage() {
                 <select
                   value={selectedModel}
                   onChange={(e) =>
-                    setSelectedModel(
+                    updateField(setSelectedModel)(
                       e.target.value as
                         | "Random Forest Regressor v1.4"
                         | "Linear Regression"
@@ -367,7 +419,7 @@ export default function EstimasiHargaMLPage() {
                   <select
                     value={brand}
                     onChange={(e) =>
-                      setBrand(e.target.value as Motor["merek"])
+                      updateField(setBrand)(e.target.value as Motor["merek"])
                     }
                     className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                   >
@@ -386,13 +438,14 @@ export default function EstimasiHargaMLPage() {
                   </label>
                   <select
                     value={condition}
-                    onChange={(e) => setCondition(e.target.value)}
+                    onChange={(e) => updateField(setCondition)(e.target.value)}
                     className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                   >
-                    <option value="Sangat Baik">Sangat Baik</option>
-                    <option value="Baik">Baik</option>
-                    <option value="Cukup">Cukup</option>
-                    <option value="Butuh Servis">Butuh Servis</option>
+                    {DATASET_KONDISI_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -404,11 +457,11 @@ export default function EstimasiHargaMLPage() {
                   <input
                     value={year}
                     onChange={(e) =>
-                      setYear(parseInt(e.target.value, 10) || 2023)
+                      updateField(setYear)(parseInt(e.target.value, 10) || 2023)
                     }
                     className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
-                    max={2026}
-                    min={2010}
+                    max={2030}
+                    min={1990}
                     required
                     type="number"
                   />
@@ -421,16 +474,14 @@ export default function EstimasiHargaMLPage() {
                   </label>
                   <select
                     value={docs}
-                    onChange={(e) => setDocs(e.target.value)}
+                    onChange={(e) => updateField(setDocs)(e.target.value)}
                     className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                   >
-                    <option value="Lengkap (STNK + BPKB + Faktur)">
-                      Lengkap (STNK + BPKB + Faktur)
-                    </option>
-                    <option value="Lengkap (STNK + BPKB)">
-                      Lengkap (STNK + BPKB)
-                    </option>
-                    <option value="Hanya STNK">Hanya STNK</option>
+                    {DATASET_DOKUMEN_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -443,7 +494,7 @@ export default function EstimasiHargaMLPage() {
                     <input
                       value={engineCc}
                       onChange={(e) =>
-                        setEngineCc(parseInt(e.target.value, 10) || 110)
+                        updateField(setEngineCc)(parseInt(e.target.value, 10) || 110)
                       }
                       className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                       max={1000}
@@ -464,22 +515,14 @@ export default function EstimasiHargaMLPage() {
                   </label>
                   <select
                     value={samsat}
-                    onChange={(e) => setSamsat(e.target.value)}
+                    onChange={(e) => updateField(setSamsat)(e.target.value)}
                     className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm rounded shadow-sm focus:outline-none focus:ring-2 focus:ring-primary cursor-pointer"
                   >
-                    <option value="Jakarta Selatan (Plat B)">
-                      Jakarta Selatan (Plat B)
-                    </option>
-                    <option value="Jakarta Timur (Plat B)">
-                      Jakarta Timur (Plat B)
-                    </option>
-                    <option value="Depok (Plat B)">Depok (Plat B)</option>
-                    <option value="Tangerang (Plat B)">
-                      Tangerang (Plat B)
-                    </option>
-                    <option value="Bekasi (Plat B)">Bekasi (Plat B)</option>
-                    <option value="Bogor (Plat F)">Bogor (Plat F)</option>
-                    <option value="Kediri (Plat AG)">Kediri (Plat AG)</option>
+                    {DATASET_SAMSAT_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -492,7 +535,7 @@ export default function EstimasiHargaMLPage() {
                     <input
                       value={mileage}
                       onChange={(e) =>
-                        setMileage(parseInt(e.target.value, 10) || 0)
+                        updateField(setMileage)(parseInt(e.target.value, 10) || 0)
                       }
                       className="w-full bg-surface-container-low text-on-surface font-body-md text-body-md py-2.5 px-space-sm focus:outline-none focus:ring-2 focus:ring-primary tabular-nums"
                       min={0}
@@ -626,20 +669,20 @@ export default function EstimasiHargaMLPage() {
           {/* Feature Importance Weight Matrix */}
           <div className="bg-surface-container-lowest p-space-md rounded-xl border border-outline-variant/60 shadow-sm flex flex-col gap-space-sm">
             <span className="font-label-md text-label-md text-primary font-bold">
-              Bobot Pengaruh Fitur
+              Bobot Pengaruh Fitur (Random Forest Terlatih)
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-space-sm mt-1">
               <div className="bg-surface-container-low p-space-sm rounded">
                 <span className="font-label-sm text-label-sm text-on-surface-variant block truncate">
-                  Tahun
+                  Harga Beli
                 </span>
                 <span className="font-headline-sm text-headline-sm font-bold text-primary">
-                  34.8%
+                  {FEATURE_IMPORTANCES.harga_beli}%
                 </span>
                 <div className="w-full bg-surface-container-highest h-1 rounded-full mt-1.5 overflow-hidden">
                   <div
                     className="bg-primary h-full rounded-full"
-                    style={{ width: "34.8%" }}
+                    style={{ width: `${FEATURE_IMPORTANCES.harga_beli}%` }}
                   ></div>
                 </div>
               </div>
@@ -648,40 +691,40 @@ export default function EstimasiHargaMLPage() {
                   Kilometer
                 </span>
                 <span className="font-headline-sm text-headline-sm font-bold text-primary">
-                  26.2%
+                  {FEATURE_IMPORTANCES.kilometer}%
                 </span>
                 <div className="w-full bg-surface-container-highest h-1 rounded-full mt-1.5 overflow-hidden">
                   <div
                     className="bg-primary-container h-full rounded-full"
-                    style={{ width: "26.2%" }}
+                    style={{ width: `${FEATURE_IMPORTANCES.kilometer}%` }}
                   ></div>
                 </div>
               </div>
               <div className="bg-surface-container-low p-space-sm rounded">
                 <span className="font-label-sm text-label-sm text-on-surface-variant block truncate">
-                  Kondisi Mesin
+                  Kapasitas (CC)
                 </span>
                 <span className="font-headline-sm text-headline-sm font-bold text-primary">
-                  21.5%
+                  {FEATURE_IMPORTANCES.cc}%
                 </span>
                 <div className="w-full bg-surface-container-highest h-1 rounded-full mt-1.5 overflow-hidden">
                   <div
                     className="bg-secondary h-full rounded-full"
-                    style={{ width: "21.5%" }}
+                    style={{ width: `${FEATURE_IMPORTANCES.cc}%` }}
                   ></div>
                 </div>
               </div>
               <div className="bg-surface-container-low p-space-sm rounded">
                 <span className="font-label-sm text-label-sm text-on-surface-variant block truncate">
-                  Dokumen
+                  Tahun
                 </span>
                 <span className="font-headline-sm text-headline-sm font-bold text-primary">
-                  17.5%
+                  {FEATURE_IMPORTANCES.tahun}%
                 </span>
                 <div className="w-full bg-surface-container-highest h-1 rounded-full mt-1.5 overflow-hidden">
                   <div
                     className="bg-on-tertiary-container h-full rounded-full"
-                    style={{ width: "17.5%" }}
+                    style={{ width: `${FEATURE_IMPORTANCES.tahun}%` }}
                   ></div>
                 </div>
               </div>
