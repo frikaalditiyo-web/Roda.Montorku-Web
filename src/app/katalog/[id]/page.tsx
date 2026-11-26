@@ -162,9 +162,7 @@ function DetailMotorContent({
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">
-      <PublicNavbar />
-
-      <main className="w-full pt-16 bg-surface flex-1">
+      <main className="w-full bg-surface flex-1">
         <div className="flex flex-col w-full">
           {/* Top Breadcrumb & Quick Actions Bar */}
           <section className="w-full bg-surface-container-lowest shadow-sm">
@@ -655,14 +653,17 @@ function DetailMotorContent({
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-space-lg">
-                <div className="lg:col-span-8 overflow-hidden rounded-xl shadow-sm bg-surface-container-lowest flex flex-col">
-                  <div
-                    className="w-full h-72 md:h-80 bg-cover bg-center"
-                    style={{
-                      backgroundImage:
-                        "url('https://lh3.googleusercontent.com/aida-public/AB6AXuBuV-N7S27UeP5_flkgYjwHcXsfoHtOfN2wxvbl8ywshXkRvl9MK2JTKoW2CI5bYH8c_Jt21njQhe3HUHuHNY3vYlPjXc-IQBO_k6V2GE2kmoYGCqa848gVpxbP0i0lpJrSxAdU9qn5gnUKuL2Tt-axagKExgW1MC71k9gmHnGq-C587JFISmBKafuTMN9q4GjAjlSEzENBTqM7nOFTHqq8nbvl3XRSccgcFdyAkz_h')",
-                    }}
-                  />
+                <div className="lg:col-span-8 overflow-hidden rounded-xl shadow-sm bg-surface-container-lowest flex flex-col border border-surface-container">
+                  <div className="relative w-full h-72 md:h-80 bg-surface-container-low overflow-hidden">
+                    <iframe
+                      title="Lokasi Showroom Roda.Motorku di Google Maps"
+                      src="https://maps.google.com/maps?q=Gondang%20Timur%2C%20Gondang%2C%20Kec.%20Pace%2C%20Kabupaten%20Nganjuk%2C%20Jawa%20Timur&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                      className="w-full h-full border-0"
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                    />
+                  </div>
                   <div className="p-space-md flex flex-wrap items-center justify-between gap-space-sm bg-surface-container-lowest">
                     <div>
                       <p className="font-label-lg text-label-lg text-primary font-bold">

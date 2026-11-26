@@ -259,19 +259,6 @@ function LoginAdminContent() {
               </div>
             )}
 
-            {/* Security Notice */}
-            <div className="mt-space-md flex items-center justify-center gap-space-xs text-on-surface-variant bg-surface-container-low py-1.5 px-space-sm rounded text-center border border-outline-variant/20">
-              <span className="material-symbols-outlined text-on-tertiary-fixed-variant text-[14px]">
-                lock
-              </span>
-              <span className="font-label-sm text-label-sm text-primary">
-                Sesi aman terenkripsi{" "}
-                <span className="font-bold text-on-surface">
-                  (JWT HttpOnly Cookie)
-                </span>
-              </span>
-            </div>
-
             {/* LOGIN FORM */}
             <form
               className="mt-space-lg flex flex-col gap-space-md"

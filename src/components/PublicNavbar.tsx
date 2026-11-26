@@ -46,18 +46,18 @@ export function PublicNavbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 bg-primary text-on-primary shadow-md">
-      <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-40 px-2 sm:px-margin-mobile md:px-margin pt-2.5 sm:pt-4 pointer-events-none transition-all">
+      <div className="max-w-7xl mx-auto h-14 sm:h-16 px-3 sm:px-4 md:px-6 flex items-center justify-between pointer-events-auto bg-primary/95 backdrop-blur-md text-on-primary rounded-xl sm:rounded-2xl shadow-xl shadow-black/25 border border-white/15">
         {/* Brand Logo */}
-        <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-space-sm group">
-          <div className="w-10 h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200">
+        <Link href="/" onClick={handleSectionClick("catalog")} className="flex items-center gap-2 sm:gap-space-sm group min-w-0 flex-shrink">
+          <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs transition-transform group-hover:scale-105 duration-200 flex-shrink-0">
             <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
           </div>
-          <div className="flex flex-col">
-            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+          <div className="flex flex-col min-w-0">
+            <span className="text-sm sm:font-headline-sm sm:text-headline-sm font-bold tracking-tight leading-none text-on-primary truncate">
               Roda.Motorku
             </span>
-            <span className="font-label-sm text-[10px] text-on-primary/70 font-medium tracking-wide">
+            <span className="hidden sm:inline font-label-sm text-[10px] text-on-primary/70 font-medium tracking-wide truncate">
               Showroom Motor Bekas Berkualitas
             </span>
           </div>
@@ -100,29 +100,18 @@ export function PublicNavbar() {
         </nav>
 
         {/* Right Action: Direct WhatsApp Showroom Consultation & Admin Login */}
-        <div className="flex items-center gap-space-sm">
+        <div className="flex items-center gap-1.5 sm:gap-space-sm flex-shrink-0">
           <a
             href="https://wa.me/6285608981265?text=Halo%20Admin%20Roda.Motorku,%20saya%20ingin%20tanya%20stok%20unit%20motor%20bekas"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-label-sm font-semibold shadow-xs transition-colors"
+            className="inline-flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 rounded-lg bg-[#25D366] hover:bg-[#20ba5a] text-white font-label-sm text-xs sm:text-label-sm font-semibold shadow-xs transition-colors whitespace-nowrap"
           >
-            <span className="material-symbols-outlined text-[16px]">
+            <span className="material-symbols-outlined text-[15px] sm:text-[16px]">
               chat
             </span>
-            <span>Konsultasi WA</span>
+            <span>WA Showroom</span>
           </a>
-
-          <Link
-            href="/login"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-secondary text-on-primary font-label-sm text-label-sm font-semibold transition-colors border border-white/20"
-            title="Masuk ke Panel Pengelola Showroom"
-          >
-            <span className="material-symbols-outlined text-[16px]">
-              lock
-            </span>
-            <span>Login Admin</span>
-          </Link>
 
           <button
             type="button"
@@ -139,7 +128,7 @@ export function PublicNavbar() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-primary border-t border-white/10 px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-md">
+        <div className="max-w-7xl mx-auto mt-2 pointer-events-auto md:hidden bg-primary/95 backdrop-blur-md border border-white/15 rounded-2xl px-margin-mobile py-space-md flex flex-col gap-space-sm shadow-xl shadow-black/30">
           <Link
             href="/"
             onClick={handleSectionClick("catalog")}

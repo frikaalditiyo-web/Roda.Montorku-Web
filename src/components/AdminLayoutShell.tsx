@@ -85,17 +85,17 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
             </span>
           </button>
 
-          <Link href="/admin/dashboard" className="flex items-center gap-space-sm ml-1">
-            <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs">
+          <Link href="/" className="flex items-center gap-space-sm ml-1">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs flex-shrink-0">
               <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
             </div>
-            <span className="font-headline-sm text-headline-sm font-bold tracking-tight leading-none text-on-primary">
+            <span className="text-base sm:text-headline-sm font-bold tracking-tight leading-none text-on-primary">
               Roda.Motorku
             </span>
           </Link>
 
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-secondary font-label-sm text-label-sm text-on-secondary font-bold tracking-wider">
-            PANEL ADMIN
+          <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-secondary text-[10px] sm:text-[11px] text-on-secondary font-semibold uppercase tracking-wider">
+            Panel Admin
           </span>
         </div>
 
