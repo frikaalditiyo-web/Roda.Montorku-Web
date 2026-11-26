@@ -4,7 +4,7 @@
       "id_user": 1,
       "nama": "Admin Showroom Otista",
       "username": "admin_otista",
-      "password_hash": "AdminRoda2026!",
+      "password_hash": "scrypt:68ca64b4795fb9d6c0fee1d7192c0954:c5b6aa0f8981f138bf02b25bde6e7f80f91cc3134b3641d37640d212ab0e864b48ff4ce315243f1a65efe5a6b213bcff4d4aa0e8513d306ab6cd598c15a2a287",
       "role": "admin",
       "created_at": "2026-01-01 08:00:00"
     }
@@ -62,7 +62,7 @@
       "deskripsi": "Unit showroom Yamaha Mio Soul tahun 2008. Mesin Cukup, jarak tempuh 76,500 km, kelengkapan Hanya BPKB, Samsat Kediri Kota (AG). Lolos inspeksi 120+ titik, siap pakai bergaransi showroom Roda.Motorku.",
       "status": "Tersedia",
       "created_at": "2026-02-01 04:00:00",
-      "views_week": 42,
+      "views_week": 44,
       "foto_motor": [
         {
           "id_foto": 21,
@@ -94,7 +94,7 @@
       "deskripsi": "Unit showroom Honda Supra X 125 tahun 2008. Mesin Baik, jarak tempuh 68,200 km, kelengkapan Lengkap (STNK + BPKB), Samsat Nganjuk (AG). Lolos inspeksi 120+ titik, siap pakai bergaransi showroom Roda.Motorku.",
       "status": "Tersedia",
       "created_at": "2026-01-31 22:00:00",
-      "views_week": 49,
+      "views_week": 51,
       "foto_motor": [
         {
           "id_foto": 31,
@@ -5996,6 +5996,110 @@
     }
   ],
   "predictions": [
+    {
+      "id_user": 1,
+      "id_motor": null,
+      "catatan_simulasi": "Kalkulasi Konsol Valuasi",
+      "fitur_masukan": {
+        "merek": "Honda",
+        "tahun": 2001,
+        "kelengkapan_dokumen": "Hanya STNK",
+        "kilometer": 18500,
+        "harga_beli": 21000000,
+        "kondisi_mesin": "Perlu Perbaikan",
+        "domisili_samsat": "Malang (N)",
+        "cc": 110
+      },
+      "harga_estimasi": 22700000,
+      "spread_estimasi": 317176,
+      "nama_model": "Random Forest Regressor v1.4",
+      "akurasi_r2": 99.8,
+      "mae_rupiah": 317176,
+      "rmse_rupiah": 398086,
+      "detail_parameter_model": "n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (80:20 Split / 187 Unit)",
+      "id_prediksi": 94,
+      "kode_prediksi": "#PRD-2026-0094",
+      "created_at": "26 Nov 2026, 12.10 WIB",
+      "waktu_relatif": "Baru saja"
+    },
+    {
+      "id_user": 1,
+      "id_motor": null,
+      "catatan_simulasi": "Kalkulasi Konsol Valuasi",
+      "fitur_masukan": {
+        "merek": "Honda",
+        "tahun": 2001,
+        "kelengkapan_dokumen": "Hanya STNK",
+        "kilometer": 18500,
+        "harga_beli": 21000000,
+        "kondisi_mesin": "Baik",
+        "domisili_samsat": "Nganjuk (AG)",
+        "cc": 155
+      },
+      "harga_estimasi": 22850000,
+      "spread_estimasi": 317176,
+      "nama_model": "Random Forest Regressor v1.4",
+      "akurasi_r2": 99.8,
+      "mae_rupiah": 317176,
+      "rmse_rupiah": 398086,
+      "detail_parameter_model": "n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (80:20 Split / 187 Unit)",
+      "id_prediksi": 93,
+      "kode_prediksi": "#PRD-2026-0093",
+      "created_at": "26 Nov 2026, 12.09 WIB",
+      "waktu_relatif": "Baru saja"
+    },
+    {
+      "id_user": 1,
+      "id_motor": null,
+      "catatan_simulasi": "Kalkulasi Konsol Valuasi",
+      "fitur_masukan": {
+        "merek": "Honda",
+        "tahun": 2001,
+        "kelengkapan_dokumen": "Hanya STNK",
+        "kilometer": 18500,
+        "harga_beli": 21000000,
+        "kondisi_mesin": "Baik",
+        "domisili_samsat": "Nganjuk (AG)",
+        "cc": 155
+      },
+      "harga_estimasi": 23150000,
+      "spread_estimasi": 351526,
+      "nama_model": "Decision Tree Regressor",
+      "akurasi_r2": 99.8,
+      "mae_rupiah": 351526,
+      "rmse_rupiah": 443017,
+      "detail_parameter_model": "max_depth: 8, min_samples_split: 4, One-Hot Encoding (80:20 Split)",
+      "id_prediksi": 92,
+      "kode_prediksi": "#PRD-2026-0092",
+      "created_at": "26 Nov 2026, 12.09 WIB",
+      "waktu_relatif": "Baru saja"
+    },
+    {
+      "id_user": 1,
+      "id_motor": null,
+      "catatan_simulasi": "Kalkulasi Konsol Valuasi",
+      "fitur_masukan": {
+        "merek": "Honda",
+        "tahun": 2001,
+        "kelengkapan_dokumen": "Hanya STNK",
+        "kilometer": 18500,
+        "harga_beli": 21000000,
+        "kondisi_mesin": "Baik",
+        "domisili_samsat": "Nganjuk (AG)",
+        "cc": 155
+      },
+      "harga_estimasi": 23150000,
+      "spread_estimasi": 351526,
+      "nama_model": "Decision Tree Regressor",
+      "akurasi_r2": 99.8,
+      "mae_rupiah": 351526,
+      "rmse_rupiah": 443017,
+      "detail_parameter_model": "max_depth: 8, min_samples_split: 4, One-Hot Encoding (80:20 Split)",
+      "id_prediksi": 91,
+      "kode_prediksi": "#PRD-2026-0091",
+      "created_at": "26 Nov 2026, 12.09 WIB",
+      "waktu_relatif": "Baru saja"
+    },
     {
       "id_user": 1,
       "id_motor": null,

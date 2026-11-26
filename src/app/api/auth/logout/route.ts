@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { COOKIE_NAME } from "@/lib/auth";
 
 export async function POST() {
   const response = NextResponse.json({
@@ -6,9 +7,8 @@ export async function POST() {
     message: "Logout berhasil. Sesi telah diakhiri.",
   });
 
-  // Clear cookie
   response.cookies.set({
-    name: "rodamotorku_token",
+    name: COOKIE_NAME,
     value: "",
     httpOnly: true,
     expires: new Date(0),

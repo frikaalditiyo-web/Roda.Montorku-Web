@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest } from "next/server";
 import { GET as getPrediksi, POST as postPrediksi } from "../prediksi/route";
 
 // Alias route for /api/predict (English convention referenced in Proposal Bab III)

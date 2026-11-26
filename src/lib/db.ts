@@ -2,18 +2,48 @@ import { Pool } from "pg";
 
 const globalForPg = globalThis as unknown as {
   pgPool: Pool | undefined;
+  pgStatus: { checkedAt: number; available: boolean } | undefined;
 };
+
+const DATABASE_URL =
+  process.env.DATABASE_URL ||
+  "postgresql://postgres:postgres@localhost:5432/postgres";
 
 export const pool =
   globalForPg.pgPool ??
   new Pool({
-    connectionString:
-      process.env.DATABASE_URL ||
-      "postgresql://postgres:postgres@localhost:5432/postgres",
+    connectionString: DATABASE_URL,
+    connectionTimeoutMillis: 1200,
+    idleTimeoutMillis: 10000,
+    max: 10,
   });
+
+pool.on("error", (err) => {
+  if (process.env.NODE_ENV === "development") {
+    console.warn("PostgreSQL idle client error:", err.message);
+  }
+});
 
 if (process.env.NODE_ENV !== "production") {
   globalForPg.pgPool = pool;
+}
+
+export async function isPostgresAvailable(): Promise<boolean> {
+  const now = Date.now();
+  const cached = globalForPg.pgStatus;
+  // Re-check every 15 seconds so recovering PostgreSQL connects automatically
+  if (cached && now - cached.checkedAt < 15000) {
+    return cached.available;
+  }
+
+  try {
+    await pool.query("SELECT 1");
+    globalForPg.pgStatus = { checkedAt: now, available: true };
+    return true;
+  } catch {
+    globalForPg.pgStatus = { checkedAt: now, available: false };
+    return false;
+  }
 }
 
 export async function query<T = unknown>(text: string, params?: unknown[]) {

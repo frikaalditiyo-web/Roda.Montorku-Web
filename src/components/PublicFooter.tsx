@@ -1,5 +1,4 @@
 import React from "react";
-import Link from "next/link";
 
 export function PublicFooter() {
   return (
@@ -49,15 +48,8 @@ export function PublicFooter() {
           </div>
         </div>
 
-        <div className="mt-space-xl pt-space-lg border-t border-white/15 flex flex-col sm:flex-row items-center justify-between gap-space-sm text-center sm:text-left font-label-sm text-label-sm text-on-primary/70">
+        <div className="mt-space-xl pt-space-lg border-t border-white/15 flex items-center justify-center text-center font-label-sm text-label-sm text-on-primary/70">
           <span>© 2026 Roda.Motorku Indonesia — Sistem Informasi Manajemen Katalog &amp; Penentuan Harga Jual Motor Bekas.</span>
-          <Link
-            href="/login"
-            className="inline-flex items-center gap-1 text-on-primary/70 hover:text-on-primary transition-colors font-medium"
-          >
-            <span className="material-symbols-outlined text-[15px]">lock</span>
-            <span>Akses Login Admin</span>
-          </Link>
         </div>
       </div>
     </footer>

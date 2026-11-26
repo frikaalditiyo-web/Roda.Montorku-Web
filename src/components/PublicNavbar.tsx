@@ -15,13 +15,11 @@ export function PublicNavbar() {
     contact: null,
   });
 
-  useEffect(() => {
-    if (pathname !== "/") setActiveSection("catalog");
-  }, [pathname]);
+  const effectiveSection = pathname === "/" ? activeSection : "catalog";
 
   useEffect(() => {
     const updateIndicator = () => {
-      const activeItem = navItems.current[activeSection];
+      const activeItem = navItems.current[effectiveSection];
       if (activeItem) {
         setIndicator({ left: activeItem.offsetLeft, width: activeItem.offsetWidth });
       }
@@ -29,7 +27,7 @@ export function PublicNavbar() {
     updateIndicator();
     window.addEventListener("resize", updateIndicator);
     return () => window.removeEventListener("resize", updateIndicator);
-  }, [activeSection, pathname]);
+  }, [effectiveSection, pathname]);
 
   const handleSectionClick = (
     section: "catalog" | "units" | "contact",
@@ -76,29 +74,29 @@ export function PublicNavbar() {
             href="/"
             ref={(node) => { navItems.current.catalog = node; }}
             onClick={handleSectionClick("catalog")}
-            aria-current={activeSection === "catalog" ? "location" : undefined}
+            aria-current={effectiveSection === "catalog" ? "location" : undefined}
             className="relative z-10 rounded-lg font-label-md text-label-md px-space-md py-space-xs text-on-primary transition-colors"
           >
             Katalog Motor
           </Link>
-          <a
+          <Link
             href="/#katalog-unit"
             ref={(node) => { navItems.current.units = node; }}
             onClick={handleSectionClick("units", "katalog-unit")}
-            aria-current={activeSection === "units" ? "location" : undefined}
+            aria-current={effectiveSection === "units" ? "location" : undefined}
             className="relative z-10 rounded-lg font-label-md text-label-md text-on-primary px-space-md py-space-xs transition-colors"
           >
             Unit Tersedia
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#kontak-showroom"
             ref={(node) => { navItems.current.contact = node; }}
             onClick={handleSectionClick("contact", "kontak-showroom")}
-            aria-current={activeSection === "contact" ? "location" : undefined}
+            aria-current={effectiveSection === "contact" ? "location" : undefined}
             className="relative z-10 rounded-lg font-label-md text-label-md text-on-primary px-space-md py-space-xs transition-colors"
           >
             Lokasi &amp; Kontak
-          </a>
+          </Link>
         </nav>
 
         {/* Right Action: Direct WhatsApp Showroom Consultation & Admin Login */}
@@ -145,24 +143,24 @@ export function PublicNavbar() {
           <Link
             href="/"
             onClick={handleSectionClick("catalog")}
-            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "catalog" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${effectiveSection === "catalog" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Katalog Motor
           </Link>
-          <a
+          <Link
             href="/#katalog-unit"
             onClick={handleSectionClick("units", "katalog-unit")}
-            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "units" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${effectiveSection === "units" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Unit Tersedia
-          </a>
-          <a
+          </Link>
+          <Link
             href="/#kontak-showroom"
             onClick={handleSectionClick("contact", "kontak-showroom")}
-            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${activeSection === "contact" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
+            className={`font-label-md text-label-md py-2 px-3 rounded-lg ${effectiveSection === "contact" ? "bg-secondary text-on-secondary" : "text-on-primary/80"}`}
           >
             Kontak &amp; Lokasi Showroom
-          </a>
+          </Link>
           <Link
             href="/login"
             onClick={() => setMobileMenuOpen(false)}

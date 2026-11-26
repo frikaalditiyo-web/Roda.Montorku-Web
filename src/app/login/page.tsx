@@ -1,15 +1,20 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useShowroom } from "@/context/ShowroomContext";
 
-export default function LoginAdminPage() {
+function LoginAdminContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const { loginAdmin } = useShowroom();
 
-  const [username, setUsername] = useState("admin_otista");
+  const rawRedirect = searchParams.get("redirect") || "";
+  const safeRedirect =
+    rawRedirect.startsWith("/admin") ? rawRedirect : "/admin/dashboard";
+
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
@@ -20,14 +25,6 @@ export default function LoginAdminPage() {
   >("idle");
   const [authSuccess, setAuthSuccess] = useState(false);
   const [showToast, setShowToast] = useState(false);
-
-  // Always reset loading on mount to prevent any stuck state when returning from logout
-  useEffect(() => {
-    setIsLoading(false);
-    setLoginStep("idle");
-    setAuthSuccess(false);
-    setShowToast(false);
-  }, []);
 
   const [alertState, setAlertState] = useState<{
     visible: boolean;
@@ -40,12 +37,6 @@ export default function LoginAdminPage() {
     title: "",
     message: "",
   });
-
-  const handleFillDemo = () => {
-    setUsername("admin_otista");
-    setPassword("AdminRoda2026!");
-    setAlertState((prev) => ({ ...prev, visible: false }));
-  };
 
   const handleLoginSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -66,7 +57,7 @@ export default function LoginAdminPage() {
     setLoginStep("verifying");
     setAlertState((prev) => ({ ...prev, visible: false }));
 
-    const res = await loginAdmin(u, p);
+    const res = await loginAdmin(u, p, rememberMe);
 
     if (res.success) {
       setLoginStep("authenticated");
@@ -76,7 +67,7 @@ export default function LoginAdminPage() {
       setTimeout(() => {
         setLoginStep("redirecting");
         setTimeout(() => {
-          router.push("/admin/dashboard");
+          router.push(safeRedirect);
           setTimeout(() => {
             setIsLoading(false);
             setLoginStep("idle");
@@ -313,17 +304,12 @@ export default function LoginAdminPage() {
 
               {/* Password Field */}
               <div className="flex flex-col gap-1.5">
-                <div className="flex items-center justify-between">
-                  <label
-                    className="font-label-md text-label-md text-on-surface"
-                    htmlFor="passwordInput"
-                  >
-                    Kata Sandi
-                  </label>
-                  <span className="font-label-sm text-[11px] text-primary">
-                    (Akun Showroom: admin_otista)
-                  </span>
-                </div>
+                <label
+                  className="font-label-md text-label-md text-on-surface"
+                  htmlFor="passwordInput"
+                >
+                  Kata Sandi
+                </label>
                 <div className="relative flex items-center">
                   <span className="material-symbols-outlined text-outline text-[20px] absolute left-3 pointer-events-none">
                     lock
@@ -351,8 +337,8 @@ export default function LoginAdminPage() {
                 </div>
               </div>
 
-              {/* Remember Me & Demo Helper */}
-              <div className="flex items-center justify-between pt-1">
+              {/* Remember Me */}
+              <div className="flex items-center pt-1">
                 <label className="inline-flex items-center gap-2 cursor-pointer select-none">
                   <input
                     checked={rememberMe}
@@ -364,13 +350,6 @@ export default function LoginAdminPage() {
                     Ingat sesi login
                   </span>
                 </label>
-                <button
-                  type="button"
-                  onClick={handleFillDemo}
-                  className="font-label-md text-label-md text-surface-tint hover:text-primary transition-colors hover:underline cursor-pointer"
-                >
-                  Isi Kredensial Admin
-                </button>
               </div>
 
               {/* Submit Button */}
@@ -408,7 +387,7 @@ export default function LoginAdminPage() {
                     </h3>
                     <p className="font-body-sm text-body-sm text-primary">
                       Masuk sebagai{" "}
-                      <strong className="text-on-surface">admin_otista</strong>{" "}
+                      <strong className="text-on-surface">{username || "Admin"}</strong>{" "}
                       (Admin Showroom)
                     </p>
                   </div>
@@ -426,32 +405,6 @@ export default function LoginAdminPage() {
                 </div>
               </div>
             )}
-
-            {/* Quick Developer Helper Badge */}
-            <div className="mt-space-lg bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between gap-space-xs border border-outline-variant/30">
-              <div className="flex items-center gap-space-xs">
-                <span className="material-symbols-outlined text-primary text-[16px]">
-                  vpn_key
-                </span>
-                <span className="font-label-sm text-label-sm text-on-surface-variant">
-                  Akun:{" "}
-                  <span className="font-bold text-on-surface">
-                    admin_otista
-                  </span>{" "}
-                  (Showroom Roda.Motorku)
-                </span>
-              </div>
-              <button
-                className="font-label-sm text-label-sm text-primary hover:text-primary hover:bg-surface-container-high px-2.5 py-1 rounded bg-surface-container-highest font-semibold shadow-xs transition-all cursor-pointer flex items-center gap-1 border border-outline-variant/40"
-                onClick={handleFillDemo}
-                type="button"
-              >
-                <span className="material-symbols-outlined text-[14px]">
-                  bolt
-                </span>
-                Gunakan
-              </button>
-            </div>
 
             {/* Back to Public Catalog Link */}
             <div className="mt-space-md pt-space-sm flex justify-center">
@@ -483,5 +436,19 @@ export default function LoginAdminPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+export default function LoginAdminPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-surface">
+          <span className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></span>
+        </div>
+      }
+    >
+      <LoginAdminContent />
+    </Suspense>
   );
 }

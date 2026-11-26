@@ -2,13 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   predictPrice,
   predictAllModels,
+  MODEL_METRICS,
   FiturMasukanML,
   ModelMetric,
 } from "@/lib/mlEngine";
-import {
-  getAllPredictions,
-  createPrediction,
-} from "@/lib/repository";
+import { getAllPredictions, createPrediction } from "@/lib/repository";
 import { getAuthenticatedUser } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
@@ -16,7 +14,11 @@ export async function GET(request: NextRequest) {
     const authUser = getAuthenticatedUser(request);
     if (!authUser || authUser.role !== "admin") {
       return NextResponse.json(
-        { success: false, message: "Akses ditolak. Sesi admin diperlukan untuk melihat riwayat prediksi." },
+        {
+          success: false,
+          message:
+            "Akses ditolak. Sesi admin diperlukan untuk melihat riwayat prediksi.",
+        },
         { status: 401 }
       );
     }
@@ -36,50 +38,107 @@ export async function GET(request: NextRequest) {
       success: true,
       data: predictions,
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, message: error.message || "Failed to fetch predictions" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg =
+      error instanceof Error ? error.message : "Failed to fetch predictions";
+    return NextResponse.json({ success: false, message: msg }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
   try {
-    const body = await request.json();
+    const authUser = getAuthenticatedUser(request);
+    let body: Record<string, unknown>;
+    try {
+      body = await request.json();
+    } catch {
+      return NextResponse.json(
+        { success: false, message: "Format payload JSON tidak valid." },
+        { status: 400 }
+      );
+    }
+
+    const saveToHistory = body.save_to_history !== false;
+    if (saveToHistory && (!authUser || authUser.role !== "admin")) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Akses ditolak. Sesi admin aktif diperlukan untuk menyimpan riwayat prediksi.",
+        },
+        { status: 401 }
+      );
+    }
+
+    const tahun = Number(body.tahun ?? 2023);
+    const kilometer = Number(body.kilometer ?? 12000);
+    const harga_beli = Number(body.harga_beli ?? 15000000);
+    const cc = Number(body.cc ?? 125);
+
+    if (
+      isNaN(tahun) ||
+      tahun < 1990 ||
+      tahun > 2030 ||
+      isNaN(kilometer) ||
+      kilometer < 0 ||
+      isNaN(harga_beli) ||
+      harga_beli <= 0 ||
+      isNaN(cc) ||
+      cc < 50
+    ) {
+      return NextResponse.json(
+        {
+          success: false,
+          message:
+            "Parameter input ML tidak valid (periksa tahun, kilometer, cc, dan harga beli).",
+        },
+        { status: 400 }
+      );
+    }
 
     const fitur: FiturMasukanML = {
-      merek: body.merek || "Honda",
-      tahun: Number(body.tahun) || 2023,
-      kelengkapan_dokumen: body.kelengkapan_dokumen || "Lengkap (STNK + BPKB + Faktur)",
-      kilometer: Number(body.kilometer) || 12000,
-      harga_beli: Number(body.harga_beli) || 15000000,
-      kondisi_mesin: body.kondisi_mesin || "Sangat Baik",
-      domisili_samsat: body.domisili_samsat || "Jakarta Selatan (Plat B)",
-      cc: Number(body.cc) || 125,
+      merek: String(body.merek || "Honda"),
+      tahun,
+      kelengkapan_dokumen: String(
+        body.kelengkapan_dokumen || "Lengkap (STNK + BPKB)"
+      ),
+      kilometer,
+      harga_beli,
+      kondisi_mesin: String(body.kondisi_mesin || "Sangat Baik"),
+      domisili_samsat: String(body.domisili_samsat || "Nganjuk (AG)"),
+      cc,
     };
 
-    const selectedModel = (body.model || "Random Forest Regressor v1.4") as ModelMetric["nama_model"];
+    const requestedModel = String(
+      body.model || "Random Forest Regressor v1.4"
+    );
+    const selectedModel = (MODEL_METRICS.find(
+      (m) => m.nama_model === requestedModel
+    )?.nama_model || "Random Forest Regressor v1.4") as ModelMetric["nama_model"];
 
-    // 1. Calculate prediction with the requested model
     const estimation = predictPrice(fitur, selectedModel);
-
-    // 2. Also calculate comparison across all 3 models (Bab II & III Laporan)
     const comparison = predictAllModels(fitur);
 
-    // 3. Optional: save to history log if save_history flag is true or default
     let savedRecord = null;
-    if (body.save_to_history !== false) {
+    if (saveToHistory && authUser) {
       savedRecord = await createPrediction({
-        id_user: body.id_user || 1,
-        id_motor: body.id_motor || null,
-        nama_motor_katalog: body.nama_motor_katalog,
-        nopol_katalog: body.nopol_katalog,
-        kode_motor_katalog: body.kode_motor_katalog,
-        catatan_simulasi: body.catatan_simulasi || "Simulasi Estimasi Harga ML",
+        id_user: authUser.id_user,
+        id_motor: body.id_motor ? Number(body.id_motor) : null,
+        nama_motor_katalog: body.nama_motor_katalog
+          ? String(body.nama_motor_katalog)
+          : undefined,
+        nopol_katalog: body.nopol_katalog
+          ? String(body.nopol_katalog)
+          : undefined,
+        kode_motor_katalog: body.kode_motor_katalog
+          ? String(body.kode_motor_katalog)
+          : undefined,
+        catatan_simulasi: String(
+          body.catatan_simulasi || "Simulasi Estimasi Harga ML"
+        ),
         fitur_masukan: fitur,
         harga_estimasi: estimation.estimatedPrice,
-        spread_estimasi: Math.round(estimation.estimatedPrice * 0.025),
+        spread_estimasi: estimation.mae,
         nama_model: estimation.modelName,
         akurasi_r2: estimation.r2Score,
         mae_rupiah: estimation.mae,
@@ -96,10 +155,9 @@ export async function POST(request: NextRequest) {
         saved_record: savedRecord,
       },
     });
-  } catch (error: any) {
-    return NextResponse.json(
-      { success: false, message: error.message || "Failed to process prediction" },
-      { status: 500 }
-    );
+  } catch (error: unknown) {
+    const msg =
+      error instanceof Error ? error.message : "Failed to process prediction";
+    return NextResponse.json({ success: false, message: msg }, { status: 500 });
   }
 }

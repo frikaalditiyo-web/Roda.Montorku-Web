@@ -1,19 +1,25 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { Suspense, useState, useMemo, useRef, useEffect } from "react";
 import { CountUpNumber } from "@/components/CountUpNumber";
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useShowroom } from "@/context/ShowroomContext";
 import {
   calculateMLPrediction,
+  DATASET_DOKUMEN_OPTIONS,
+  DATASET_KONDISI_OPTIONS,
+  DATASET_SAMSAT_OPTIONS,
   formatNumberID,
   formatRupiah,
   FotoMotor,
   Motor,
 } from "@/data/mockShowroomData";
 
-export default function KelolaDataMotorPage() {
+function KelolaDataMotorContent() {
   const { motors, addMotor, updateMotor, deleteMotor, refreshData } = useShowroom();
+  const searchParams = useSearchParams();
+  const router = useRouter();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [brandFilter, setBrandFilter] = useState("");
@@ -37,16 +43,14 @@ export default function KelolaDataMotorPage() {
   // Modal Form State (Tabel `motor` & `foto_motor`)
   const [merek, setMerek] = useState<Motor["merek"]>("Honda");
   const [tipe, setTipe] = useState("Vario 160 CBS");
-  const [nopol, setNopol] = useState("B 4819 KOX");
+  const [nopol, setNopol] = useState("AG 4819 KOX");
   const [tahun, setTahun] = useState(2023);
   const [cc, setCc] = useState(160);
   const [kilometer, setKilometer] = useState(12450);
-  const [domisiliSamsat, setDomisiliSamsat] = useState(
-    "Jakarta Selatan (Plat B)"
-  );
+  const [domisiliSamsat, setDomisiliSamsat] = useState("Nganjuk (AG)");
   const [kondisiMesin, setKondisiMesin] = useState("Sangat Baik");
   const [kelengkapanDokumen, setKelengkapanDokumen] = useState(
-    "Lengkap (STNK + BPKB + Faktur)"
+    "Lengkap (STNK + BPKB)"
   );
   const [hargaBeli, setHargaBeli] = useState(19500000);
   const [hargaJual, setHargaJual] = useState(23500000);
@@ -54,28 +58,31 @@ export default function KelolaDataMotorPage() {
   const [deskripsi, setDeskripsi] = useState(
     "Catatan kondisi fisik: Bodi 95% mulus orisinil tanpa bekas jatuh atau banjir, ban depan-belakang masih tebal, kunci kontak 2 pcs lengkap."
   );
-  const [photos, setPhotos] = useState<FotoMotor[]>(motors[0]?.foto_motor || []);
+  const [photos, setPhotos] = useState<FotoMotor[]>([]);
   const [newPhotoUrl, setNewPhotoUrl] = useState("");
   const [newPhotoLabel, setNewPhotoLabel] = useState("Foto Tambahan");
   const [isUploading, setIsUploading] = useState(false);
   const [isSeeding, setIsSeeding] = useState(false);
+  const [showSeedModal, setShowSeedModal] = useState(false);
+  const photoSeqRef = useRef(10000);
 
-  const handleSeedDataset = async () => {
-    if (!window.confirm("Apakah Anda yakin ingin mengimpor 187 unit motor dari dataset riil Capstone ke inventaris?")) {
-      return;
-    }
+  const handleConfirmSeedDataset = async () => {
     try {
       setIsSeeding(true);
       const res = await fetch("/api/motor/seed", { method: "POST" });
       const json = await res.json();
+      setShowSeedModal(false);
       if (res.ok && json.success) {
         triggerToast(json.message);
-        await refreshData();
+        await refreshData(true);
       } else {
         triggerToast(json.message || "Gagal mengimpor dataset.");
       }
-    } catch (err: any) {
-      triggerToast("Error: " + err.message);
+    } catch (err: unknown) {
+      setShowSeedModal(false);
+      triggerToast(
+        "Error: " + (err instanceof Error ? err.message : "Gagal mengimpor.")
+      );
     } finally {
       setIsSeeding(false);
     }
@@ -96,16 +103,33 @@ export default function KelolaDataMotorPage() {
       });
 
       const json = await res.json();
-      if (res.ok && json.success) {
-        setNewPhotoUrl(json.url);
-        triggerToast("Foto berhasil diunggah dari perangkat!");
+      if (res.ok && json.success && json.url) {
+        photoSeqRef.current += 1;
+        const nextPhotoId = photoSeqRef.current;
+        setPhotos((prev) => [
+          ...prev,
+          {
+            id_foto: nextPhotoId,
+            id_motor: editingMotorId || 0,
+            nama_file: json.url,
+            label: newPhotoLabel.trim() || `Foto #${prev.length + 1}`,
+            caption: `${newPhotoLabel.trim() || "Foto Unit"} - ${merek} ${tipe}`,
+            is_utama: prev.length === 0,
+          },
+        ]);
+        setNewPhotoUrl("");
+        triggerToast("Foto berhasil diunggah dan ditambahkan ke galeri unit!");
       } else {
         triggerToast(json.message || "Gagal mengunggah foto.");
       }
-    } catch (err: any) {
-      triggerToast("Error upload: " + err.message);
+    } catch (err: unknown) {
+      triggerToast(
+        "Error upload: " +
+          (err instanceof Error ? err.message : "Gagal upload.")
+      );
     } finally {
       setIsUploading(false);
+      e.target.value = "";
     }
   };
 
@@ -118,20 +142,29 @@ export default function KelolaDataMotorPage() {
     setEditingMotorId(null);
     setMerek("Honda");
     setTipe("Vario 160 CBS");
-    setNopol("B 4819 KOX");
+    setNopol("AG 4819 KOX");
     setTahun(2023);
     setCc(160);
     setKilometer(12450);
-    setDomisiliSamsat("Jakarta Selatan (Plat B)");
+    setDomisiliSamsat("Nganjuk (AG)");
     setKondisiMesin("Sangat Baik");
-    setKelengkapanDokumen("Lengkap (STNK + BPKB + Faktur)");
+    setKelengkapanDokumen("Lengkap (STNK + BPKB)");
     setHargaBeli(19500000);
     setHargaJual(23500000);
     setStatus("Tersedia");
     setDeskripsi(
-      "Catatan kondisi fisik: Bodi 95% mulus orisinil tanpa bekas jatuh atau banjir, ban depan-belakang masih bergaris bawaan pabrik, remote smartkey ada 2 pcs."
+      "Catatan kondisi fisik: Bodi 95% mulus orisinil tanpa bekas jatuh atau banjir, ban depan-belakang masih bergaris bawaan pabrik, remote smartkey lengkap."
     );
-    setPhotos(motors[0]?.foto_motor || []);
+    setPhotos([
+      {
+        id_foto: 10001,
+        id_motor: 0,
+        nama_file: "/logo.png",
+        label: "Foto Placeholder",
+        caption: "Silakan unggah foto asli unit motor",
+        is_utama: true,
+      },
+    ]);
     setIsModalOpen(true);
   };
 
@@ -146,13 +179,42 @@ export default function KelolaDataMotorPage() {
     setDomisiliSamsat(motor.domisili_samsat);
     setKondisiMesin(motor.kondisi_mesin);
     setKelengkapanDokumen(motor.kelengkapan_dokumen);
-    setHargaBeli(motor.harga_beli);
+    setHargaBeli(motor.harga_beli ?? 0);
     setHargaJual(motor.harga_jual);
     setStatus(motor.status);
     setDeskripsi(motor.deskripsi);
     setPhotos(motor.foto_motor);
     setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    const editParam = searchParams.get("edit");
+    if (!editParam) return;
+    const targetId = parseInt(editParam, 10);
+    if (isNaN(targetId)) return;
+    const found = motors.find((m) => m.id_motor === targetId);
+    if (found) {
+      Promise.resolve().then(() => {
+        setEditingMotorId(found.id_motor);
+        setMerek(found.merek);
+        setTipe(found.tipe);
+        setNopol(found.nopol);
+        setTahun(found.tahun);
+        setCc(found.cc);
+        setKilometer(found.kilometer);
+        setDomisiliSamsat(found.domisili_samsat);
+        setKondisiMesin(found.kondisi_mesin);
+        setKelengkapanDokumen(found.kelengkapan_dokumen);
+        setHargaBeli(found.harga_beli ?? 0);
+        setHargaJual(found.harga_jual);
+        setStatus(found.status);
+        setDeskripsi(found.deskripsi);
+        setPhotos(found.foto_motor);
+        setIsModalOpen(true);
+        router.replace("/admin/data-motor", { scroll: false });
+      });
+    }
+  }, [searchParams, motors, router]);
 
   const handleApplyMLRecommendation = () => {
     const result = calculateMLPrediction({
@@ -193,10 +255,9 @@ export default function KelolaDataMotorPage() {
   };
 
   const handleAddCustomPhoto = () => {
-    const url =
-      newPhotoUrl.trim() ||
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F";
-    const nextPhotoId = Date.now();
+    const url = newPhotoUrl.trim() || "/logo.png";
+    photoSeqRef.current += 1;
+    const nextPhotoId = photoSeqRef.current;
     setPhotos((prev) => [
       ...prev,
       {
@@ -211,82 +272,85 @@ export default function KelolaDataMotorPage() {
     setNewPhotoUrl("");
   };
 
-  const handleSaveMotor = (e: React.FormEvent) => {
+  const handleSaveMotor = async (e: React.FormEvent) => {
     e.preventDefault();
     const skuCode = `RDK-${String(tahun).slice(-2)}-${tipe
       .replace(/[^a-zA-Z0-9]/g, "")
       .toUpperCase()
-      .slice(0, 5)}-JKT`;
+      .slice(0, 5)}-AG`;
 
     setIsSaving(true);
 
+    const res =
+      editingMotorId !== null
+        ? await updateMotor(editingMotorId, {
+            merek,
+            tipe,
+            nopol: nopol.trim().toUpperCase(),
+            tahun,
+            cc,
+            kilometer,
+            domisili_samsat: domisiliSamsat,
+            kondisi_mesin: kondisiMesin,
+            kelengkapan_dokumen: kelengkapanDokumen,
+            harga_beli: hargaBeli,
+            harga_jual: hargaJual,
+            status,
+            deskripsi,
+            foto_motor: photos,
+          })
+        : await addMotor({
+            id_user: 1,
+            sku: skuCode,
+            nopol: nopol.trim().toUpperCase(),
+            merek,
+            tipe,
+            tahun,
+            cc,
+            kilometer,
+            kondisi_mesin: kondisiMesin,
+            kelengkapan_dokumen: kelengkapanDokumen,
+            domisili_samsat: domisiliSamsat,
+            pajak_info: "Pajak hidup aktif",
+            harga_beli: hargaBeli,
+            harga_jual: hargaJual,
+            harga_pasar_coret: Math.round((hargaJual * 1.05) / 50000) * 50000,
+            deskripsi,
+            status,
+            foto_motor: photos,
+          });
+
+    setIsSaving(false);
+
+    if (!res.success) {
+      triggerToast(res.message || "Gagal menyimpan data motor ke server.");
+      return;
+    }
+
+    setSaveSuccess(true);
     setTimeout(() => {
-      if (editingMotorId !== null) {
-        updateMotor(editingMotorId, {
-          merek,
-          tipe,
-          nopol,
-          tahun,
-          cc,
-          kilometer,
-          domisili_samsat: domisiliSamsat,
-          kondisi_mesin: kondisiMesin,
-          kelengkapan_dokumen: kelengkapanDokumen,
-          harga_beli: hargaBeli,
-          harga_jual: hargaJual,
-          status,
-          deskripsi,
-          foto_motor: photos,
-        });
-      } else {
-        addMotor({
-          id_user: 1,
-          sku: skuCode,
-          nopol,
-          merek,
-          tipe,
-          tahun,
-          cc,
-          kilometer,
-          kondisi_mesin: kondisiMesin,
-          kelengkapan_dokumen: kelengkapanDokumen,
-          domisili_samsat: domisiliSamsat,
-          pajak_info: "Pajak hidup s/d Oktober 2026",
-          harga_beli: hargaBeli,
-          harga_jual: hargaJual,
-          harga_pasar_coret: Math.round((hargaJual * 1.05) / 50000) * 50000,
-          deskripsi,
-          status,
-          foto_motor: photos,
-        });
-      }
-
-      setIsSaving(false);
-      setSaveSuccess(true);
-
-      setTimeout(() => {
-        setSaveSuccess(false);
-        setIsModalOpen(false);
-        triggerToast(
-          editingMotorId !== null
-            ? `Data motor ${merek} ${tipe} berhasil diperbarui!`
-            : `Unit baru ${merek} ${tipe} berhasil disimpan ke katalog!`
-        );
-      }, 700);
-    }, 450);
+      setSaveSuccess(false);
+      setIsModalOpen(false);
+      triggerToast(
+        editingMotorId !== null
+          ? `Data motor ${merek} ${tipe} berhasil diperbarui!`
+          : `Unit baru ${merek} ${tipe} berhasil disimpan ke katalog!`
+      );
+    }, 600);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!deletingMotor) return;
+    const target = deletingMotor;
     setIsDeleting(true);
-    setTimeout(() => {
-      deleteMotor(deletingMotor.id_motor);
-      triggerToast(
-        `Unit ${deletingMotor.merek} ${deletingMotor.tipe} berhasil dihapus dari inventaris.`
-      );
-      setIsDeleting(false);
-      setDeletingMotor(null);
-    }, 400);
+    const res = await deleteMotor(target.id_motor);
+    setIsDeleting(false);
+    setDeletingMotor(null);
+    triggerToast(
+      res.success
+        ? `Unit ${target.merek} ${target.tipe} berhasil dihapus dari inventaris.`
+        : res.message || "Gagal menghapus motor."
+    );
   };
 
   const handleExportCSV = () => {
@@ -316,7 +380,7 @@ export default function KelolaDataMotorPage() {
       `"${m.kondisi_mesin}"`,
       `"${m.kelengkapan_dokumen}"`,
       `"${m.domisili_samsat}"`,
-      m.harga_beli,
+      m.harga_beli ?? 0,
       m.harga_jual,
       m.status,
     ]);
@@ -369,12 +433,10 @@ export default function KelolaDataMotorPage() {
   }, [motors, searchQuery, brandFilter, statusFilter, sortBy, yearFilter, priceFilter, priceCuts]);
 
   const totalPages = Math.max(1, Math.ceil(filteredMotors.length / ROWS_PER_PAGE));
-  const paginatedMotors = filteredMotors.slice((currentPage - 1) * ROWS_PER_PAGE, currentPage * ROWS_PER_PAGE);
-  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const paginatedMotors = filteredMotors.slice((safeCurrentPage - 1) * ROWS_PER_PAGE, safeCurrentPage * ROWS_PER_PAGE);
+  const pageBlockStart = Math.floor((safeCurrentPage - 1) / 10) * 10 + 1;
   const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
-
-  useEffect(() => { setCurrentPage(1); }, [searchQuery, brandFilter, statusFilter, sortBy, yearFilter, priceFilter]);
-  useEffect(() => { if (currentPage > totalPages) setCurrentPage(totalPages); }, [currentPage, totalPages]);
 
   const totalUnits = motors.length;
   const readyUnits = motors.filter((m) => m.status === "Tersedia").length;
@@ -477,7 +539,7 @@ export default function KelolaDataMotorPage() {
               <span>Ekspor CSV</span>
             </button>
             <button
-              onClick={handleSeedDataset}
+              onClick={() => setShowSeedModal(true)}
               disabled={isSeeding}
               className="inline-flex items-center gap-space-xs px-space-md py-2.5 rounded-DEFAULT bg-secondary-container hover:bg-secondary-fixed text-on-secondary-fixed-variant font-label-md text-label-md transition-colors shadow-sm cursor-pointer disabled:opacity-50"
               type="button"
@@ -513,7 +575,10 @@ export default function KelolaDataMotorPage() {
             </span>
             <input
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-10 pr-space-md py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               placeholder="Cari merek, tipe, atau nomor polisi..."
               type="text"
@@ -523,7 +588,10 @@ export default function KelolaDataMotorPage() {
             <div className="relative">
               <select
                 value={brandFilter}
-                onChange={(e) => setBrandFilter(e.target.value)}
+                onChange={(e) => {
+                  setBrandFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
                 <option value="">Semua Merek</option>
@@ -535,13 +603,13 @@ export default function KelolaDataMotorPage() {
             </div>
           </div>
           <div className="md:col-span-3">
-            <select value={yearFilter} onChange={(e) => setYearFilter(e.target.value)} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
+            <select value={yearFilter} onChange={(e) => { setYearFilter(e.target.value); setCurrentPage(1); }} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
               <option value="">Semua Tahun</option>
               {years.map((year) => <option key={year} value={year}>{year}</option>)}
             </select>
           </div>
           <div className="md:col-span-4">
-            <select value={priceFilter} onChange={(e) => setPriceFilter(e.target.value)} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
+            <select value={priceFilter} onChange={(e) => { setPriceFilter(e.target.value); setCurrentPage(1); }} className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm">
               <option value="">Semua Harga</option>
               <option value="low">Harga rendah (≤ {formatRupiah(priceCuts[0])})</option>
               <option value="mid">Harga menengah</option>
@@ -552,7 +620,10 @@ export default function KelolaDataMotorPage() {
             <div className="relative">
               <select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
                 <option value="">Semua Status</option>
@@ -568,7 +639,10 @@ export default function KelolaDataMotorPage() {
             <div className="relative">
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value)}
+                onChange={(e) => {
+                  setSortBy(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="w-full appearance-none pl-3 pr-8 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
               >
                 <option value="terbaru">Terbaru</option>
@@ -612,7 +686,8 @@ export default function KelolaDataMotorPage() {
               {paginatedMotors.map((motor) => {
                 const mainImg =
                   motor.foto_motor.find((f) => f.is_utama)?.nama_file ||
-                  motor.foto_motor[0]?.nama_file;
+                  motor.foto_motor[0]?.nama_file ||
+                  "/logo.png";
                 const isReady = motor.status === "Tersedia";
 
                 return (
@@ -668,7 +743,7 @@ export default function KelolaDataMotorPage() {
                       </div>
                     </td>
                     <td className="py-2.5 px-space-md text-right text-[13px] text-primary tabular-nums">
-                      {formatRupiah(motor.harga_beli)}
+                      {formatRupiah(motor.harga_beli ?? 0)}
                     </td>
                     <td className="py-2.5 px-space-md text-right text-[13px] font-semibold text-primary tabular-nums">
                       {formatRupiah(motor.harga_jual)}
@@ -728,7 +803,7 @@ export default function KelolaDataMotorPage() {
           <span>
             Menampilkan{" "}
             <strong className="text-on-surface font-semibold">
-              {filteredMotors.length === 0 ? 0 : (currentPage - 1) * ROWS_PER_PAGE + 1}–{Math.min(currentPage * ROWS_PER_PAGE, filteredMotors.length)}
+              {filteredMotors.length === 0 ? 0 : (safeCurrentPage - 1) * ROWS_PER_PAGE + 1}–{Math.min(safeCurrentPage * ROWS_PER_PAGE, filteredMotors.length)}
             </strong>{" "}
             dari{" "}
             <strong className="text-on-surface font-semibold">
@@ -738,7 +813,7 @@ export default function KelolaDataMotorPage() {
           </span>
           {totalPages > 1 && <nav aria-label="Navigasi halaman data motor" className="flex items-center gap-1">
             <button type="button" onClick={() => setCurrentPage(Math.max(1, pageBlockStart - 1))} disabled={pageBlockStart === 1} className="px-2.5 py-1.5 rounded bg-white text-primary disabled:opacity-40">Prev</button>
-            {Array.from({ length: Math.max(0, pageBlockEnd - pageBlockStart + 1) }, (_, i) => pageBlockStart + i).map((page) => <button key={page} type="button" aria-current={currentPage === page ? "page" : undefined} onClick={() => setCurrentPage(page)} className={`min-w-8 px-2.5 py-1.5 rounded ${currentPage === page ? "bg-primary text-white" : "bg-white text-primary"}`}>{page}</button>)}
+            {Array.from({ length: Math.max(0, pageBlockEnd - pageBlockStart + 1) }, (_, i) => pageBlockStart + i).map((page) => <button key={page} type="button" aria-current={safeCurrentPage === page ? "page" : undefined} onClick={() => setCurrentPage(page)} className={`min-w-8 px-2.5 py-1.5 rounded ${safeCurrentPage === page ? "bg-primary text-white" : "bg-white text-primary"}`}>{page}</button>)}
             <button type="button" onClick={() => setCurrentPage(Math.min(totalPages, pageBlockEnd + 1))} disabled={pageBlockEnd === totalPages} className="px-2.5 py-1.5 rounded bg-white text-primary disabled:opacity-40">Next</button>
           </nav>}
         </div>
@@ -901,8 +976,8 @@ export default function KelolaDataMotorPage() {
                         setTahun(parseInt(e.target.value, 10) || 2023)
                       }
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm tabular-nums"
-                      max={2026}
-                      min={2005}
+                      max={2030}
+                      min={1990}
                       required
                       type="number"
                     />
@@ -950,22 +1025,14 @@ export default function KelolaDataMotorPage() {
                       onChange={(e) => setDomisiliSamsat(e.target.value)}
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                     >
-                      <option value="Jakarta Selatan (Plat B)">
-                        Jakarta Selatan (Plat B)
-                      </option>
-                      <option value="Jakarta Timur (Plat B)">
-                        Jakarta Timur (Plat B)
-                      </option>
-                      <option value="Jakarta Barat (Plat B)">
-                        Jakarta Barat (Plat B)
-                      </option>
-                      <option value="Depok (Plat B)">Depok (Plat B)</option>
-                      <option value="Bekasi (Plat B)">Bekasi (Plat B)</option>
-                      <option value="Tangerang (Plat B)">
-                        Tangerang (Plat B)
-                      </option>
-                      <option value="Bogor (Plat F)">Bogor (Plat F)</option>
-                      <option value="Kediri (Plat AG)">Kediri (Plat AG)</option>
+                      {!DATASET_SAMSAT_OPTIONS.includes(domisiliSamsat) && domisiliSamsat && (
+                        <option value={domisiliSamsat}>{domisiliSamsat}</option>
+                      )}
+                      {DATASET_SAMSAT_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -979,11 +1046,14 @@ export default function KelolaDataMotorPage() {
                       onChange={(e) => setKondisiMesin(e.target.value)}
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                     >
-                      <option value="Sangat Baik">Sangat Baik</option>
-                      <option value="Baik">Baik</option>
-                      <option value="Perlu Servis Ringan">
-                        Perlu Servis Ringan
-                      </option>
+                      {!DATASET_KONDISI_OPTIONS.includes(kondisiMesin) && kondisiMesin && (
+                        <option value={kondisiMesin}>{kondisiMesin}</option>
+                      )}
+                      {DATASET_KONDISI_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -997,13 +1067,14 @@ export default function KelolaDataMotorPage() {
                       onChange={(e) => setKelengkapanDokumen(e.target.value)}
                       className="w-full px-3 py-2 bg-surface rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:ring-2 focus:ring-primary shadow-sm"
                     >
-                      <option value="Lengkap (STNK + BPKB + Faktur)">
-                        Lengkap (STNK + BPKB + Faktur)
-                      </option>
-                      <option value="Lengkap (STNK + BPKB)">
-                        Lengkap (STNK + BPKB)
-                      </option>
-                      <option value="Hanya STNK">Hanya STNK</option>
+                      {!DATASET_DOKUMEN_OPTIONS.includes(kelengkapanDokumen) && kelengkapanDokumen && (
+                        <option value={kelengkapanDokumen}>{kelengkapanDokumen}</option>
+                      )}
+                      {DATASET_DOKUMEN_OPTIONS.map((opt) => (
+                        <option key={opt} value={opt}>
+                          {opt}
+                        </option>
+                      ))}
                     </select>
                   </div>
 
@@ -1310,6 +1381,63 @@ export default function KelolaDataMotorPage() {
           </div>
         </div>
       )}
+      {/* Seed 187 Dataset Confirmation Modal */}
+      {showSeedModal && (
+        <div className="fixed inset-0 z-50 bg-slate-950/50 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-200 animate-in fade-in">
+          <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-2xl p-6 max-w-sm w-full flex flex-col gap-4 text-left animate-in zoom-in-95">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-secondary-container text-primary flex items-center justify-center shrink-0">
+                <span className="material-symbols-outlined text-[22px]">
+                  dataset
+                </span>
+              </div>
+              <div>
+                <h3 className="font-headline-sm text-headline-sm font-bold text-primary tracking-tight">
+                  Impor 187 Dataset Capstone
+                </h3>
+                <span className="text-[12px] text-on-surface-variant font-medium">
+                  Reset &amp; Seed Inventaris
+                </span>
+              </div>
+            </div>
+            <p className="font-body-md text-body-md text-on-surface-variant">
+              Apakah Anda yakin ingin mengimpor ulang 187 unit motor riil dari dataset Capstone ke basis data showroom?
+            </p>
+            <div className="flex items-center justify-end gap-2.5 pt-2 border-t border-outline-variant/30">
+              <button
+                type="button"
+                disabled={isSeeding}
+                onClick={() => setShowSeedModal(false)}
+                className="px-4 py-2 rounded-xl text-primary font-label-md text-label-md font-semibold bg-surface-container-low hover:bg-surface-container transition-colors cursor-pointer disabled:opacity-60"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                disabled={isSeeding}
+                onClick={handleConfirmSeedDataset}
+                className="px-4 py-2 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-label-md text-label-md font-semibold flex items-center gap-1.5 transition-colors shadow-sm cursor-pointer disabled:opacity-60"
+              >
+                {isSeeding ? "Mengimpor..." : "Ya, Impor 187 Unit"}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+export default function KelolaDataMotorPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-[320px] flex items-center justify-center">
+          <span className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></span>
+        </div>
+      }
+    >
+      <KelolaDataMotorContent />
+    </Suspense>
   );
 }

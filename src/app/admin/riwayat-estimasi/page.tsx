@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useShowroom } from "@/context/ShowroomContext";
 import { CountUpNumber } from "@/components/CountUpNumber";
@@ -18,7 +18,6 @@ export default function RiwayatEstimasiPage() {
     updatePrediction,
     addMotor,
     linkPredictionToMotor,
-    motors,
   } = useShowroom();
 
   const [searchQuery, setSearchQuery] = useState("");
@@ -84,24 +83,15 @@ export default function RiwayatEstimasiPage() {
     });
   }, [predictions, searchQuery, modelFilter, statusFilter]);
 
-  const totalPages = Math.ceil(filteredPredictions.length / ROWS_PER_PAGE);
-  const pageStart = (currentPage - 1) * ROWS_PER_PAGE;
+  const totalPages = Math.max(1, Math.ceil(filteredPredictions.length / ROWS_PER_PAGE));
+  const safeCurrentPage = Math.min(currentPage, totalPages);
+  const pageStart = (safeCurrentPage - 1) * ROWS_PER_PAGE;
   const paginatedPredictions = filteredPredictions.slice(
     pageStart,
     pageStart + ROWS_PER_PAGE
   );
-  const pageBlockStart = Math.floor((currentPage - 1) / 10) * 10 + 1;
+  const pageBlockStart = Math.floor((safeCurrentPage - 1) / 10) * 10 + 1;
   const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [searchQuery, modelFilter, statusFilter]);
-
-  useEffect(() => {
-    if (totalPages > 0 && currentPage > totalPages) {
-      setCurrentPage(totalPages);
-    }
-  }, [currentPage, totalPages]);
 
   const totalPreds = predictions.length;
   const linkedCount = predictions.filter((p) => p.id_motor !== null).length;
@@ -114,71 +104,92 @@ export default function RiwayatEstimasiPage() {
 
   const handleOpenConvertModal = (pred: PrediksiHarga) => {
     setConvertingPred(pred);
-    setTipeBaru(
-      pred.fitur_masukan.merek === "Vespa"
-        ? "Sprint 150 I-Get ABS"
-        : "Beat Deluxe"
-    );
-    setNopolBaru("B 6812 KLP");
+    const defaultTypeMap: Record<string, string> = {
+      Honda: "Beat Deluxe",
+      Yamaha: "NMAX 155 Connected",
+      Vespa: "Sprint 150 I-Get ABS",
+      Suzuki: "GSX-R150",
+      Kawasaki: "KLX 150 BF",
+    };
+    setTipeBaru(defaultTypeMap[pred.fitur_masukan.merek] || "Beat Deluxe");
+    setNopolBaru("AG 6812 KLP");
     setHargaAkhirBaru(pred.harga_estimasi);
   };
 
-  const handleConfirmConvert = (e: React.FormEvent) => {
+  const handleConfirmConvert = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!convertingPred) return;
 
     setIsConverting(true);
     const targetPred = convertingPred;
+    const f = targetPred.fitur_masukan;
+
+    const motorRes = await addMotor({
+      id_user: 1,
+      sku: `RDK-${String(f.tahun).slice(-2)}-${f.merek
+        .slice(0, 3)
+        .toUpperCase()}-CVT`,
+      nopol: nopolBaru.trim().toUpperCase(),
+      merek: (f.merek as Motor["merek"]) || "Honda",
+      tipe: tipeBaru.trim(),
+      tahun: f.tahun,
+      cc: f.cc,
+      kilometer: f.kilometer,
+      kondisi_mesin: f.kondisi_mesin,
+      kelengkapan_dokumen: f.kelengkapan_dokumen,
+      domisili_samsat: f.domisili_samsat,
+      pajak_info: "Pajak hidup aktif",
+      harga_beli: f.harga_beli,
+      harga_jual: hargaAkhirBaru,
+      harga_pasar_coret: Math.round((hargaAkhirBaru * 1.05) / 50000) * 50000,
+      deskripsi: `Dikonversi dari riwayat estimasi ${targetPred.kode_prediksi} (${targetPred.nama_model}).`,
+      status: "Tersedia",
+      foto_motor: [
+        {
+          id_foto: 1,
+          id_motor: 0,
+          nama_file: "/logo.png",
+          label: "Foto Placeholder",
+          caption: `${f.merek} ${tipeBaru.trim()}`,
+          is_utama: true,
+        },
+      ],
+    });
+
+    if (!motorRes.success || !motorRes.data) {
+      setIsConverting(false);
+      triggerToast(motorRes.message || "Gagal menyimpan motor baru ke server.");
+      return;
+    }
+
+    const newMotor = motorRes.data;
+    const linkRes = await linkPredictionToMotor(targetPred.id_prediksi, newMotor);
+    setIsConverting(false);
+    setConvertSuccess(true);
 
     setTimeout(() => {
-      const f = targetPred.fitur_masukan;
-      const newMotor = addMotor({
-        id_user: 1,
-        sku: `RDK-${String(f.tahun).slice(-2)}-${f.merek
-          .slice(0, 3)
-          .toUpperCase()}-CVT`,
-        nopol: nopolBaru,
-        merek: (f.merek as Motor["merek"]) || "Honda",
-        tipe: tipeBaru,
-        tahun: f.tahun,
-        cc: f.cc,
-        kilometer: f.kilometer,
-        kondisi_mesin: f.kondisi_mesin,
-        kelengkapan_dokumen: f.kelengkapan_dokumen,
-        domisili_samsat: f.domisili_samsat,
-        pajak_info: "Pajak hidup s/d Oktober 2026",
-        harga_beli: f.harga_beli,
-        harga_jual: hargaAkhirBaru,
-        harga_pasar_coret:
-          Math.round((hargaAkhirBaru * 1.05) / 50000) * 50000,
-        deskripsi: `Dikonversi dari riwayat estimasi ${targetPred.kode_prediksi} (${targetPred.nama_model}).`,
-        status: "Tersedia",
-        foto_motor: motors[0]?.foto_motor || [],
-      });
-
-      linkPredictionToMotor(targetPred.id_prediksi, newMotor);
-      setIsConverting(false);
-      setConvertSuccess(true);
-
-      setTimeout(() => {
-        setConvertSuccess(false);
-        setConvertingPred(null);
-        triggerToast(
-          `Riwayat ${targetPred.kode_prediksi} berhasil dikonversi menjadi unit katalog (${newMotor.merek} ${newMotor.tipe})!`
-        );
-      }, 700);
-    }, 450);
+      setConvertSuccess(false);
+      setConvertingPred(null);
+      triggerToast(
+        linkRes.success
+          ? `Riwayat ${targetPred.kode_prediksi} berhasil dikonversi menjadi unit katalog (${newMotor.merek} ${newMotor.tipe})!`
+          : `Motor tersimpan, namun tautan riwayat gagal: ${linkRes.message}`
+      );
+    }, 600);
   };
 
-  const handleConfirmDelete = () => {
+  const handleConfirmDelete = async () => {
     if (!deletingPred) return;
     setIsDeleting(true);
-    setTimeout(() => {
-      deletePrediction(deletingPred.id_prediksi);
-      triggerToast(`Riwayat estimasi ${deletingPred.kode_prediksi} berhasil dihapus.`);
-      setIsDeleting(false);
-      setDeletingPred(null);
-    }, 400);
+    const target = deletingPred;
+    const res = await deletePrediction(target.id_prediksi);
+    setIsDeleting(false);
+    setDeletingPred(null);
+    triggerToast(
+      res.success
+        ? `Riwayat estimasi ${target.kode_prediksi} berhasil dihapus.`
+        : res.message || "Gagal menghapus riwayat estimasi."
+    );
   };
 
   const handleOpenEditModal = (pred: PrediksiHarga) => {
@@ -187,27 +198,31 @@ export default function RiwayatEstimasiPage() {
     setEditNoteInput(pred.catatan_simulasi || "");
   };
 
-  const handleConfirmEdit = (e: React.FormEvent) => {
+  const handleConfirmEdit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingPred) return;
 
+    const target = editingPred;
     setIsSavingEdit(true);
-    setTimeout(() => {
-      updatePrediction(editingPred.id_prediksi, {
-        harga_estimasi: editPriceInput,
-        catatan_simulasi: editNoteInput,
-      });
-      setIsSavingEdit(false);
-      setEditSuccess(true);
+    const res = await updatePrediction(target.id_prediksi, {
+      harga_estimasi: editPriceInput,
+      catatan_simulasi: editNoteInput,
+    });
+    setIsSavingEdit(false);
 
-      setTimeout(() => {
-        setEditSuccess(false);
-        setEditingPred(null);
-        triggerToast(
-          `Estimasi ${editingPred.kode_prediksi} berhasil diperbarui menjadi ${formatRupiah(editPriceInput)}.`
-        );
-      }, 700);
-    }, 450);
+    if (!res.success) {
+      triggerToast(res.message || "Gagal memperbarui riwayat estimasi.");
+      return;
+    }
+
+    setEditSuccess(true);
+    setTimeout(() => {
+      setEditSuccess(false);
+      setEditingPred(null);
+      triggerToast(
+        `Estimasi ${target.kode_prediksi} berhasil diperbarui menjadi ${formatRupiah(editPriceInput)}.`
+      );
+    }, 600);
   };
 
   const handleExportCSV = () => {
@@ -356,7 +371,10 @@ export default function RiwayatEstimasiPage() {
             </span>
             <input
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setCurrentPage(1);
+              }}
               className="w-full pl-10 pr-4 py-2 bg-surface-container-low text-on-surface placeholder:text-outline rounded-DEFAULT font-body-sm text-body-sm outline-none focus:bg-surface-container-lowest transition-colors"
               placeholder="Cari ID Prediksi, merek motor, atau model ML..."
               type="text"
@@ -367,7 +385,10 @@ export default function RiwayatEstimasiPage() {
             <div className="relative">
               <select
                 value={modelFilter}
-                onChange={(e) => setModelFilter(e.target.value)}
+                onChange={(e) => {
+                  setModelFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md py-2 pl-3 pr-8 rounded-DEFAULT outline-none cursor-pointer"
               >
                 <option value="all">Semua Model</option>
@@ -383,7 +404,10 @@ export default function RiwayatEstimasiPage() {
             <div className="relative">
               <select
                 value={statusFilter}
-                onChange={(e) => setStatusFilter(e.target.value)}
+                onChange={(e) => {
+                  setStatusFilter(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="appearance-none bg-surface-container-low text-on-surface font-label-md text-label-md py-2 pl-3 pr-8 rounded-DEFAULT outline-none cursor-pointer"
               >
                 <option value="all">Semua Status</option>
@@ -592,7 +616,7 @@ export default function RiwayatEstimasiPage() {
             <nav aria-label="Navigasi halaman riwayat estimasi" className="flex items-center gap-1">
               <button
                 type="button"
-                onClick={() => setCurrentPage((page) => Math.max(1, pageBlockStart - 1))}
+                onClick={() => setCurrentPage(Math.max(1, pageBlockStart - 1))}
                 disabled={pageBlockStart === 1}
                 className="px-2.5 py-1.5 rounded-DEFAULT bg-surface-container-lowest text-primary font-semibold hover:bg-primary-container hover:text-on-primary disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
@@ -605,10 +629,10 @@ export default function RiwayatEstimasiPage() {
                 <button
                   key={page}
                   type="button"
-                  aria-current={currentPage === page ? "page" : undefined}
+                  aria-current={safeCurrentPage === page ? "page" : undefined}
                   onClick={() => setCurrentPage(page)}
                   className={`min-w-8 px-2.5 py-1.5 rounded-DEFAULT font-semibold transition-colors ${
-                    currentPage === page
+                    safeCurrentPage === page
                       ? "bg-primary text-on-primary"
                       : "bg-surface-container-lowest text-primary hover:bg-primary-container hover:text-on-primary"
                   }`}
@@ -618,7 +642,7 @@ export default function RiwayatEstimasiPage() {
               ))}
               <button
                 type="button"
-                onClick={() => setCurrentPage((page) => Math.min(totalPages, pageBlockEnd + 1))}
+                onClick={() => setCurrentPage(Math.min(totalPages, pageBlockEnd + 1))}
                 disabled={pageBlockEnd === totalPages}
                 className="px-2.5 py-1.5 rounded-DEFAULT bg-surface-container-lowest text-primary font-semibold hover:bg-primary-container hover:text-on-primary disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
               >
