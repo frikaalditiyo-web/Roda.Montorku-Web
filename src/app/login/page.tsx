@@ -278,6 +278,7 @@ function LoginAdminContent() {
                   </span>
                   <input
                     id="usernameInput"
+                    autoComplete="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     disabled={isLoading}
@@ -303,6 +304,7 @@ function LoginAdminContent() {
                   </span>
                   <input
                     id="passwordInput"
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}

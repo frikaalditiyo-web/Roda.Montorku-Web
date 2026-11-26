@@ -212,7 +212,7 @@
 }
 
 /* =========================================================
-   Hero Showroom — halaman katalog utama
+   Hero Showroom — Halaman Katalog Utama
    Palet: Navy #092653, Dark Blue #123B70, Accent #2878F0
    ========================================================= */
 .hero-showroom {
@@ -385,12 +385,15 @@
   background: var(--hero-accent);
 }
 
-/* Fullbleed Hero Variant */
+/* Fullbleed Hero Variant — menyatu dengan topbar di dalam banner */
 .hero-showroom--fullbleed {
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: space-between;
   border-radius: 0 0 36px 36px;
-  min-height: 500px;
-  padding-top: 5.75rem; /* Ruang ekstra untuk floating navbar */
-  padding-bottom: 3.5rem;
+  min-height: 520px;
+  padding-top: 0;
+  padding-bottom: 2.5rem;
   box-shadow: 0 20px 30px -10px rgba(9, 38, 83, 0.4);
 }
 
@@ -398,7 +401,7 @@
   padding-left: 0;
   padding-right: 0;
   padding-top: 1.5rem;
-  padding-bottom: 2rem;
+  padding-bottom: 1.25rem;
 }
 
 /* Tablet */
@@ -411,14 +414,14 @@
   .hero-showroom--fullbleed {
     border-radius: 0 0 28px 28px;
     min-height: 440px;
-    padding-top: 5.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 0;
+    padding-bottom: 2rem;
   }
 
   .hero-showroom__content {
     max-width: 520px;
     padding-top: 1rem;
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
   }
 
   .hero-showroom__diagonal {
@@ -437,13 +440,13 @@
     min-height: 360px;
     border-radius: 0 0 20px 20px;
     overflow: hidden;
-    /* Overlay mobile bertingkat: memastikan tulisan sangat kontras dan terbaca */
+    /* Overlay mobile bertingkat: menjaga navbar di atas & teks di bawah tetap kontras */
     background-image:
       linear-gradient(
         180deg,
-        rgba(9, 38, 83, 0.65) 0%,
-        rgba(9, 38, 83, 0.35) 28%,
-        rgba(9, 38, 83, 0.88) 60%,
+        rgba(9, 38, 83, 0.78) 0%,
+        rgba(9, 38, 83, 0.25) 36%,
+        rgba(9, 38, 83, 0.9) 64%,
         rgba(9, 38, 83, 0.98) 100%
       ),
       url("/backround.jpg");
@@ -451,9 +454,10 @@
   }
 
   .hero-showroom--fullbleed {
-    min-height: 330px;
+    justify-content: space-between;
+    min-height: 360px;
     border-radius: 0 0 20px 20px;
-    padding-top: 4.5rem;
+    padding-top: 0;
     padding-bottom: 1.25rem;
   }
 

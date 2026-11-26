@@ -6,6 +6,7 @@ import React, {
   useState,
   useEffect,
   useCallback,
+  useRef,
 } from "react";
 import {
   Motor,
@@ -170,30 +171,45 @@ export function ShowroomProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const publicSyncInFlightRef = useRef<Promise<void> | null>(null);
+  const adminSyncInFlightRef = useRef<Promise<void> | null>(null);
+
   const ensureAdminData = useCallback(async () => {
-    const isAuth = await checkSession();
-    await refreshData(isAuth);
+    if (adminSyncInFlightRef.current) {
+      return adminSyncInFlightRef.current;
+    }
+    const task = (async () => {
+      const isAuth = await checkSession();
+      await refreshData(isAuth);
+    })().finally(() => {
+      adminSyncInFlightRef.current = null;
+    });
+    adminSyncInFlightRef.current = task;
+    return task;
   }, [checkSession, refreshData]);
 
-  useEffect(() => {
-    let active = true;
-    const init = async () => {
-      const isAdminRoute =
-        typeof window !== "undefined" &&
-        window.location.pathname.startsWith("/admin");
+  const ensurePublicData = useCallback(async () => {
+    if (publicSyncInFlightRef.current) {
+      return publicSyncInFlightRef.current;
+    }
+    const task = refreshData(false).finally(() => {
+      publicSyncInFlightRef.current = null;
+    });
+    publicSyncInFlightRef.current = task;
+    return task;
+  }, [refreshData]);
 
-      if (!active) return;
-      if (isAdminRoute) {
-        await ensureAdminData();
-      } else {
-        await refreshData(false);
-      }
-    };
-    void init();
-    return () => {
-      active = false;
-    };
-  }, [ensureAdminData, refreshData]);
+  useEffect(() => {
+    const isAdminRoute =
+      typeof window !== "undefined" &&
+      window.location.pathname.startsWith("/admin");
+
+    if (isAdminRoute) {
+      void ensureAdminData();
+    } else {
+      void ensurePublicData();
+    }
+  }, [ensureAdminData, ensurePublicData]);
 
   const loginAdmin = async (
     username: string,

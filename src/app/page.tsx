@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { PublicNavbar } from "@/components/PublicNavbar";
 import { PublicFooter } from "@/components/PublicFooter";
@@ -64,14 +64,8 @@ export default function KatalogMotorPage() {
   const pageBlockStart = Math.floor((safeCurrentPage - 1) / 10) * 10 + 1;
   const pageBlockEnd = Math.min(pageBlockStart + 9, totalPages);
 
+  // Reset loading state tombol detail saat halaman kembali dari detail (bfcache)
   useEffect(() => {
-    if (totalPages > 0 && currentPage > totalPages) setCurrentPage(totalPages);
-  }, [currentPage, totalPages]);
-
-  // Reset loading state tombol detail saat halaman katalog aktif/kembali dari detail
-  useEffect(() => {
-    setNavigatingMotorId(null);
-
     const handlePageShow = () => {
       setNavigatingMotorId(null);
     };
@@ -105,13 +99,10 @@ export default function KatalogMotorPage() {
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">
-      <PublicNavbar />
-
       <main className="w-full bg-surface flex-1">
-        {/* Full-bleed Hero Section */}
+        {/* Full-bleed Hero Section dengan Header Terintegrasi */}
         <section
-          className="hero-showroom hero-showroom--fullbleed"
-          role="img"
+          className="hero-showroom hero-showroom--fullbleed !flex !flex-col !items-stretch !justify-between !min-h-[370px] sm:!min-h-[450px] lg:!min-h-[520px] !pt-0 !pb-5 sm:!pb-8 lg:!pb-10"
           aria-label="Showroom motor bekas Roda.Motorku dengan deretan unit motor"
         >
           {/* Ornamen dekoratif: aksen diagonal, glow biru, garis geometris */}
@@ -119,8 +110,10 @@ export default function KatalogMotorPage() {
           <span className="hero-showroom__glow" aria-hidden="true"></span>
           <span className="hero-showroom__lines" aria-hidden="true"></span>
 
+          <PublicNavbar variant="hero" />
+
           {/* Banner Content Container (align dengan max-w-7xl navbar & konten) */}
-          <div className="max-w-7xl mx-auto w-full px-margin-mobile md:px-margin">
+          <div className="relative z-10 max-w-7xl mx-auto w-full px-margin-mobile md:px-margin flex-1 flex items-end sm:items-center">
             <div className="hero-showroom__content">
               <span className="hero-showroom__badge">
                 <span className="hero-showroom__badge-dot"></span>
@@ -226,7 +219,7 @@ export default function KatalogMotorPage() {
                 </div>
 
                 {/* Filter Dropdown 4: Status */}
-                <div className="relative min-w-[130px] flex-shrink-0">
+                <div className="relative w-full lg:w-auto lg:min-w-[130px] flex-shrink-0">
                   <select
                     value={selectedStatus}
                     onChange={(e) => {
@@ -285,7 +278,23 @@ export default function KatalogMotorPage() {
             </div>
 
             {/* Grid Daftar Motor */}
-            {paginatedMotors.length === 0 ? (
+            {isLoading && motors.length === 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-gutter">
+                {Array.from({ length: 6 }).map((_, idx) => (
+                  <div
+                    key={idx}
+                    className="bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm border border-surface-container animate-pulse"
+                  >
+                    <div className="w-full aspect-[16/10] bg-surface-container" />
+                    <div className="p-4 sm:p-5 flex flex-col gap-3">
+                      <div className="h-5 w-2/3 bg-surface-container rounded" />
+                      <div className="h-4 w-1/2 bg-surface-container rounded" />
+                      <div className="h-8 w-full bg-surface-container rounded mt-2" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : paginatedMotors.length === 0 ? (
               <div className="bg-surface-container-lowest rounded-xl p-space-xl text-center shadow-sm flex flex-col items-center gap-space-sm">
                 <span className="material-symbols-outlined text-[48px] text-outline">
                   search_off
@@ -385,7 +394,7 @@ export default function KatalogMotorPage() {
             {/* Pagination & Navigasi Halaman */}
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-space-sm pb-space-lg">
               <span className="font-body-sm text-xs sm:text-body-sm text-primary order-2 sm:order-1">
-                Halaman {currentPage} dari {totalPages}
+                Halaman {safeCurrentPage} dari {totalPages}
               </span>
               <div className="flex items-center gap-1.5 sm:gap-2 order-1 sm:order-2 overflow-x-auto max-w-full py-1">
                 <button
@@ -405,7 +414,7 @@ export default function KatalogMotorPage() {
                       type="button"
                       onClick={() => goToPage(page)}
                       className={
-                        currentPage === page
+                        safeCurrentPage === page
                           ? "w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-primary-container text-on-primary font-label-md text-xs sm:text-label-md shadow-xs font-bold"
                           : "w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 flex items-center justify-center rounded-lg bg-surface-container-lowest hover:bg-surface-container text-on-surface font-label-md text-xs sm:text-label-md transition-colors shadow-xs"
                       }

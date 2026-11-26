@@ -1,8 +1,10 @@
 import React from "react";
+import { ScrollToTopButton } from "@/components/ScrollToTopButton";
 
 export function PublicFooter() {
   return (
-    <footer className="w-full bg-primary py-space-xl text-on-primary">
+    <>
+      <footer className="w-full bg-primary py-space-xl text-on-primary">
       <div className="max-w-7xl mx-auto px-margin-mobile md:px-margin">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-space-xl">
           <div className="flex flex-col gap-space-sm">
@@ -53,5 +55,7 @@ export function PublicFooter() {
         </div>
       </div>
     </footer>
+    <ScrollToTopButton />
+    </>
   );
 }

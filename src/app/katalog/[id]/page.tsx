@@ -70,7 +70,7 @@ function DetailMotorContent({
     return (
       <div className="min-h-screen flex flex-col bg-surface">
         <PublicNavbar />
-        <main className="flex-1 pt-24 pb-16 px-margin-mobile md:px-margin flex items-center justify-center">
+        <main className="flex-1 py-16 px-margin-mobile md:px-margin flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <span className="w-8 h-8 border-3 border-primary/30 border-t-primary rounded-full animate-spin"></span>
             <span className="font-label-md text-label-md text-on-surface-variant font-medium">
@@ -87,7 +87,7 @@ function DetailMotorContent({
     return (
       <div className="min-h-screen flex flex-col bg-surface">
         <PublicNavbar />
-        <main className="flex-1 pt-24 pb-16 px-margin-mobile md:px-margin flex items-center justify-center">
+        <main className="flex-1 py-16 px-margin-mobile md:px-margin flex items-center justify-center">
           <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/60 shadow-sm p-8 max-w-md w-full text-center flex flex-col items-center gap-3">
             <span className="material-symbols-outlined text-[48px] text-outline">
               two_wheeler

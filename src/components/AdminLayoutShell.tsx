@@ -85,7 +85,7 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
             </span>
           </button>
 
-          <Link href="/" className="flex items-center gap-space-sm ml-1">
+          <Link href="/admin/dashboard" className="flex items-center gap-space-sm ml-1">
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs flex-shrink-0">
               <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
             </div>
