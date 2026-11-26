@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useShowroom } from "@/context/ShowroomContext";
@@ -31,20 +31,24 @@ const ADMIN_NAV_ITEMS = [
 export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { currentUser, logoutAdmin } = useShowroom();
+  const { currentUser, logoutAdmin, ensureAdminData } = useShowroom();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
-  const handleConfirmLogout = () => {
+  useEffect(() => {
+    ensureAdminData();
+  }, [ensureAdminData]);
+
+  const handleConfirmLogout = async () => {
     setIsLoggingOut(true);
-    logoutAdmin();
+    await logoutAdmin();
     setTimeout(() => {
       router.push("/login");
       setShowLogoutModal(false);
       setIsLoggingOut(false);
-    }, 400);
+    }, 350);
   };
 
   return (
@@ -81,7 +85,7 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
             </span>
           </button>
 
-          <Link href="/" className="flex items-center gap-space-sm ml-1">
+          <Link href="/admin/dashboard" className="flex items-center gap-space-sm ml-1">
             <div className="w-9 h-9 rounded-lg bg-white flex items-center justify-center overflow-hidden shadow-xs">
               <img src="/logo.png" alt="Roda.Motorku" className="w-full h-full object-contain" />
             </div>
@@ -100,15 +104,6 @@ export function AdminLayoutShell({ children }: { children: React.ReactNode }) {
             <span className="w-2 h-2 rounded-full bg-on-primary"></span>
             <span>Mesin ML Aktif</span>
           </div>
-          <Link
-            href="/"
-            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-surface-container-lowest hover:bg-surface-container-low text-primary font-label-sm text-label-sm font-semibold transition-colors shadow-xs"
-          >
-            <span className="material-symbols-outlined text-[16px]">
-              storefront
-            </span>
-            <span className="hidden md:inline">Katalog Publik</span>
-          </Link>
           <div className="w-9 h-9 rounded-full bg-secondary flex items-center justify-center">
             <span className="material-symbols-outlined text-on-primary text-[18px]">
               person

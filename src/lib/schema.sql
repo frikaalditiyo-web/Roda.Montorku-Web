@@ -70,7 +70,4 @@ CREATE TABLE IF NOT EXISTS prediksi_harga (
     CONSTRAINT fk_prediksi_motor FOREIGN KEY (id_motor) REFERENCES motor(id_motor) ON DELETE SET NULL
 );
 
--- Insert Default Admin User
-INSERT INTO users (id_user, nama, username, password_hash, role)
-VALUES (1, 'Admin Showroom Otista', 'admin_otista', '$2b$10$wE8Fz8xZ5l0.kYjL0r3O3u8nZ2J4H2c5G6o7P8q9R0s1t2u3v4w5x', 'admin')
-ON CONFLICT (username) DO NOTHING;
+-- Default Admin User (admin_otista) akan di-seed otomatis oleh repository.ts dengan hash scrypt dari password AdminRoda2026!

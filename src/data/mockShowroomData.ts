@@ -1,4 +1,23 @@
 import { DATASET_187_MOTORS } from "./dataset187Motors";
+import {
+  MODEL_METRICS,
+  predictPrice,
+  FEATURE_IMPORTANCES,
+  DATASET_SAMSAT_OPTIONS,
+  DATASET_KONDISI_OPTIONS,
+  DATASET_DOKUMEN_OPTIONS,
+  type FiturMasukanML,
+  type ModelMetric,
+} from "@/lib/mlEngine";
+
+export {
+  MODEL_METRICS,
+  FEATURE_IMPORTANCES,
+  DATASET_SAMSAT_OPTIONS,
+  DATASET_KONDISI_OPTIONS,
+  DATASET_DOKUMEN_OPTIONS,
+};
+export type { FiturMasukanML, ModelMetric };
 
 export interface User {
   id_user: number;
@@ -31,9 +50,14 @@ export interface Motor {
   kelengkapan_dokumen: string;
   domisili_samsat: string;
   pajak_info: string;
-  harga_beli: number;
+  harga_beli?: number;
   harga_jual: number;
   harga_pasar_coret?: number;
+  estimasi_pasar?: {
+    rangeLow: number;
+    rangeHigh: number;
+    r2Score: number;
+  };
   deskripsi: string;
   status: "Tersedia" | "Terjual";
   created_at: string;
@@ -41,16 +65,7 @@ export interface Motor {
   foto_motor: FotoMotor[];
 }
 
-export interface FiturMasukanML {
-  merek: string;
-  tahun: number;
-  kelengkapan_dokumen: string;
-  kilometer: number;
-  harga_beli: number;
-  kondisi_mesin: string;
-  domisili_samsat: string;
-  cc: number;
-}
+// Feature and ModelMetric definitions are imported from @/lib/mlEngine as single source of truth
 
 export interface PrediksiHarga {
   id_prediksi: number;
@@ -75,53 +90,6 @@ export interface PrediksiHarga {
   created_at: string;
   waktu_relatif: string;
 }
-
-export interface ModelMetric {
-  id: "rf" | "lr" | "dt";
-  nama_model:
-    | "Random Forest Regressor v1.4"
-    | "Linear Regression"
-    | "Decision Tree Regressor";
-  short_name: string;
-  r2_score: number;
-  mae: number;
-  rmse: number;
-  hyperparameter_info: string;
-  is_best: boolean;
-}
-
-export const MODEL_METRICS: ModelMetric[] = [
-  {
-    id: "rf",
-    nama_model: "Random Forest Regressor v1.4",
-    short_name: "Random Forest",
-    r2_score: 0.946,
-    mae: 450000,
-    rmse: 615000,
-    hyperparameter_info: "n_estimators: 150, One-Hot Encoding (80:20 Split)",
-    is_best: true,
-  },
-  {
-    id: "lr",
-    nama_model: "Linear Regression",
-    short_name: "Linear Regression",
-    r2_score: 0.894,
-    mae: 680000,
-    rmse: 890000,
-    hyperparameter_info: "Multi-Feature OLS, One-Hot Encoding (80:20 Split)",
-    is_best: false,
-  },
-  {
-    id: "dt",
-    nama_model: "Decision Tree Regressor",
-    short_name: "Decision Tree",
-    r2_score: 0.912,
-    mae: 590000,
-    rmse: 810000,
-    hyperparameter_info: "max_depth: 8, One-Hot Encoding (80:20 Split)",
-    is_best: false,
-  },
-];
 
 export const INITIAL_MOTORS: Motor[] = DATASET_187_MOTORS;
 
@@ -669,64 +637,4 @@ export function formatNumberID(value: number): string {
   return new Intl.NumberFormat("id-ID").format(Math.round(value));
 }
 
-export function calculateMLPrediction(
-  fitur: FiturMasukanML,
-  modelName:
-    | "Random Forest Regressor v1.4"
-    | "Linear Regression"
-    | "Decision Tree Regressor" = "Random Forest Regressor v1.4"
-) {
-  let baseVal = fitur.harga_beli * 1.18;
-
-  if (fitur.tahun >= 2023) baseVal += 1200000;
-  else if (fitur.tahun >= 2021) baseVal += 450000;
-  else baseVal -= 750000;
-
-  if (fitur.kilometer < 15000) baseVal += 600000;
-  else if (fitur.kilometer > 35000) baseVal -= 900000;
-
-  if (fitur.kondisi_mesin.includes("Sangat Baik")) baseVal += 750000;
-  else if (
-    fitur.kondisi_mesin.includes("Servis") ||
-    fitur.kondisi_mesin.includes("Cukup")
-  )
-    baseVal -= 1250000;
-
-  if (fitur.kelengkapan_dokumen.includes("Faktur")) baseVal += 350000;
-  else if (fitur.kelengkapan_dokumen.includes("Hanya STNK"))
-    baseVal -= 2500000;
-
-  if (fitur.cc >= 250) baseVal += 1500000;
-  else if (fitur.cc >= 150) baseVal += 300000;
-
-  if (modelName === "Linear Regression") {
-    baseVal = baseVal * 0.985;
-  } else if (modelName === "Decision Tree Regressor") {
-    baseVal = baseVal * 1.012;
-  }
-
-  const estimatedPrice = Math.round(baseVal / 50000) * 50000;
-  const rangeLow = Math.round((estimatedPrice * 0.965) / 50000) * 50000;
-  const rangeHigh = Math.round((estimatedPrice * 1.025) / 50000) * 50000;
-  const marginShowroom = estimatedPrice - fitur.harga_beli;
-  const roiPct =
-    fitur.harga_beli > 0
-      ? Number(((marginShowroom / fitur.harga_beli) * 100).toFixed(1))
-      : 0;
-
-  const metric =
-    MODEL_METRICS.find((m) => m.nama_model === modelName) ?? MODEL_METRICS[0];
-
-  return {
-    estimatedPrice,
-    rangeLow,
-    rangeHigh,
-    marginShowroom,
-    roiPct,
-    r2Score: Number((metric.r2_score * 100).toFixed(1)),
-    mae: metric.mae,
-    rmse: metric.rmse,
-    modelName: metric.nama_model,
-    detailParam: metric.hyperparameter_info,
-  };
-}
+export const calculateMLPrediction = predictPrice;
