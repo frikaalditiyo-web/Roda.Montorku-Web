@@ -1,6 +1,8 @@
 // Machine Learning Inference Engine for RODA.MOTORKU
-// Menggunakan parameter hasil pelatihan langsung dari 187 Dataset Motor Bekas (80:20 Split)
-// 3 Algoritma Regresi: Random Forest (Best), Decision Tree Regressor, & Linear Regression (Ridge)
+// Parameter model diekspor dari notebooks/randomForest.ipynb (bagian 9) — sumber yang sama
+// dengan Tabel 2 artikel. Jangan edit trainedMlModels.json secara manual; jalankan ulang notebook.
+// 3 Algoritma Regresi: Linear Regression (Ridge), Decision Tree Regressor, Random Forest Regressor.
+// Model terbaik (is_best) ditentukan oleh notebook berdasarkan MAE terendah pada data uji.
 
 import trainedModels from "./trainedMlModels.json";
 
@@ -25,6 +27,9 @@ export interface ModelMetric {
   r2_score: number;
   mae: number;
   rmse: number;
+  mae_pct: number;
+  cv_r2_mean: number;
+  cv_r2_std: number;
   hyperparameter_info: string;
   is_best: boolean;
 }
@@ -66,11 +71,23 @@ export const DATASET_DOKUMEN_OPTIONS: string[] = [
 
 type TreeNode = number | [number, number, TreeNode, TreeNode];
 
+interface TrainedMetric {
+  r2_score: number;
+  mae: number;
+  rmse: number;
+  mae_pct: number;
+  cv_r2_mean: number;
+  cv_r2_std: number;
+}
+
 interface TrainedModelBundle {
   dataset_size: number;
   train_size: number;
   test_size: number;
   split_ratio: string;
+  best_model: ModelMetric["id"];
+  /** Pohon memprediksi harga_jual langsung (bukan margin). */
+  tree_target: "harga_jual";
   cats: {
     merek: string[];
     docs: string[];
@@ -82,48 +99,42 @@ interface TrainedModelBundle {
   lr_weights: number[];
   dt_tree: TreeNode;
   rf_trees: TreeNode[];
-  metrics: {
-    lr: { r2_score: number; mae: number; rmse: number };
-    dt: { r2_score: number; mae: number; rmse: number };
-    rf: { r2_score: number; mae: number; rmse: number };
-  };
+  metrics: Record<ModelMetric["id"], TrainedMetric>;
   feature_importances: Record<string, number>;
 }
 
 const BUNDLE = trainedModels as unknown as TrainedModelBundle;
 
-export const MODEL_METRICS: ModelMetric[] = [
+const MODEL_DEFS: Omit<ModelMetric, keyof TrainedMetric | "is_best">[] = [
   {
-    id: "rf",
-    nama_model: "Random Forest Regressor v1.4",
-    short_name: "Random Forest",
-    r2_score: BUNDLE.metrics.rf.r2_score,
-    mae: BUNDLE.metrics.rf.mae,
-    rmse: BUNDLE.metrics.rf.rmse,
-    hyperparameter_info: `n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (${BUNDLE.split_ratio} Split / ${BUNDLE.dataset_size} Unit)`,
-    is_best: true,
+    id: "lr",
+    nama_model: "Linear Regression",
+    short_name: "Linear Regression",
+    hyperparameter_info: `Ridge (alpha = 1.0) + StandardScaler, One-Hot Encoding (${BUNDLE.split_ratio} Split / ${BUNDLE.dataset_size} Unit)`,
   },
   {
     id: "dt",
     nama_model: "Decision Tree Regressor",
     short_name: "Decision Tree",
-    r2_score: BUNDLE.metrics.dt.r2_score,
-    mae: BUNDLE.metrics.dt.mae,
-    rmse: BUNDLE.metrics.dt.rmse,
     hyperparameter_info: `max_depth: 8, min_samples_split: 4, One-Hot Encoding (${BUNDLE.split_ratio} Split)`,
-    is_best: false,
   },
   {
-    id: "lr",
-    nama_model: "Linear Regression",
-    short_name: "Linear Regression",
-    r2_score: BUNDLE.metrics.lr.r2_score,
-    mae: BUNDLE.metrics.lr.mae,
-    rmse: BUNDLE.metrics.lr.rmse,
-    hyperparameter_info: `Ridge L2 OLS + StandardScaler, One-Hot Encoding (${BUNDLE.split_ratio} Split)`,
-    is_best: false,
+    id: "rf",
+    nama_model: "Random Forest Regressor v1.4",
+    short_name: "Random Forest",
+    hyperparameter_info: `n_estimators: 150, max_features: 'sqrt', One-Hot Encoding (${BUNDLE.split_ratio} Split)`,
   },
 ];
+
+// Urut dari MAE terendah (sama seperti Tabel 2 artikel); is_best mengikuti hasil notebook.
+export const MODEL_METRICS: ModelMetric[] = MODEL_DEFS.map((def) => ({
+  ...def,
+  ...BUNDLE.metrics[def.id],
+  is_best: def.id === BUNDLE.best_model,
+})).sort((a, b) => a.mae - b.mae);
+
+export const BEST_MODEL: ModelMetric =
+  MODEL_METRICS.find((m) => m.is_best) ?? MODEL_METRICS[0];
 
 export const FEATURE_IMPORTANCES = BUNDLE.feature_importances;
 export const DATASET_INFO = {
@@ -151,12 +162,12 @@ function normalizeFeatures(fitur: FiturMasukanML) {
   const matchedMerek =
     BUNDLE.cats.merek.find((m) => m.toLowerCase() === merekLower) || fitur.merek;
 
+  // Faktur tidak tercatat di dataset, sehingga "STNK + BPKB + Faktur" diperlakukan sama
+  // dengan "STNK + BPKB" (tidak ada bonus harga di luar model).
   const docLower = (fitur.kelengkapan_dokumen || "").toLowerCase();
   let matchedDocs = fitur.kelengkapan_dokumen;
-  let hasFakturBonus = false;
   if (docLower.includes("stnk") && docLower.includes("bpkb")) {
     matchedDocs = "Lengkap (STNK + BPKB)";
-    hasFakturBonus = docLower.includes("faktur");
   } else if (docLower.includes("bpkb")) {
     matchedDocs = "Hanya BPKB";
   } else if (docLower.includes("stnk")) {
@@ -165,12 +176,12 @@ function normalizeFeatures(fitur: FiturMasukanML) {
 
   const condLower = (fitur.kondisi_mesin || "").toLowerCase();
   let matchedCond = fitur.kondisi_mesin;
-  if (condLower.includes("sangat baik")) matchedCond = "Sangat Baik";
+  // "Perlu Perbaikan" dicek lebih dulu karena teksnya juga mengandung kata "baik".
+  if (condLower.includes("perlu") || condLower.includes("butuh") || condLower.includes("servis")) {
+    matchedCond = "Perlu Perbaikan";
+  } else if (condLower.includes("sangat baik")) matchedCond = "Sangat Baik";
   else if (condLower.includes("baik")) matchedCond = "Baik";
   else if (condLower.includes("cukup")) matchedCond = "Cukup";
-  else if (condLower.includes("perlu") || condLower.includes("butuh") || condLower.includes("servis")) {
-    matchedCond = "Perlu Perbaikan";
-  }
 
   let matchedSamsat = fitur.domisili_samsat || "";
   if (matchedSamsat === "Kediri (Plat AG)") {
@@ -188,7 +199,7 @@ function normalizeFeatures(fitur: FiturMasukanML) {
   for (const v of BUNDLE.cats.cond) rawVector.push(matchedCond === v ? 1 : 0);
   for (const v of BUNDLE.cats.samsat) rawVector.push(matchedSamsat === v ? 1 : 0);
 
-  return { rawVector, hargaBeli, hasFakturBonus };
+  return { rawVector, hargaBeli };
 }
 
 function evalTree(node: TreeNode, x: number[]): number {
@@ -200,13 +211,14 @@ function evalTree(node: TreeNode, x: number[]): number {
 }
 
 /**
- * Predict selling price using genuine trained models from the 187-unit Capstone dataset
+ * Prediksi harga jual dengan model hasil pelatihan notebook. Nilai mentah identik dengan
+ * scikit-learn; yang ditambahkan web hanya pembulatan ke kelipatan Rp 50.000.
  */
 export function predictPrice(
   fitur: FiturMasukanML,
-  modelName: ModelMetric["nama_model"] = "Random Forest Regressor v1.4"
+  modelName: ModelMetric["nama_model"] = BEST_MODEL.nama_model
 ): PredictionResult {
-  const { rawVector, hargaBeli, hasFakturBonus } = normalizeFeatures(fitur);
+  const { rawVector, hargaBeli } = normalizeFeatures(fitur);
   const treeFeatures = rawVector.slice(1);
 
   let rawPrediction = 0;
@@ -222,20 +234,15 @@ export function predictPrice(
       0
     );
   } else if (modelName === "Decision Tree Regressor") {
-    const predictedMargin = evalTree(BUNDLE.dt_tree, treeFeatures);
-    rawPrediction = hargaBeli + predictedMargin;
+    rawPrediction = evalTree(BUNDLE.dt_tree, treeFeatures);
   } else {
-    // Random Forest Regressor (ensemble average across 150 trees)
+    // Random Forest Regressor (rata-rata 150 pohon)
     const treeCount = BUNDLE.rf_trees.length || 1;
-    const sumMargins = BUNDLE.rf_trees.reduce<number>(
+    const sumPredictions = BUNDLE.rf_trees.reduce<number>(
       (sum, tree) => sum + evalTree(tree, treeFeatures),
       0
     );
-    rawPrediction = hargaBeli + sumMargins / treeCount;
-  }
-
-  if (hasFakturBonus) {
-    rawPrediction += 150000;
+    rawPrediction = sumPredictions / treeCount;
   }
 
   const metric =

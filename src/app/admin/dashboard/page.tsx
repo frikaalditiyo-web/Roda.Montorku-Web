@@ -173,7 +173,7 @@ export default function AdminDashboardPage() {
         <div className="flex items-center gap-space-xs pt-space-xs lg:pt-0">
           <div className="flex items-center gap-1.5">
             <span className="font-label-sm text-label-sm text-on-surface-variant">
-              Model Random Forest
+              Model {bestModel.short_name}
             </span>
             <span className="text-outline-variant">•</span>
               <span className="font-label-sm text-label-sm font-bold text-primary">

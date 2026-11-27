@@ -30,12 +30,12 @@
       "deskripsi": "Unit showroom Suzuki Smash tahun 2002. Mesin Cukup, jarak tempuh 92,400 km, kelengkapan Hanya BPKB, Samsat Nganjuk (AG). Lolos inspeksi 120+ titik, siap pakai bergaransi showroom Roda.Motorku.",
       "status": "Tersedia",
       "created_at": "2026-02-01 10:00:00",
-      "views_week": 35,
+      "views_week": 36,
       "foto_motor": [
         {
           "id_foto": 11,
           "id_motor": 1,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Smash",
           "is_utama": true
@@ -67,7 +67,7 @@
         {
           "id_foto": 21,
           "id_motor": 2,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio Soul",
           "is_utama": true
@@ -99,7 +99,7 @@
         {
           "id_foto": 31,
           "id_motor": 3,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125",
           "is_utama": true
@@ -131,7 +131,7 @@
         {
           "id_foto": 41,
           "id_motor": 4,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125 FI",
           "is_utama": true
@@ -163,7 +163,7 @@
         {
           "id_foto": 51,
           "id_motor": 5,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125",
           "is_utama": true
@@ -195,7 +195,7 @@
         {
           "id_foto": 61,
           "id_motor": 6,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Karbu",
           "is_utama": true
@@ -227,7 +227,7 @@
         {
           "id_foto": 71,
           "id_motor": 7,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -259,7 +259,7 @@
         {
           "id_foto": 81,
           "id_motor": 8,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New Aerox 155 Connected",
           "is_utama": true
@@ -291,7 +291,7 @@
         {
           "id_foto": 91,
           "id_motor": 9,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Deluxe LED",
           "is_utama": true
@@ -323,7 +323,7 @@
         {
           "id_foto": 101,
           "id_motor": 10,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha R15 V3 / V4",
           "is_utama": true
@@ -355,7 +355,7 @@
         {
           "id_foto": 111,
           "id_motor": 11,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Nex II",
           "is_utama": true
@@ -387,7 +387,7 @@
         {
           "id_foto": 121,
           "id_motor": 12,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Karbu",
           "is_utama": true
@@ -419,7 +419,7 @@
         {
           "id_foto": 131,
           "id_motor": 13,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Stylo 160",
           "is_utama": true
@@ -451,7 +451,7 @@
         {
           "id_foto": 141,
           "id_motor": 14,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 150 eSP",
           "is_utama": true
@@ -483,7 +483,7 @@
         {
           "id_foto": 151,
           "id_motor": 15,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio Sporty/Smile",
           "is_utama": true
@@ -515,7 +515,7 @@
         {
           "id_foto": 161,
           "id_motor": 16,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -547,7 +547,7 @@
         {
           "id_foto": 171,
           "id_motor": 17,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -579,7 +579,7 @@
         {
           "id_foto": 181,
           "id_motor": 18,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki Ninja 150 RR 2-Tak",
           "is_utama": true
@@ -611,7 +611,7 @@
         {
           "id_foto": 191,
           "id_motor": 19,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 150",
           "is_utama": true
@@ -643,7 +643,7 @@
         {
           "id_foto": 201,
           "id_motor": 20,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Stylo 160",
           "is_utama": true
@@ -675,7 +675,7 @@
         {
           "id_foto": 211,
           "id_motor": 21,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat FI",
           "is_utama": true
@@ -707,7 +707,7 @@
         {
           "id_foto": 221,
           "id_motor": 22,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Jupiter Z / Z1",
           "is_utama": true
@@ -739,7 +739,7 @@
         {
           "id_foto": 231,
           "id_motor": 23,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New NMAX 155 Connected",
           "is_utama": true
@@ -771,7 +771,7 @@
         {
           "id_foto": 241,
           "id_motor": 24,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Smash 110 / Titan",
           "is_utama": true
@@ -803,7 +803,7 @@
         {
           "id_foto": 251,
           "id_motor": 25,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New Aerox 155 Connected",
           "is_utama": true
@@ -835,7 +835,7 @@
         {
           "id_foto": 261,
           "id_motor": 26,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy FI eSP",
           "is_utama": true
@@ -867,7 +867,7 @@
         {
           "id_foto": 271,
           "id_motor": 27,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CBR150R",
           "is_utama": true
@@ -899,7 +899,7 @@
         {
           "id_foto": 281,
           "id_motor": 28,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -931,7 +931,7 @@
         {
           "id_foto": 291,
           "id_motor": 29,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 150 eSP",
           "is_utama": true
@@ -963,7 +963,7 @@
         {
           "id_foto": 301,
           "id_motor": 30,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa LX 125 i-get",
           "is_utama": true
@@ -995,7 +995,7 @@
         {
           "id_foto": 311,
           "id_motor": 31,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Karbu",
           "is_utama": true
@@ -1027,7 +1027,7 @@
         {
           "id_foto": 321,
           "id_motor": 32,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha XMAX 250 Connected",
           "is_utama": true
@@ -1059,7 +1059,7 @@
         {
           "id_foto": 331,
           "id_motor": 33,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -1091,7 +1091,7 @@
         {
           "id_foto": 341,
           "id_motor": 34,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -1123,7 +1123,7 @@
         {
           "id_foto": 351,
           "id_motor": 35,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 150",
           "is_utama": true
@@ -1155,7 +1155,7 @@
         {
           "id_foto": 361,
           "id_motor": 36,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Lexi 125 / LX 155",
           "is_utama": true
@@ -1187,7 +1187,7 @@
         {
           "id_foto": 371,
           "id_motor": 37,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -1219,7 +1219,7 @@
         {
           "id_foto": 381,
           "id_motor": 38,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha NMAX Neo / Turbo",
           "is_utama": true
@@ -1251,7 +1251,7 @@
         {
           "id_foto": 391,
           "id_motor": 39,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha NMAX 155 Old",
           "is_utama": true
@@ -1283,7 +1283,7 @@
         {
           "id_foto": 401,
           "id_motor": 40,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 Techno FI",
           "is_utama": true
@@ -1315,7 +1315,7 @@
         {
           "id_foto": 411,
           "id_motor": 41,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 150",
           "is_utama": true
@@ -1347,7 +1347,7 @@
         {
           "id_foto": 421,
           "id_motor": 42,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125 FI",
           "is_utama": true
@@ -1379,7 +1379,7 @@
         {
           "id_foto": 431,
           "id_motor": 43,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125",
           "is_utama": true
@@ -1411,7 +1411,7 @@
         {
           "id_foto": 441,
           "id_motor": 44,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 160 CBS/ABS",
           "is_utama": true
@@ -1443,7 +1443,7 @@
         {
           "id_foto": 451,
           "id_motor": 45,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -1475,7 +1475,7 @@
         {
           "id_foto": 461,
           "id_motor": 46,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Karbu",
           "is_utama": true
@@ -1507,7 +1507,7 @@
         {
           "id_foto": 471,
           "id_motor": 47,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Satria FU 150 Karbu",
           "is_utama": true
@@ -1539,7 +1539,7 @@
         {
           "id_foto": 481,
           "id_motor": 48,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 Techno FI",
           "is_utama": true
@@ -1571,7 +1571,7 @@
         {
           "id_foto": 491,
           "id_motor": 49,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki All New Satria F150 FI",
           "is_utama": true
@@ -1603,7 +1603,7 @@
         {
           "id_foto": 501,
           "id_motor": 50,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -1635,7 +1635,7 @@
         {
           "id_foto": 511,
           "id_motor": 51,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -1667,7 +1667,7 @@
         {
           "id_foto": 521,
           "id_motor": 52,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 160",
           "is_utama": true
@@ -1699,7 +1699,7 @@
         {
           "id_foto": 531,
           "id_motor": 53,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -1731,7 +1731,7 @@
         {
           "id_foto": 541,
           "id_motor": 54,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125 FI",
           "is_utama": true
@@ -1763,7 +1763,7 @@
         {
           "id_foto": 551,
           "id_motor": 55,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda PCX 160",
           "is_utama": true
@@ -1795,7 +1795,7 @@
         {
           "id_foto": 561,
           "id_motor": 56,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -1827,7 +1827,7 @@
         {
           "id_foto": 571,
           "id_motor": 57,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki W175 SE / Cafe",
           "is_utama": true
@@ -1859,7 +1859,7 @@
         {
           "id_foto": 581,
           "id_motor": 58,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio J",
           "is_utama": true
@@ -1891,7 +1891,7 @@
         {
           "id_foto": 591,
           "id_motor": 59,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Jupiter MX / MX King 150",
           "is_utama": true
@@ -1923,7 +1923,7 @@
         {
           "id_foto": 601,
           "id_motor": 60,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha XMAX 250 Connected",
           "is_utama": true
@@ -1955,7 +1955,7 @@
         {
           "id_foto": 611,
           "id_motor": 61,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -1987,7 +1987,7 @@
         {
           "id_foto": 621,
           "id_motor": 62,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Nex II",
           "is_utama": true
@@ -2019,7 +2019,7 @@
         {
           "id_foto": 631,
           "id_motor": 63,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat eSP",
           "is_utama": true
@@ -2051,7 +2051,7 @@
         {
           "id_foto": 641,
           "id_motor": 64,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Karbu",
           "is_utama": true
@@ -2083,7 +2083,7 @@
         {
           "id_foto": 651,
           "id_motor": 65,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Lexi 125 / LX 155",
           "is_utama": true
@@ -2115,7 +2115,7 @@
         {
           "id_foto": 661,
           "id_motor": 66,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CBR150R",
           "is_utama": true
@@ -2147,7 +2147,7 @@
         {
           "id_foto": 671,
           "id_motor": 67,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Revo Absolute/Fit",
           "is_utama": true
@@ -2179,7 +2179,7 @@
         {
           "id_foto": 681,
           "id_motor": 68,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Burgman Street 125EX",
           "is_utama": true
@@ -2211,7 +2211,7 @@
         {
           "id_foto": 691,
           "id_motor": 69,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki All New Satria F150 FI",
           "is_utama": true
@@ -2243,7 +2243,7 @@
         {
           "id_foto": 701,
           "id_motor": 70,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125",
           "is_utama": true
@@ -2275,7 +2275,7 @@
         {
           "id_foto": 711,
           "id_motor": 71,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki D-Tracker 150 SE",
           "is_utama": true
@@ -2307,7 +2307,7 @@
         {
           "id_foto": 721,
           "id_motor": 72,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Revo Absolute/Fit",
           "is_utama": true
@@ -2339,7 +2339,7 @@
         {
           "id_foto": 731,
           "id_motor": 73,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki KLX 150 S / BF",
           "is_utama": true
@@ -2371,7 +2371,7 @@
         {
           "id_foto": 741,
           "id_motor": 74,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 110 Karbu",
           "is_utama": true
@@ -2403,7 +2403,7 @@
         {
           "id_foto": 751,
           "id_motor": 75,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -2435,7 +2435,7 @@
         {
           "id_foto": 761,
           "id_motor": 76,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Jupiter Z / Z1",
           "is_utama": true
@@ -2467,7 +2467,7 @@
         {
           "id_foto": 771,
           "id_motor": 77,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New NMAX 155 Connected",
           "is_utama": true
@@ -2499,7 +2499,7 @@
         {
           "id_foto": 781,
           "id_motor": 78,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Prestige/Stylish",
           "is_utama": true
@@ -2531,7 +2531,7 @@
         {
           "id_foto": 791,
           "id_motor": 79,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 160",
           "is_utama": true
@@ -2563,7 +2563,7 @@
         {
           "id_foto": 801,
           "id_motor": 80,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Address FI",
           "is_utama": true
@@ -2595,7 +2595,7 @@
         {
           "id_foto": 811,
           "id_motor": 81,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 110 Karbu",
           "is_utama": true
@@ -2627,7 +2627,7 @@
         {
           "id_foto": 821,
           "id_motor": 82,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125 FI",
           "is_utama": true
@@ -2659,7 +2659,7 @@
         {
           "id_foto": 831,
           "id_motor": 83,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki KLX 150 S / BF",
           "is_utama": true
@@ -2691,7 +2691,7 @@
         {
           "id_foto": 841,
           "id_motor": 84,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -2723,7 +2723,7 @@
         {
           "id_foto": 851,
           "id_motor": 85,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy FI eSP",
           "is_utama": true
@@ -2755,7 +2755,7 @@
         {
           "id_foto": 861,
           "id_motor": 86,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat FI",
           "is_utama": true
@@ -2787,7 +2787,7 @@
         {
           "id_foto": 871,
           "id_motor": 87,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki Ninja 150 RR 2-Tak",
           "is_utama": true
@@ -2819,7 +2819,7 @@
         {
           "id_foto": 881,
           "id_motor": 88,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -2851,7 +2851,7 @@
         {
           "id_foto": 891,
           "id_motor": 89,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Genio",
           "is_utama": true
@@ -2883,7 +2883,7 @@
         {
           "id_foto": 901,
           "id_motor": 90,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki GSX-R150 / S150",
           "is_utama": true
@@ -2915,7 +2915,7 @@
         {
           "id_foto": 911,
           "id_motor": 91,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Address FI",
           "is_utama": true
@@ -2947,7 +2947,7 @@
         {
           "id_foto": 921,
           "id_motor": 92,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha NMAX Neo / Turbo",
           "is_utama": true
@@ -2979,7 +2979,7 @@
         {
           "id_foto": 931,
           "id_motor": 93,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Aerox 155 Old",
           "is_utama": true
@@ -3011,7 +3011,7 @@
         {
           "id_foto": 941,
           "id_motor": 94,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa LX 125 i-get",
           "is_utama": true
@@ -3043,7 +3043,7 @@
         {
           "id_foto": 951,
           "id_motor": 95,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Burgman Street 125EX",
           "is_utama": true
@@ -3075,7 +3075,7 @@
         {
           "id_foto": 961,
           "id_motor": 96,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Vixion Lightning / R",
           "is_utama": true
@@ -3107,7 +3107,7 @@
         {
           "id_foto": 971,
           "id_motor": 97,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Satria FU 150 Karbu",
           "is_utama": true
@@ -3139,7 +3139,7 @@
         {
           "id_foto": 981,
           "id_motor": 98,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki W175 SE / Cafe",
           "is_utama": true
@@ -3171,7 +3171,7 @@
         {
           "id_foto": 991,
           "id_motor": 99,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Satria FU 150 Karbu",
           "is_utama": true
@@ -3203,7 +3203,7 @@
         {
           "id_foto": 1001,
           "id_motor": 100,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Shogun 125 R / SP",
           "is_utama": true
@@ -3235,7 +3235,7 @@
         {
           "id_foto": 1011,
           "id_motor": 101,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CBR150R",
           "is_utama": true
@@ -3267,7 +3267,7 @@
         {
           "id_foto": 1021,
           "id_motor": 102,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat FI",
           "is_utama": true
@@ -3299,7 +3299,7 @@
         {
           "id_foto": 1031,
           "id_motor": 103,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda PCX 160",
           "is_utama": true
@@ -3331,7 +3331,7 @@
         {
           "id_foto": 1041,
           "id_motor": 104,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat FI",
           "is_utama": true
@@ -3363,7 +3363,7 @@
         {
           "id_foto": 1051,
           "id_motor": 105,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -3395,7 +3395,7 @@
         {
           "id_foto": 1061,
           "id_motor": 106,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Prestige/Stylish",
           "is_utama": true
@@ -3427,7 +3427,7 @@
         {
           "id_foto": 1071,
           "id_motor": 107,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat eSP",
           "is_utama": true
@@ -3459,7 +3459,7 @@
         {
           "id_foto": 1081,
           "id_motor": 108,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Lexi 125 / LX 155",
           "is_utama": true
@@ -3491,7 +3491,7 @@
         {
           "id_foto": 1091,
           "id_motor": 109,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -3523,7 +3523,7 @@
         {
           "id_foto": 1101,
           "id_motor": 110,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda PCX 150 Lokal",
           "is_utama": true
@@ -3555,7 +3555,7 @@
         {
           "id_foto": 1111,
           "id_motor": 111,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat FI",
           "is_utama": true
@@ -3587,7 +3587,7 @@
         {
           "id_foto": 1121,
           "id_motor": 112,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Vixion Lightning / R",
           "is_utama": true
@@ -3619,7 +3619,7 @@
         {
           "id_foto": 1131,
           "id_motor": 113,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 160 CBS/ABS",
           "is_utama": true
@@ -3651,7 +3651,7 @@
         {
           "id_foto": 1141,
           "id_motor": 114,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha R15 V3 / V4",
           "is_utama": true
@@ -3683,7 +3683,7 @@
         {
           "id_foto": 1151,
           "id_motor": 115,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Sprint 150 i-get ABS",
           "is_utama": true
@@ -3715,7 +3715,7 @@
         {
           "id_foto": 1161,
           "id_motor": 116,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -3747,7 +3747,7 @@
         {
           "id_foto": 1171,
           "id_motor": 117,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Revo Absolute/Fit",
           "is_utama": true
@@ -3779,7 +3779,7 @@
         {
           "id_foto": 1181,
           "id_motor": 118,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -3811,7 +3811,7 @@
         {
           "id_foto": 1191,
           "id_motor": 119,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki GSX-R150 / S150",
           "is_utama": true
@@ -3843,7 +3843,7 @@
         {
           "id_foto": 1201,
           "id_motor": 120,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 Techno FI",
           "is_utama": true
@@ -3875,7 +3875,7 @@
         {
           "id_foto": 1211,
           "id_motor": 121,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Karbu",
           "is_utama": true
@@ -3907,7 +3907,7 @@
         {
           "id_foto": 1221,
           "id_motor": 122,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -3939,7 +3939,7 @@
         {
           "id_foto": 1231,
           "id_motor": 123,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -3971,7 +3971,7 @@
         {
           "id_foto": 1241,
           "id_motor": 124,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki GSX-R150 / S150",
           "is_utama": true
@@ -4003,7 +4003,7 @@
         {
           "id_foto": 1251,
           "id_motor": 125,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Deluxe LED",
           "is_utama": true
@@ -4035,7 +4035,7 @@
         {
           "id_foto": 1261,
           "id_motor": 126,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New Aerox 155 Connected",
           "is_utama": true
@@ -4067,7 +4067,7 @@
         {
           "id_foto": 1271,
           "id_motor": 127,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CBR150R",
           "is_utama": true
@@ -4099,7 +4099,7 @@
         {
           "id_foto": 1281,
           "id_motor": 128,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New NMAX 155 Connected",
           "is_utama": true
@@ -4131,7 +4131,7 @@
         {
           "id_foto": 1291,
           "id_motor": 129,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Sprint 150 i-get ABS",
           "is_utama": true
@@ -4163,7 +4163,7 @@
         {
           "id_foto": 1301,
           "id_motor": 130,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Deluxe LED",
           "is_utama": true
@@ -4195,7 +4195,7 @@
         {
           "id_foto": 1311,
           "id_motor": 131,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 Techno FI",
           "is_utama": true
@@ -4227,7 +4227,7 @@
         {
           "id_foto": 1321,
           "id_motor": 132,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 160",
           "is_utama": true
@@ -4259,7 +4259,7 @@
         {
           "id_foto": 1331,
           "id_motor": 133,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki All New Satria F150 FI",
           "is_utama": true
@@ -4291,7 +4291,7 @@
         {
           "id_foto": 1341,
           "id_motor": 134,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Vixion Lightning / R",
           "is_utama": true
@@ -4323,7 +4323,7 @@
         {
           "id_foto": 1351,
           "id_motor": 135,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha XMAX 250 Connected",
           "is_utama": true
@@ -4355,7 +4355,7 @@
         {
           "id_foto": 1361,
           "id_motor": 136,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Karbu",
           "is_utama": true
@@ -4387,7 +4387,7 @@
         {
           "id_foto": 1371,
           "id_motor": 137,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa LX 125 i-get",
           "is_utama": true
@@ -4419,7 +4419,7 @@
         {
           "id_foto": 1381,
           "id_motor": 138,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Smash 110 / Titan",
           "is_utama": true
@@ -4451,7 +4451,7 @@
         {
           "id_foto": 1391,
           "id_motor": 139,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki GSX-R150 / S150",
           "is_utama": true
@@ -4483,7 +4483,7 @@
         {
           "id_foto": 1401,
           "id_motor": 140,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fino 125 Grande",
           "is_utama": true
@@ -4515,7 +4515,7 @@
         {
           "id_foto": 1411,
           "id_motor": 141,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio M3 125",
           "is_utama": true
@@ -4547,7 +4547,7 @@
         {
           "id_foto": 1421,
           "id_motor": 142,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki D-Tracker 150 SE",
           "is_utama": true
@@ -4579,7 +4579,7 @@
         {
           "id_foto": 1431,
           "id_motor": 143,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki D-Tracker 150 SE",
           "is_utama": true
@@ -4611,7 +4611,7 @@
         {
           "id_foto": 1441,
           "id_motor": 144,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Sprint 150 i-get ABS",
           "is_utama": true
@@ -4643,7 +4643,7 @@
         {
           "id_foto": 1451,
           "id_motor": 145,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -4675,7 +4675,7 @@
         {
           "id_foto": 1461,
           "id_motor": 146,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda ADV 160",
           "is_utama": true
@@ -4707,7 +4707,7 @@
         {
           "id_foto": 1471,
           "id_motor": 147,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Shogun 125 R / SP",
           "is_utama": true
@@ -4739,7 +4739,7 @@
         {
           "id_foto": 1481,
           "id_motor": 148,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio J",
           "is_utama": true
@@ -4771,7 +4771,7 @@
         {
           "id_foto": 1491,
           "id_motor": 149,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Stylo 160",
           "is_utama": true
@@ -4803,7 +4803,7 @@
         {
           "id_foto": 1501,
           "id_motor": 150,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -4835,7 +4835,7 @@
         {
           "id_foto": 1511,
           "id_motor": 151,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -4867,7 +4867,7 @@
         {
           "id_foto": 1521,
           "id_motor": 152,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Vixion Lightning / R",
           "is_utama": true
@@ -4899,7 +4899,7 @@
         {
           "id_foto": 1531,
           "id_motor": 153,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha R15 V3 / V4",
           "is_utama": true
@@ -4931,7 +4931,7 @@
         {
           "id_foto": 1541,
           "id_motor": 154,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa LX 125 i-get",
           "is_utama": true
@@ -4963,7 +4963,7 @@
         {
           "id_foto": 1551,
           "id_motor": 155,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki All New Satria F150 FI",
           "is_utama": true
@@ -4995,7 +4995,7 @@
         {
           "id_foto": 1561,
           "id_motor": 156,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fino 125 Grande",
           "is_utama": true
@@ -5027,7 +5027,7 @@
         {
           "id_foto": 1571,
           "id_motor": 157,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki Smash 110 / Titan",
           "is_utama": true
@@ -5059,7 +5059,7 @@
         {
           "id_foto": 1581,
           "id_motor": 158,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki D-Tracker 150 SE",
           "is_utama": true
@@ -5091,7 +5091,7 @@
         {
           "id_foto": 1591,
           "id_motor": 159,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Karbu",
           "is_utama": true
@@ -5123,7 +5123,7 @@
         {
           "id_foto": 1601,
           "id_motor": 160,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 125 LED eSP",
           "is_utama": true
@@ -5155,7 +5155,7 @@
         {
           "id_foto": 1611,
           "id_motor": 161,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha WR 155 R",
           "is_utama": true
@@ -5187,7 +5187,7 @@
         {
           "id_foto": 1621,
           "id_motor": 162,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CB150R StreetFire",
           "is_utama": true
@@ -5219,7 +5219,7 @@
         {
           "id_foto": 1631,
           "id_motor": 163,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-scoopy.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Scoopy Prestige/Stylish",
           "is_utama": true
@@ -5251,7 +5251,7 @@
         {
           "id_foto": 1641,
           "id_motor": 164,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Primavera 150 i-get",
           "is_utama": true
@@ -5283,7 +5283,7 @@
         {
           "id_foto": 1651,
           "id_motor": 165,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha NMAX 155 Old",
           "is_utama": true
@@ -5315,7 +5315,7 @@
         {
           "id_foto": 1661,
           "id_motor": 166,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha NMAX Neo / Turbo",
           "is_utama": true
@@ -5347,7 +5347,7 @@
         {
           "id_foto": 1671,
           "id_motor": 167,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -5379,7 +5379,7 @@
         {
           "id_foto": 1681,
           "id_motor": 168,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Grand Filano Hybrid",
           "is_utama": true
@@ -5411,7 +5411,7 @@
         {
           "id_foto": 1691,
           "id_motor": 169,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat eSP",
           "is_utama": true
@@ -5443,7 +5443,7 @@
         {
           "id_foto": 1701,
           "id_motor": 170,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/kawasaki-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Kawasaki KLX 150 S / BF",
           "is_utama": true
@@ -5475,7 +5475,7 @@
         {
           "id_foto": 1711,
           "id_motor": 171,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-maxi.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda PCX 150 Lokal",
           "is_utama": true
@@ -5507,7 +5507,7 @@
         {
           "id_foto": 1721,
           "id_motor": 172,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCeKZ6MHGP-odobRcjSN-aeaH9mdtyoJ2dn65ZX8HrTay_V4JYgDcoX7_cTXUtpRTXniFBvA2DgZTwfGUbsSgVfjvZBSy1eNHF-33AoMDkL4U7opyMGLYO3RRVpmeZqB--q3mKZ7FZeJQtqr1gXZHRoypMyY-oaHFKsEbdnP4Gfu7468vat38VLiJg6DpwAhwOFbmTsG0SnvrNrDYc1WyDUxizFwV8CsMwX3aiigg6F",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Revo Absolute/Fit",
           "is_utama": true
@@ -5539,7 +5539,7 @@
         {
           "id_foto": 1731,
           "id_motor": 173,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Primavera 150 i-get",
           "is_utama": true
@@ -5571,7 +5571,7 @@
         {
           "id_foto": 1741,
           "id_motor": 174,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-nmax.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha All New NMAX 155 Connected",
           "is_utama": true
@@ -5603,7 +5603,7 @@
         {
           "id_foto": 1751,
           "id_motor": 175,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/yamaha-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Jupiter MX / MX King 150",
           "is_utama": true
@@ -5635,7 +5635,7 @@
         {
           "id_foto": 1761,
           "id_motor": 176,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki All New Satria F150 FI",
           "is_utama": true
@@ -5667,7 +5667,7 @@
         {
           "id_foto": 1771,
           "id_motor": 177,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fazzio Hybrid",
           "is_utama": true
@@ -5699,7 +5699,7 @@
         {
           "id_foto": 1781,
           "id_motor": 178,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAg-zhSydX7NhOipZzzekDtkPyTjvsPx2asSnocAYeki42wdwfv_fnnxwxT6eYJM90yhDQy5V8oy3_AQgEXPRdE3KTcVNmqVDra5lKPXZoPVIDMXipM0xF3H1VIf4JMHDpb69eXwNJvSvw89vZnKuSC5hG4Tp4Pdc0N10jpMjAY_A62qnNz8-wO1pk7pE9qr_yVjSerj9CivZ9tHRfqx9WzwX5DURpR6zetnEyguuFf",
+          "nama_file": "/images/motors/suzuki-underbone.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Suzuki GSX-R150 / S150",
           "is_utama": true
@@ -5731,7 +5731,7 @@
         {
           "id_foto": 1791,
           "id_motor": 179,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAMsI9k2qZ58VV6Dd8AfOC5KpKWxTp1oJEkPIUiODzIxgwaECsFXmfaZK_x-qKRQ_yOi_cwhYx0JbHbEVr_UwTxF9zg7GqeGMtm4bf98i8XdzScE-NukMEfrgeVcm9FXxozwkUP7fS5VnMDqq9SE6naq4SUR1hJ8jSBCtil7m9-g_pxPVb6ABWojASQMTW_tECU5Hp6N25hNugOTmkJdk6IMt-YmQLs2GKpU15Uvt1s",
+          "nama_file": "/images/motors/honda-sport.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda CBR150R",
           "is_utama": true
@@ -5763,7 +5763,7 @@
         {
           "id_foto": 1801,
           "id_motor": 180,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-vario.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Vario 160 CBS/ABS",
           "is_utama": true
@@ -5795,7 +5795,7 @@
         {
           "id_foto": 1811,
           "id_motor": 181,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Primavera 150 i-get",
           "is_utama": true
@@ -5827,7 +5827,7 @@
         {
           "id_foto": 1821,
           "id_motor": 182,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuAG0hEsnWSoYMN_HSKKqTAzC-5v6o3pQzdrKuQZT9cfaZZHH53ySz__Nfpn36YgsqrT3p_K3tnhk0mb_oJFfGFMjPR7X27xIopMIZd5I22IryHSIo5O8iMyuJ2o5kR6WazDvwdbKIWvdWVD8tynLnVJ-fCaGnOMUCpeX9a34oA2GUQSZa47NSRmsnarTIX0c9FB4tmkY-TMToq0EnvSmubOeNiLgYoIuvPgwGjWuUgQ",
+          "nama_file": "/images/motors/yamaha-aerox.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Mio Soul Karbu",
           "is_utama": true
@@ -5859,7 +5859,7 @@
         {
           "id_foto": 1831,
           "id_motor": 183,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-beat.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Beat Deluxe LED",
           "is_utama": true
@@ -5891,7 +5891,7 @@
         {
           "id_foto": 1841,
           "id_motor": 184,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa LX 125 i-get",
           "is_utama": true
@@ -5923,7 +5923,7 @@
         {
           "id_foto": 1851,
           "id_motor": 185,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuBL8RUhQYdCeKqSYvGJ3xqGhoQx2oGnEwxbNgikJ1pRXLbUvtX0cWijsKyFVjdfTAgW0FAgZJ41dj0RYJ7SbBIPRu2miqs7nZq2V3Z1cBGvi3UoQwYnM-txTWEhbWSszLNwP7bIztDsn6cvAHOjbyVQVKqWNexJvzkXoyxSHlT-qETlKx90DGVARcVJmCzb3-IIjn1ZYQlTAvHWP5ZmAhs_sjfZx7NY12iyiuqH5pAw",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Yamaha Fino 125 Grande",
           "is_utama": true
@@ -5955,7 +5955,7 @@
         {
           "id_foto": 1861,
           "id_motor": 186,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuCThJxZeq_2sbPe98wbCeHWPpJ1RfX_PTOZrUy61kmhQ4aBRe3YMQ3lN3K_u0L11_juHWd8HJ5tc1TQXYimVZgncDT9rL15Jl75IOM7BsktlhEm76BQCmDDwoNoT8k7nSzDmNvLOWBLUPXngkcpUVNazUG09uNouJgjkZq2qGUSukuCDr8EDbMvoSOSqjeI1RQtKvPtx3cBEIe4OT6juioqtJpDNXT6rhtyp03xjZcM",
+          "nama_file": "/images/motors/honda-bebek.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Honda Supra X 125 FI",
           "is_utama": true
@@ -5987,7 +5987,7 @@
         {
           "id_foto": 1871,
           "id_motor": 187,
-          "nama_file": "https://lh3.googleusercontent.com/aida-public/AB6AXuB35HIgUm3m7vw_PtcgcMuIBgxXunyCUu0p5DdMNyaP29wdZdYuT6h5EZF56ILjP_M-XhlsX2FyIgMacJqtwdYNtJ2A40xyfO69N-WkmAYA3tdbVOuD84Z31EqdIVDALpnh3-wiDqc7LfBBtYI8uezPRu8ufwWKvZg67ZfxnS_r-WDZDrrnLjk2fOi2zwIjxLOkWMmYNe8GE2CkfX0I2W931UXiBeS6kNofAXd668qO",
+          "nama_file": "/images/motors/scooter-retro-mint.webp",
           "label": "Tampak Depan",
           "caption": "Tampak Depan Vespa Vespa Sprint 150 i-get ABS",
           "is_utama": true

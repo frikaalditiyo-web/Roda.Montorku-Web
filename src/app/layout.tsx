@@ -15,6 +15,14 @@ export const metadata: Metadata = {
   title: "Roda.Motorku — Katalog & Penentuan Harga Jual Motor Bekas UMKM",
   description:
     "Sistem Katalog Digital dan Penentuan Harga Jual Menggunakan Machine Learning (Linear Regression, Decision Tree, dan Random Forest) pada Showroom Motor Bekas Roda.Motorku.",
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any" },
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({
