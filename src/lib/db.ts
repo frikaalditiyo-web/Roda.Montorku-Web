@@ -13,7 +13,8 @@ export const pool =
   globalForPg.pgPool ??
   new Pool({
     connectionString: DATABASE_URL,
-    connectionTimeoutMillis: 1200,
+    // Database online (mis. Neon) bisa butuh beberapa detik untuk bangun dari mode idle.
+    connectionTimeoutMillis: /localhost|127\.0\.0\.1/.test(DATABASE_URL) ? 1200 : 8000,
     idleTimeoutMillis: 10000,
     max: 10,
   });
