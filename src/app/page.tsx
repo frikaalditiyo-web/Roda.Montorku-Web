@@ -14,7 +14,9 @@ export default function KatalogMotorPage() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
   const [selectedPriceRange, setSelectedPriceRange] = useState("");
-  const [selectedStatus, setSelectedStatus] = useState("");
+  // Katalog publik menampilkan unit Tersedia secara default; unit Terjual tetap bisa dilihat lewat filter status.
+  const DEFAULT_STATUS = "Tersedia";
+  const [selectedStatus, setSelectedStatus] = useState(DEFAULT_STATUS);
   const [currentPage, setCurrentPage] = useState(1);
   const [navigatingMotorId, setNavigatingMotorId] = useState<number | null>(null);
 
@@ -86,7 +88,7 @@ export default function KatalogMotorPage() {
     setSelectedBrand("");
     setSelectedYear("");
     setSelectedPriceRange("");
-    setSelectedStatus("");
+    setSelectedStatus(DEFAULT_STATUS);
     setCurrentPage(1);
   };
 
@@ -95,7 +97,7 @@ export default function KatalogMotorPage() {
     Boolean(selectedBrand) ||
     Boolean(selectedYear) ||
     Boolean(selectedPriceRange) ||
-    Boolean(selectedStatus);
+    selectedStatus !== DEFAULT_STATUS;
 
   return (
     <div className="min-h-screen flex flex-col bg-surface">

@@ -3,6 +3,7 @@ import {
   predictPrice,
   predictAllModels,
   MODEL_METRICS,
+  BEST_MODEL,
   FiturMasukanML,
   ModelMetric,
 } from "@/lib/mlEngine";
@@ -109,12 +110,10 @@ export async function POST(request: NextRequest) {
       cc,
     };
 
-    const requestedModel = String(
-      body.model || "Random Forest Regressor v1.4"
-    );
+    const requestedModel = String(body.model || BEST_MODEL.nama_model);
     const selectedModel = (MODEL_METRICS.find(
       (m) => m.nama_model === requestedModel
-    )?.nama_model || "Random Forest Regressor v1.4") as ModelMetric["nama_model"];
+    )?.nama_model || BEST_MODEL.nama_model) as ModelMetric["nama_model"];
 
     const estimation = predictPrice(fitur, selectedModel);
     const comparison = predictAllModels(fitur);

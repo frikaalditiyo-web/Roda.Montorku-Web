@@ -12,6 +12,7 @@ import {
   FEATURE_IMPORTANCES,
   formatNumberID,
   formatRupiah,
+  BEST_MODEL,
   MODEL_METRICS,
   Motor,
 } from "@/data/mockShowroomData";
@@ -35,7 +36,7 @@ export default function EstimasiHargaMLPage() {
     | "Random Forest Regressor v1.4"
     | "Linear Regression"
     | "Decision Tree Regressor"
-  >("Random Forest Regressor v1.4");
+  >(BEST_MODEL.nama_model);
 
   const [isCalculating, setIsCalculating] = useState(false);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -394,13 +395,12 @@ export default function EstimasiHargaMLPage() {
                   }
                   className="bg-secondary-container text-primary font-label-sm text-label-sm px-2.5 py-1.5 rounded font-bold cursor-pointer focus:outline-none"
                 >
-                  <option value="Random Forest Regressor v1.4">
-                    Random Forest (Terbaik)
-                  </option>
-                  <option value="Linear Regression">Linear Regression</option>
-                  <option value="Decision Tree Regressor">
-                    Decision Tree Regressor
-                  </option>
+                  {MODEL_METRICS.map((m) => (
+                    <option key={m.id} value={m.nama_model}>
+                      {m.short_name}
+                      {m.is_best ? " (Terbaik)" : ""}
+                    </option>
+                  ))}
                 </select>
               </div>
             </div>
